@@ -87,7 +87,6 @@ resources:
         type: string
         key: data_length
 
-  # Gateway groups moved to the MVC API in OPNsense 26.7.
   - name: GatewayGroup
     filename: gateway_group
     monad: gateway_group
