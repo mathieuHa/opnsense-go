@@ -4,6 +4,7 @@ import (
 	"context"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/browningluke/opnsense-go/pkg/api"
 )
@@ -36,7 +37,15 @@ func TestGatewayGroup(t *testing.T) {
 		Description: "test-gateway-group",
 	}
 
-	id, err := controller.AddGatewayGroup(ctx, group)
+	var id string
+	deadline := time.Now().Add(60 * time.Second)
+	for {
+		id, err = controller.AddGatewayGroup(ctx, group)
+		if err == nil || !strings.Contains(err.Error(), "not in list") || time.Now().After(deadline) {
+			break
+		}
+		time.Sleep(5 * time.Second)
+	}
 	if err != nil {
 		t.Fatalf("AddGatewayGroup failed: %v", err)
 	}
