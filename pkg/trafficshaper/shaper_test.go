@@ -89,10 +89,10 @@ func TestShaperChain(t *testing.T) {
 		Sequence:        "10",
 		Interface:       api.SelectedMap("wan"),
 		Protocol:        api.SelectedMap("ip"),
-		Source:          "any",
+		Source:          api.SelectedMapList{"any"},
 		SourceNot:       "0",
 		SourcePort:      "any",
-		Destination:     "192.0.2.0/24",
+		Destination:     api.SelectedMapList{"192.0.2.0/24"},
 		DestinationNot:  "0",
 		DestinationPort: "any",
 		DSCP:            api.SelectedMapList{},
@@ -112,7 +112,7 @@ func TestShaperChain(t *testing.T) {
 		t.Fatalf("GetRule failed: %v", err)
 	}
 	t.Logf("GetRule: %+v", gotRule)
-	if gotRule.Target.String() != queueID || gotRule.Destination != "192.0.2.0/24" || gotRule.Direction.String() != "out" {
+	if gotRule.Target.String() != queueID || len(gotRule.Destination) != 1 || gotRule.Destination[0] != "192.0.2.0/24" || gotRule.Direction.String() != "out" {
 		t.Fatalf("GetRule mismatch: %+v", gotRule)
 	}
 

@@ -26,10 +26,10 @@ type Rule struct {
 	Interface2      api.SelectedMap     `json:"interface2"`
 	Protocol        api.SelectedMap     `json:"proto"`
 	IPLength        string              `json:"iplen"`
-	Source          string              `json:"source"`
+	Source          api.SelectedMapList `json:"source"`
 	SourceNot       string              `json:"source_not"`
 	SourcePort      string              `json:"src_port"`
-	Destination     string              `json:"destination"`
+	Destination     api.SelectedMapList `json:"destination"`
 	DestinationNot  string              `json:"destination_not"`
 	DestinationPort string              `json:"dst_port"`
 	DSCP            api.SelectedMapList `json:"dscp"`

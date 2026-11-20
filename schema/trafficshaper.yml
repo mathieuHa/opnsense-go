@@ -140,7 +140,7 @@ resources:
         type: string
         key: iplen
       - name: Source
-        type: string
+        type: SelectedMapList
         key: source
       - name: SourceNot
         type: string
@@ -149,7 +149,7 @@ resources:
         type: string
         key: src_port
       - name: Destination
-        type: string
+        type: SelectedMapList
         key: destination
       - name: DestinationNot
         type: string
