@@ -178,6 +178,7 @@ resources:
       get: "/unbound/settings/getDnsbl"
       update: "/unbound/settings/setDnsbl"
       delete: "/unbound/settings/delDnsbl"
+      reconfigure: "/unbound/service/dnsbl"
     attrs:
       - name: Enabled
         type: string

@@ -13,7 +13,7 @@ var DnsblOpts = api.ReqOpts{
 	GetEndpoint:         "/unbound/settings/getDnsbl",
 	UpdateEndpoint:      "/unbound/settings/setDnsbl",
 	DeleteEndpoint:      "/unbound/settings/delDnsbl",
-	ReconfigureEndpoint: unboundReconfigureEndpoint,
+	ReconfigureEndpoint: "/unbound/service/dnsbl",
 	Monad:               "blocklist",
 }
 
