@@ -10,8 +10,8 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net"
 	"net/http"
-	"net/http/httputil"
 	"strings"
 	"time"
 
@@ -21,9 +21,10 @@ import (
 )
 
 const (
-	clientMaxBackoff = 30
-	clientMinBackoff = 1
-	clientMaxRetries = 4
+	clientMaxBackoff     = 30 * time.Second
+	clientMinBackoff     = 1 * time.Second
+	clientMaxRetries     = 4
+	clientRequestTimeout = 120 * time.Second
 )
 
 var clientMutexKey = "OPNSENSE"
@@ -44,6 +45,8 @@ type Options struct {
 	MinBackoff int64
 	MaxRetries int64
 
+	RequestTimeout int64
+
 	Logger *log.Logger
 }
 
@@ -59,9 +62,20 @@ func NewClient(options Options) *Client {
 
 	// Configure HTTP client
 	client.client.HTTPClient.Transport = &http.Transport{
-		Proxy:             http.ProxyFromEnvironment,
-		TLSClientConfig:   &tls.Config{InsecureSkipVerify: options.AllowInsecure},
-		ForceAttemptHTTP2: true,
+		Proxy:               http.ProxyFromEnvironment,
+		DialContext:         (&net.Dialer{Timeout: 30 * time.Second, KeepAlive: 30 * time.Second}).DialContext,
+		TLSClientConfig:     &tls.Config{InsecureSkipVerify: options.AllowInsecure},
+		TLSHandshakeTimeout: 15 * time.Second,
+		IdleConnTimeout:     90 * time.Second,
+		ForceAttemptHTTP2:   true,
+		HTTP2: &http.HTTP2Config{
+			SendPingTimeout: 30 * time.Second,
+			PingTimeout:     15 * time.Second,
+		},
+	}
+	client.client.HTTPClient.Timeout = clientRequestTimeout
+	if options.RequestTimeout > 0 {
+		client.client.HTTPClient.Timeout = time.Duration(options.RequestTimeout) * time.Second
 	}
 
 	//   Set defaults for retries
@@ -125,23 +139,14 @@ func (c *Client) doRequest(ctx context.Context, method, endpoint string, body an
 		req.Header.Add("Content-Type", "application/json")
 	}
 
-	// Log request
-	reqCopy := req.Clone(req.Context())
-	reqCopy.Header.Set("Authorization", "****************")
-
-	dReq, _ := httputil.DumpRequest(reqCopy, true)
-	logger.Println(fmt.Sprintf("\n%s\n", string(dReq)))
-
-	// Do request
+	start := time.Now()
 	res, err := c.client.Do(req)
 	if err != nil {
 		return err
 	}
 	defer res.Body.Close()
 
-	// Log response
-	dRes, _ := httputil.DumpResponse(res, true)
-	logger.Println(ctx, fmt.Sprintf("\n%s\n", string(dRes)))
+	logger.Printf("%s /api%s -> %d (%s)", method, endpoint, res.StatusCode, time.Since(start).Round(time.Millisecond))
 
 	// Check for 200
 	if res.StatusCode != http.StatusOK {
