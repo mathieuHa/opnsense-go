@@ -170,6 +170,50 @@ resources:
         key: description
 
 
+  - name: Dnsbl
+    filename: dnsbl
+    monad: blocklist
+    endpoints:
+      add: "/unbound/settings/addDnsbl"
+      get: "/unbound/settings/getDnsbl"
+      update: "/unbound/settings/setDnsbl"
+      delete: "/unbound/settings/delDnsbl"
+      reconfigure: "/unbound/service/dnsbl"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Type
+        type: SelectedMapList
+        key: type
+      - name: Lists
+        type: SelectedMapList
+        key: lists
+      - name: Allowlists
+        type: SelectedMapList
+        key: allowlists
+      - name: Blocklists
+        type: SelectedMapList
+        key: blocklists
+      - name: Wildcards
+        type: SelectedMapList
+        key: wildcards
+      - name: SourceNets
+        type: SelectedMapList
+        key: source_nets
+      - name: Address
+        type: string
+        key: address
+      - name: NXDomain
+        type: string
+        key: nxdomain
+      - name: CacheTTL
+        type: string
+        key: cache_ttl
+      - name: Description
+        type: string
+        key: description
+
 rpc:
   - name: "Settings"
     filename: settings
