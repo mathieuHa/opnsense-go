@@ -29,6 +29,48 @@ resources:
       - name: OptionData
         type: OptionDataV4
         key: option_data
+      - name: ValidLifetime
+        type: string
+        key: valid_lifetime
+      - name: Allocator
+        type: SelectedMap
+        key: allocator
+      - name: DdnsForwardZone
+        type: string
+        key: ddns_forward_zone
+      - name: DdnsReverseZone
+        type: string
+        key: ddns_reverse_zone
+      - name: DdnsQualifyingSuffix
+        type: string
+        key: ddns_qualifying_suffix
+      - name: DdnsDnsServer
+        type: string
+        key: ddns_dns_server
+      - name: DdnsDnsPort
+        type: string
+        key: ddns_dns_port
+      - name: DdnsDomainKeyName
+        type: string
+        key: ddns_domain_key_name
+      - name: DdnsDomainKeySecret
+        type: string
+        key: ddns_domain_key_secret
+      - name: DdnsDomainKeyAlgorithm
+        type: SelectedMap
+        key: ddns_domain_key_algorithm
+      - name: DdnsOverrideNoUpdate
+        type: string
+        key: ddns_override_no_update
+      - name: DdnsOverrideClientUpdate
+        type: string
+        key: ddns_override_client_update
+      - name: DdnsUpdateOnRenew
+        type: string
+        key: ddns_update_on_renew
+      - name: DdnsConflictResolutionMode
+        type: SelectedMap
+        key: ddns_conflict_resolution_mode
       - name: Description
         type: string
         key: description
@@ -353,3 +395,255 @@ rpc:
         method: "POST"
         endpoint: "/kea/service/reconfigure"
         result_type: "ActionResult"
+  - name: Dhcpv4Config
+    filename: dhcpv4_config
+    customTypes:
+      Dhcpv4ConfigMonad:
+        - name: Monad
+          type: Dhcpv4Config
+          key: dhcpv4
+      Dhcpv4ConfigGeneral:
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: ManualConfig
+          type: string
+          key: manual_config
+        - name: Interfaces
+          type: SelectedMapList
+          key: interfaces
+        - name: ServiceSocketsMaxRetries
+          type: string
+          key: service_sockets_max_retries
+        - name: ServiceSocketsRetryWaitTime
+          type: string
+          key: service_sockets_retry_wait_time
+        - name: ValidLifetime
+          type: string
+          key: valid_lifetime
+        - name: DeclineProbationPeriod
+          type: string
+          key: decline_probation_period
+        - name: FirewallRules
+          type: string
+          key: fwrules
+        - name: DhcpSocketType
+          type: SelectedMap
+          key: dhcp_socket_type
+        - name: Compatibility
+          type: SelectedMapList
+          key: compatibility
+      Dhcpv4ConfigLexpire:
+        - name: HoldReclaimedTime
+          type: string
+          key: hold_reclaimed_time
+        - name: ReclaimTimerWaitTime
+          type: string
+          key: reclaim_timer_wait_time
+        - name: FlushReclaimedTimerWaitTime
+          type: string
+          key: flush_reclaimed_timer_wait_time
+        - name: MaxReclaimTime
+          type: string
+          key: max_reclaim_time
+        - name: MaxReclaimLeases
+          type: string
+          key: max_reclaim_leases
+        - name: UnwarnedReclaimCycles
+          type: string
+          key: unwarned_reclaim_cycles
+      Dhcpv4ConfigHa:
+        - name: HaEnabled
+          type: string
+          key: enabled
+        - name: HaThisServerName
+          type: string
+          key: this_server_name
+        - name: HaMaxUnackedClients
+          type: string
+          key: max_unacked_clients
+      Dhcpv4Config:
+        - name: General
+          type: Dhcpv4ConfigGeneral
+          key: general
+        - name: Lexpire
+          type: Dhcpv4ConfigLexpire
+          key: lexpire
+        - name: Ha
+          type: Dhcpv4ConfigHa
+          key: ha
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/kea/dhcpv4/get"
+        result_type: Dhcpv4ConfigMonad
+      - name: Set
+        method: POST
+        endpoint: "/kea/dhcpv4/set"
+        params:
+          - name: dhcpv4
+            optional: false
+            bodyParameter: true
+            customType: Dhcpv4Config
+        result_type: Result
+  - name: Dhcpv6Config
+    filename: dhcpv6_config
+    customTypes:
+      Dhcpv6ConfigMonad:
+        - name: Monad
+          type: Dhcpv6Config
+          key: dhcpv6
+      Dhcpv6ConfigGeneral:
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: ManualConfig
+          type: string
+          key: manual_config
+        - name: Interfaces
+          type: SelectedMapList
+          key: interfaces
+        - name: ServiceSocketsMaxRetries
+          type: string
+          key: service_sockets_max_retries
+        - name: ServiceSocketsRetryWaitTime
+          type: string
+          key: service_sockets_retry_wait_time
+        - name: ValidLifetime
+          type: string
+          key: valid_lifetime
+        - name: DeclineProbationPeriod
+          type: string
+          key: decline_probation_period
+        - name: FirewallRules
+          type: string
+          key: fwrules
+        - name: MacSources
+          type: SelectedMapList
+          key: mac_sources
+      Dhcpv6ConfigLexpire:
+        - name: HoldReclaimedTime
+          type: string
+          key: hold_reclaimed_time
+        - name: ReclaimTimerWaitTime
+          type: string
+          key: reclaim_timer_wait_time
+        - name: FlushReclaimedTimerWaitTime
+          type: string
+          key: flush_reclaimed_timer_wait_time
+        - name: MaxReclaimTime
+          type: string
+          key: max_reclaim_time
+        - name: MaxReclaimLeases
+          type: string
+          key: max_reclaim_leases
+        - name: UnwarnedReclaimCycles
+          type: string
+          key: unwarned_reclaim_cycles
+      Dhcpv6ConfigHa:
+        - name: HaEnabled
+          type: string
+          key: enabled
+        - name: HaThisServerName
+          type: string
+          key: this_server_name
+        - name: HaMaxUnackedClients
+          type: string
+          key: max_unacked_clients
+      Dhcpv6Config:
+        - name: General
+          type: Dhcpv6ConfigGeneral
+          key: general
+        - name: Lexpire
+          type: Dhcpv6ConfigLexpire
+          key: lexpire
+        - name: Ha
+          type: Dhcpv6ConfigHa
+          key: ha
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/kea/dhcpv6/get"
+        result_type: Dhcpv6ConfigMonad
+      - name: Set
+        method: POST
+        endpoint: "/kea/dhcpv6/set"
+        params:
+          - name: dhcpv6
+            optional: false
+            bodyParameter: true
+            customType: Dhcpv6Config
+        result_type: Result
+  - name: CtrlAgentSettings
+    filename: ctrl_agent_settings
+    customTypes:
+      CtrlAgentSettingsMonad:
+        - name: Monad
+          type: CtrlAgentSettings
+          key: ctrlagent
+      CtrlAgentSettingsGeneral:
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: HttpHost
+          type: string
+          key: http_host
+        - name: HttpPort
+          type: string
+          key: http_port
+      CtrlAgentSettings:
+        - name: General
+          type: CtrlAgentSettingsGeneral
+          key: general
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/kea/ctrl_agent/get"
+        result_type: CtrlAgentSettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/kea/ctrl_agent/set"
+        params:
+          - name: ctrlagent
+            optional: false
+            bodyParameter: true
+            customType: CtrlAgentSettings
+        result_type: Result
+  - name: DdnsSettings
+    filename: ddns_settings
+    customTypes:
+      DdnsSettingsMonad:
+        - name: Monad
+          type: DdnsSettings
+          key: ddns
+      DdnsSettingsGeneral:
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: ManualConfig
+          type: string
+          key: manual_config
+        - name: ServerIp
+          type: string
+          key: server_ip
+        - name: ServerPort
+          type: string
+          key: server_port
+      DdnsSettings:
+        - name: General
+          type: DdnsSettingsGeneral
+          key: general
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/kea/ddns/get"
+        result_type: DdnsSettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/kea/ddns/set"
+        params:
+          - name: ddns
+            optional: false
+            bodyParameter: true
+            customType: DdnsSettings
+        result_type: Result

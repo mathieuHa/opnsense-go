@@ -32,13 +32,27 @@ type OptionDataV4 struct {
 }
 
 type SubnetV4 struct {
-	Subnet                string       `json:"subnet"`
-	NextServer            string       `json:"next_server"`
-	Pools                 string       `json:"pools"`
-	MatchClientId         string       `json:"match-client-id"`
-	OptionDataAutoCollect string       `json:"option_data_autocollect"`
-	OptionData            OptionDataV4 `json:"option_data"`
-	Description           string       `json:"description"`
+	Subnet                     string          `json:"subnet"`
+	NextServer                 string          `json:"next_server"`
+	Pools                      string          `json:"pools"`
+	MatchClientId              string          `json:"match-client-id"`
+	OptionDataAutoCollect      string          `json:"option_data_autocollect"`
+	OptionData                 OptionDataV4    `json:"option_data"`
+	ValidLifetime              string          `json:"valid_lifetime"`
+	Allocator                  api.SelectedMap `json:"allocator"`
+	DdnsForwardZone            string          `json:"ddns_forward_zone"`
+	DdnsReverseZone            string          `json:"ddns_reverse_zone"`
+	DdnsQualifyingSuffix       string          `json:"ddns_qualifying_suffix"`
+	DdnsDnsServer              string          `json:"ddns_dns_server"`
+	DdnsDnsPort                string          `json:"ddns_dns_port"`
+	DdnsDomainKeyName          string          `json:"ddns_domain_key_name"`
+	DdnsDomainKeySecret        string          `json:"ddns_domain_key_secret"`
+	DdnsDomainKeyAlgorithm     api.SelectedMap `json:"ddns_domain_key_algorithm"`
+	DdnsOverrideNoUpdate       string          `json:"ddns_override_no_update"`
+	DdnsOverrideClientUpdate   string          `json:"ddns_override_client_update"`
+	DdnsUpdateOnRenew          string          `json:"ddns_update_on_renew"`
+	DdnsConflictResolutionMode api.SelectedMap `json:"ddns_conflict_resolution_mode"`
+	Description                string          `json:"description"`
 }
 
 // CRUD operations
