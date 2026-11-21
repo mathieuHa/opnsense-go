@@ -6,6 +6,7 @@ import (
 	"github.com/browningluke/opnsense-go/pkg/api"
 	"github.com/browningluke/opnsense-go/pkg/auth"
 	"github.com/browningluke/opnsense-go/pkg/bind"
+	"github.com/browningluke/opnsense-go/pkg/captiveportal"
 	"github.com/browningluke/opnsense-go/pkg/core"
 	"github.com/browningluke/opnsense-go/pkg/cron"
 	"github.com/browningluke/opnsense-go/pkg/dhcrelay"
@@ -14,6 +15,7 @@ import (
 	"github.com/browningluke/opnsense-go/pkg/dyndns"
 	"github.com/browningluke/opnsense-go/pkg/firewall"
 	"github.com/browningluke/opnsense-go/pkg/hasync"
+	"github.com/browningluke/opnsense-go/pkg/hostdiscovery"
 	"github.com/browningluke/opnsense-go/pkg/ids"
 	"github.com/browningluke/opnsense-go/pkg/interfaces"
 	"github.com/browningluke/opnsense-go/pkg/ipsec"
@@ -44,6 +46,8 @@ type Client interface {
 	Dyndns() *dyndns.Controller
 	Firewall() *firewall.Controller
 	Hasync() *hasync.Controller
+	Hostdiscovery() *hostdiscovery.Controller
+	CaptivePortal() *captiveportal.Controller
 	Ids() *ids.Controller
 	Interfaces() *interfaces.Controller
 	Ipsec() *ipsec.Controller
@@ -109,6 +113,14 @@ func (c *client) Firewall() *firewall.Controller {
 
 func (c *client) Hasync() *hasync.Controller {
 	return &hasync.Controller{Api: c.a}
+}
+
+func (c *client) Hostdiscovery() *hostdiscovery.Controller {
+	return &hostdiscovery.Controller{Api: c.a}
+}
+
+func (c *client) CaptivePortal() *captiveportal.Controller {
+	return &captiveportal.Controller{Api: c.a}
 }
 
 func (c *client) Ids() *ids.Controller {

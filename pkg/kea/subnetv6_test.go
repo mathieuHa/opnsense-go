@@ -20,6 +20,7 @@ func TestSubnetV6(t *testing.T) {
 	})
 
 	controller := Controller{Api: api_client}
+	withDhcpv6Interface(t, &controller, "wan")
 	ctx := context.Background()
 
 	subnet := &SubnetV6{
