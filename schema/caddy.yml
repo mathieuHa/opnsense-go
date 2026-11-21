@@ -1,0 +1,535 @@
+---
+name: caddy
+reconfigureEndpoint: "/caddy/service/reconfigure"
+resources:
+  - name: ReverseProxy
+    filename: reverse_proxy
+    monad: reverse
+    endpoints:
+      add: "/caddy/reverse_proxy/add_reverse_proxy"
+      get: "/caddy/reverse_proxy/get_reverse_proxy"
+      update: "/caddy/reverse_proxy/set_reverse_proxy"
+      delete: "/caddy/reverse_proxy/del_reverse_proxy"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: FromDomain
+        type: string
+        key: FromDomain
+      - name: FromPort
+        type: string
+        key: FromPort
+      - name: Accesslist
+        type: SelectedMap
+        key: accesslist
+      - name: Basicauth
+        type: SelectedMapList
+        key: basicauth
+      - name: Description
+        type: string
+        key: description
+      - name: DnsChallenge
+        type: string
+        key: DnsChallenge
+      - name: DnsChallengeOverrideDomain
+        type: string
+        key: DnsChallengeOverrideDomain
+      - name: CustomCertificate
+        type: SelectedMap
+        key: CustomCertificate
+      - name: AccessLog
+        type: string
+        key: AccessLog
+      - name: DynDns
+        type: string
+        key: DynDns
+      - name: AcmePassthrough
+        type: string
+        key: AcmePassthrough
+      - name: DisableTls
+        type: SelectedMap
+        key: DisableTls
+      - name: ClientAuthMode
+        type: SelectedMap
+        key: ClientAuthMode
+      - name: ClientAuthTrustPool
+        type: SelectedMapList
+        key: ClientAuthTrustPool
+  - name: Subdomain
+    filename: subdomain
+    monad: subdomain
+    endpoints:
+      add: "/caddy/reverse_proxy/add_subdomain"
+      get: "/caddy/reverse_proxy/get_subdomain"
+      update: "/caddy/reverse_proxy/set_subdomain"
+      delete: "/caddy/reverse_proxy/del_subdomain"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Reverse
+        type: SelectedMap
+        key: reverse
+      - name: FromDomain
+        type: string
+        key: FromDomain
+      - name: Accesslist
+        type: SelectedMap
+        key: accesslist
+      - name: Basicauth
+        type: SelectedMapList
+        key: basicauth
+      - name: Description
+        type: string
+        key: description
+      - name: DynDns
+        type: string
+        key: DynDns
+      - name: AcmePassthrough
+        type: string
+        key: AcmePassthrough
+      - name: ClientAuthMode
+        type: SelectedMap
+        key: ClientAuthMode
+      - name: ClientAuthTrustPool
+        type: SelectedMapList
+        key: ClientAuthTrustPool
+  - name: Handle
+    filename: handle
+    monad: handle
+    endpoints:
+      add: "/caddy/reverse_proxy/add_handle"
+      get: "/caddy/reverse_proxy/get_handle"
+      update: "/caddy/reverse_proxy/set_handle"
+      delete: "/caddy/reverse_proxy/del_handle"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Reverse
+        type: SelectedMap
+        key: reverse
+      - name: Subdomain
+        type: SelectedMap
+        key: subdomain
+      - name: HandleType
+        type: SelectedMap
+        key: HandleType
+      - name: HandlePath
+        type: string
+        key: HandlePath
+      - name: Accesslist
+        type: SelectedMap
+        key: accesslist
+      - name: Basicauth
+        type: SelectedMapList
+        key: basicauth
+      - name: Header
+        type: SelectedMapList
+        key: header
+      - name: HandleDirective
+        type: SelectedMap
+        key: HandleDirective
+      - name: ToDomain
+        type: SelectedMapList
+        key: ToDomain
+      - name: ToPort
+        type: string
+        key: ToPort
+      - name: ToPath
+        type: string
+        key: ToPath
+      - name: ForwardAuth
+        type: string
+        key: ForwardAuth
+      - name: HttpTls
+        type: SelectedMap
+        key: HttpTls
+      - name: HttpVersion
+        type: SelectedMap
+        key: HttpVersion
+      - name: HttpKeepalive
+        type: string
+        key: HttpKeepalive
+      - name: HttpTlsInsecureSkipVerify
+        type: string
+        key: HttpTlsInsecureSkipVerify
+      - name: HttpTlsTrustedCaCerts
+        type: SelectedMap
+        key: HttpTlsTrustedCaCerts
+      - name: HttpTlsServerName
+        type: string
+        key: HttpTlsServerName
+      - name: LbPolicy
+        type: SelectedMap
+        key: lb_policy
+      - name: LbRetries
+        type: string
+        key: lb_retries
+      - name: LbTryDuration
+        type: string
+        key: lb_try_duration
+      - name: LbTryInterval
+        type: string
+        key: lb_try_interval
+      - name: PassiveHealthFailDuration
+        type: string
+        key: PassiveHealthFailDuration
+      - name: PassiveHealthMaxFails
+        type: string
+        key: PassiveHealthMaxFails
+      - name: PassiveHealthUnhealthyStatus
+        type: string
+        key: PassiveHealthUnhealthyStatus
+      - name: PassiveHealthUnhealthyLatency
+        type: string
+        key: PassiveHealthUnhealthyLatency
+      - name: PassiveHealthUnhealthyRequestCount
+        type: string
+        key: PassiveHealthUnhealthyRequestCount
+      - name: Description
+        type: string
+        key: description
+      - name: HealthUri
+        type: string
+        key: health_uri
+      - name: HealthUpstream
+        type: string
+        key: health_upstream
+      - name: HealthPort
+        type: string
+        key: health_port
+      - name: HealthInterval
+        type: string
+        key: health_interval
+      - name: HealthPasses
+        type: string
+        key: health_passes
+      - name: HealthFails
+        type: string
+        key: health_fails
+      - name: HealthTimeout
+        type: string
+        key: health_timeout
+      - name: HealthStatus
+        type: string
+        key: health_status
+      - name: HealthBody
+        type: string
+        key: health_body
+      - name: HealthFollowRedirects
+        type: string
+        key: health_follow_redirects
+  - name: AccessList
+    filename: access_list
+    monad: accesslist
+    endpoints:
+      add: "/caddy/reverse_proxy/add_access_list"
+      get: "/caddy/reverse_proxy/get_access_list"
+      update: "/caddy/reverse_proxy/set_access_list"
+      delete: "/caddy/reverse_proxy/del_access_list"
+    attrs:
+      - name: AccesslistName
+        type: string
+        key: accesslistName
+      - name: ClientIps
+        type: SelectedMapList
+        key: clientIps
+      - name: AccesslistInvert
+        type: string
+        key: accesslistInvert
+      - name: HttpResponseCode
+        type: string
+        key: HttpResponseCode
+      - name: HttpResponseMessage
+        type: string
+        key: HttpResponseMessage
+      - name: RequestMatcher
+        type: SelectedMap
+        key: RequestMatcher
+      - name: Description
+        type: string
+        key: description
+  - name: BasicAuth
+    filename: basic_auth
+    monad: basicauth
+    endpoints:
+      add: "/caddy/reverse_proxy/add_basic_auth"
+      get: "/caddy/reverse_proxy/get_basic_auth"
+      update: "/caddy/reverse_proxy/set_basic_auth"
+      delete: "/caddy/reverse_proxy/del_basic_auth"
+    attrs:
+      - name: Basicauthuser
+        type: string
+        key: basicauthuser
+      - name: Basicauthpass
+        type: string
+        key: basicauthpass
+      - name: Description
+        type: string
+        key: description
+  - name: Header
+    filename: header
+    monad: header
+    endpoints:
+      add: "/caddy/reverse_proxy/add_header"
+      get: "/caddy/reverse_proxy/get_header"
+      update: "/caddy/reverse_proxy/set_header"
+      delete: "/caddy/reverse_proxy/del_header"
+    attrs:
+      - name: HeaderUpDown
+        type: SelectedMap
+        key: HeaderUpDown
+      - name: HeaderType
+        type: string
+        key: HeaderType
+      - name: HeaderValue
+        type: string
+        key: HeaderValue
+      - name: HeaderReplace
+        type: string
+        key: HeaderReplace
+      - name: Description
+        type: string
+        key: description
+  - name: Layer4
+    filename: layer4
+    monad: layer4
+    endpoints:
+      add: "/caddy/reverse_proxy/add_layer4"
+      get: "/caddy/reverse_proxy/get_layer4"
+      update: "/caddy/reverse_proxy/set_layer4"
+      delete: "/caddy/reverse_proxy/del_layer4"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Sequence
+        type: string
+        key: Sequence
+        omitEmpty: true
+      - name: Type
+        type: SelectedMap
+        key: Type
+      - name: Protocol
+        type: SelectedMap
+        key: Protocol
+      - name: FromPort
+        type: string
+        key: FromPort
+      - name: FromDomain
+        type: SelectedMapList
+        key: FromDomain
+      - name: FromOpenvpnModes
+        type: SelectedMap
+        key: FromOpenvpnModes
+      - name: FromOpenvpnStaticKey
+        type: SelectedMapList
+        key: FromOpenvpnStaticKey
+      - name: Matchers
+        type: SelectedMap
+        key: Matchers
+      - name: InvertMatchers
+        type: string
+        key: InvertMatchers
+      - name: ToDomain
+        type: SelectedMapList
+        key: ToDomain
+      - name: TerminateTls
+        type: string
+        key: TerminateTls
+      - name: ToPort
+        type: string
+        key: ToPort
+      - name: OriginateTls
+        type: SelectedMap
+        key: OriginateTls
+      - name: ProxyProtocol
+        type: SelectedMap
+        key: ProxyProtocol
+      - name: LbPolicy
+        type: SelectedMap
+        key: lb_policy
+      - name: LbTryDuration
+        type: string
+        key: lb_try_duration
+      - name: LbTryInterval
+        type: string
+        key: lb_try_interval
+      - name: ActiveHealthPort
+        type: string
+        key: ActiveHealthPort
+      - name: ActiveHealthInterval
+        type: string
+        key: ActiveHealthInterval
+      - name: ActiveHealthTimeout
+        type: string
+        key: ActiveHealthTimeout
+      - name: PassiveHealthFailDuration
+        type: string
+        key: PassiveHealthFailDuration
+      - name: PassiveHealthMaxFails
+        type: string
+        key: PassiveHealthMaxFails
+      - name: PassiveHealthUnhealthyConnectionCount
+        type: string
+        key: PassiveHealthUnhealthyConnectionCount
+      - name: RemoteIp
+        type: SelectedMapList
+        key: RemoteIp
+      - name: Description
+        type: string
+        key: description
+
+rpc:
+  - name: Settings
+    filename: settings
+    customTypes:
+      SettingsMonad:
+        - name: Monad
+          type: Settings
+          key: caddy
+      SettingsGeneral:
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: EnableLayer4
+          type: string
+          key: EnableLayer4
+        - name: StrictSniHost
+          type: string
+          key: StrictSniHost
+        - name: HttpPort
+          type: string
+          key: HttpPort
+        - name: HttpsPort
+          type: string
+          key: HttpsPort
+        - name: TlsEmail
+          type: string
+          key: TlsEmail
+        - name: TlsAutoHttps
+          type: SelectedMap
+          key: TlsAutoHttps
+        - name: TlsDnsProvider
+          type: SelectedMap
+          key: TlsDnsProvider
+        - name: TlsDnsApiKey
+          type: string
+          key: TlsDnsApiKey
+        - name: TlsDnsPropagationTimeout
+          type: string
+          key: TlsDnsPropagationTimeout
+        - name: TlsDnsPropagationTimeoutPeriod
+          type: string
+          key: TlsDnsPropagationTimeoutPeriod
+        - name: TlsDnsPropagationDelay
+          type: string
+          key: TlsDnsPropagationDelay
+        - name: TlsDnsPropagationResolvers
+          type: string
+          key: TlsDnsPropagationResolvers
+        - name: TlsDnsEchDomain
+          type: string
+          key: TlsDnsEchDomain
+        - name: Accesslist
+          type: SelectedMap
+          key: accesslist
+        - name: ClientIpHeaders
+          type: SelectedMapList
+          key: ClientIpHeaders
+        - name: ProxyProtocolAllow
+          type: SelectedMapList
+          key: ProxyProtocolAllow
+        - name: DisableSuperuser
+          type: SelectedMap
+          key: DisableSuperuser
+        - name: GracePeriod
+          type: string
+          key: GracePeriod
+        - name: HttpVersions
+          type: SelectedMapList
+          key: HttpVersions
+        - name: TimeoutReadBody
+          type: string
+          key: timeout_read_body
+        - name: TimeoutReadHeader
+          type: string
+          key: timeout_read_header
+        - name: TimeoutWrite
+          type: string
+          key: timeout_write
+        - name: TimeoutIdle
+          type: string
+          key: timeout_idle
+        - name: LogCredentials
+          type: string
+          key: LogCredentials
+        - name: LogAccessPlain
+          type: string
+          key: LogAccessPlain
+        - name: LogAccessPlainKeep
+          type: string
+          key: LogAccessPlainKeep
+        - name: LogLevel
+          type: SelectedMap
+          key: LogLevel
+        - name: DynDnsSimpleHttp
+          type: string
+          key: DynDnsSimpleHttp
+        - name: DynDnsInterface
+          type: SelectedMap
+          key: DynDnsInterface
+        - name: DynDnsInterval
+          type: string
+          key: DynDnsInterval
+        - name: DynDnsIpVersions
+          type: SelectedMap
+          key: DynDnsIpVersions
+        - name: DynDnsTtl
+          type: string
+          key: DynDnsTtl
+        - name: DynDnsUpdateOnly
+          type: string
+          key: DynDnsUpdateOnly
+        - name: AuthProvider
+          type: SelectedMap
+          key: AuthProvider
+        - name: AuthToDomain
+          type: string
+          key: AuthToDomain
+        - name: AuthToPort
+          type: string
+          key: AuthToPort
+        - name: AuthToTls
+          type: SelectedMap
+          key: AuthToTls
+        - name: AuthToUri
+          type: string
+          key: AuthToUri
+        - name: CopyHeaders
+          type: SelectedMapList
+          key: CopyHeaders
+      Settings:
+        - name: General
+          type: SettingsGeneral
+          key: general
+      SettingsSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/caddy/general/get"
+        result_type: SettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/caddy/general/set"
+        params:
+          - name: caddy
+            optional: false
+            bodyParameter: true
+            customType: Settings
+        result_type: SettingsSetResult

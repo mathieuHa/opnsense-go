@@ -1,0 +1,106 @@
+---
+name: tailscale
+reconfigureEndpoint: "/tailscale/service/reconfigure"
+resources:
+  - name: Subnet
+    filename: subnet
+    monad: subnet4
+    endpoints:
+      add: "/tailscale/settings/add_subnet"
+      get: "/tailscale/settings/get_subnet"
+      update: "/tailscale/settings/set_subnet"
+      delete: "/tailscale/settings/del_subnet"
+    attrs:
+      - name: Subnet
+        type: string
+        key: subnet
+      - name: Description
+        type: string
+        key: description
+
+rpc:
+  - name: Settings
+    filename: settings
+    customTypes:
+      SettingsMonad:
+        - name: Monad
+          type: Settings
+          key: settings
+      Settings:
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: LoginTimeout
+          type: string
+          key: loginTimeout
+        - name: ListenPort
+          type: string
+          key: listenPort
+        - name: AcceptDns
+          type: string
+          key: acceptDNS
+        - name: AdvertiseExitNode
+          type: string
+          key: advertiseExitNode
+        - name: ExitNode
+          type: SelectedMap
+          key: useExitNode
+        - name: AcceptSubnetRoutes
+          type: string
+          key: acceptSubnetRoutes
+        - name: EnableSsh
+          type: string
+          key: enableSSH
+        - name: DisableSnat
+          type: string
+          key: disableSNAT
+      SettingsSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/tailscale/settings/get"
+        result_type: SettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/tailscale/settings/set"
+        params:
+          - name: settings
+            optional: false
+            bodyParameter: true
+            customType: Settings
+        result_type: SettingsSetResult
+  - name: Authentication
+    filename: authentication
+    customTypes:
+      AuthenticationMonad:
+        - name: Monad
+          type: Authentication
+          key: authentication
+      Authentication:
+        - name: LoginServer
+          type: string
+          key: loginServer
+        - name: PreAuthKey
+          type: string
+          key: preAuthKey
+      AuthenticationSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/tailscale/authentication/get"
+        result_type: AuthenticationMonad
+      - name: Set
+        method: POST
+        endpoint: "/tailscale/authentication/set"
+        params:
+          - name: authentication
+            optional: false
+            bodyParameter: true
+            customType: Authentication
+        result_type: AuthenticationSetResult
