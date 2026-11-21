@@ -47,6 +47,7 @@ resources:
       - name: Country
         type: SelectedMap
         key: country
+        omitEmpty: true
       - name: State
         type: string
         key: state
@@ -143,6 +144,7 @@ resources:
       - name: Country
         type: SelectedMap
         key: country
+        omitEmpty: true
       - name: State
         type: string
         key: state

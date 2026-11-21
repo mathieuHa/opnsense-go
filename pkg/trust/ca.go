@@ -30,7 +30,7 @@ type Ca struct {
 	KeyType            api.SelectedMap `json:"key_type"`
 	Lifetime           string          `json:"lifetime"`
 	Digest             api.SelectedMap `json:"digest"`
-	Country            api.SelectedMap `json:"country"`
+	Country            api.SelectedMap `json:"country,omitempty"`
 	State              string          `json:"state"`
 	City               string          `json:"city"`
 	Organization       string          `json:"organization"`

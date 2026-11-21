@@ -22,7 +22,7 @@ var InstanceOpts = api.ReqOpts{
 type Instance struct {
 	Enabled              string              `json:"enabled"`
 	Role                 api.SelectedMap     `json:"role"`
-	VPNID                string              `json:"vpnid,omitempty"`
+	VPNID                string              `json:"vpnid"`
 	Description          string              `json:"description"`
 	DevType              api.SelectedMap     `json:"dev_type"`
 	Protocol             api.SelectedMap     `json:"proto"`
