@@ -17,6 +17,7 @@ resources:
       - name: GroupId
         type: string
         key: gid
+        omitEmpty: true
       - name: Name
         type: string
         key: name
@@ -33,9 +34,11 @@ resources:
       - name: Member
         type: SelectedMap
         key: member
+        omitEmpty: true
       - name: SourceNetworks
         type: SelectedMap
         key: source_networks
+        omitEmpty: true
 
   - name: User
     filename: user
@@ -51,6 +54,7 @@ resources:
       - name: UserId
         type: string
         key: uid
+        omitEmpty: true
       - name: Name
         type: string
         key: name
@@ -71,18 +75,21 @@ resources:
       - name: OtpSeed
         type: string
         key: otp_seed
+        omitEmpty: true
       - name: Shell
         type: SelectedMap
         key: shell
       - name: Password
         type: string
         key: password
+        omitEmpty: true
       - name: ScrambledPassword
         type: string
         key: scrambled_password
       - name: PasswordChangedAt
         type: string
         key: pwd_changed_at
+        omitEmpty: true
       - name: LandingPage
         type: string
         key: landing_page
@@ -95,6 +102,7 @@ resources:
       - name: ApiKeys
         type: string
         key: apikeys
+        omitEmpty: true
       - name: Privilege
         type: SelectedMapList
         key: priv
@@ -110,6 +118,7 @@ resources:
       - name: Dashboard
         type: string
         key: dashboard
+        omitEmpty: true
 
 rpc:
   - name: User

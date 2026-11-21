@@ -111,7 +111,7 @@ resources:
         type: SelectedMap
         key: constructor
       - name: Mode
-        type: SelectedMap
+        type: SelectedMapList
         key: mode
       - name: PrefixLength
         type: string
@@ -129,7 +129,7 @@ resources:
         type: string
         key: nosync
       - name: RaMode
-        type: SelectedMap
+        type: SelectedMapList
         key: ra_mode
       - name: RaPriority
         type: SelectedMap

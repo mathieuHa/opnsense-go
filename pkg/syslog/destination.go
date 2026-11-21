@@ -22,7 +22,7 @@ var DestinationOpts = api.ReqOpts{
 type Destination struct {
 	Enabled     string              `json:"enabled"`
 	Transport   api.SelectedMap     `json:"transport"`
-	Level       api.SelectedMap     `json:"level"`
+	Level       api.SelectedMapList `json:"level"`
 	Facility    api.SelectedMapList `json:"facility"`
 	Program     api.SelectedMapList `json:"program"`
 	Hostname    string              `json:"hostname"`

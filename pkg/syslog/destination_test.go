@@ -25,7 +25,7 @@ func TestDestination(t *testing.T) {
 	dest := &Destination{
 		Enabled:     "1",
 		Transport:   api.SelectedMap("udp4"),
-		Level:       api.SelectedMap("info"),
+		Level:       api.SelectedMapList{"info"},
 		Facility:    api.SelectedMapList{},
 		Program:     api.SelectedMapList{},
 		Hostname:    "192.0.2.1",
