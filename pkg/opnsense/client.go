@@ -17,6 +17,7 @@ import (
 	"github.com/browningluke/opnsense-go/pkg/kea"
 	"github.com/browningluke/opnsense-go/pkg/monit"
 	"github.com/browningluke/opnsense-go/pkg/openvpn"
+	"github.com/browningluke/opnsense-go/pkg/proxy"
 	"github.com/browningluke/opnsense-go/pkg/quagga"
 	"github.com/browningluke/opnsense-go/pkg/routes"
 	"github.com/browningluke/opnsense-go/pkg/routing"
@@ -42,6 +43,7 @@ type Client interface {
 	Kea() *kea.Controller
 	Monit() *monit.Controller
 	Openvpn() *openvpn.Controller
+	Proxy() *proxy.Controller
 	Quagga() *quagga.Controller
 	Routes() *routes.Controller
 	Routing() *routing.Controller
@@ -111,6 +113,10 @@ func (c *client) Monit() *monit.Controller {
 
 func (c *client) Openvpn() *openvpn.Controller {
 	return &openvpn.Controller{Api: c.a}
+}
+
+func (c *client) Proxy() *proxy.Controller {
+	return &proxy.Controller{Api: c.a}
 }
 
 func (c *client) Quagga() *quagga.Controller {

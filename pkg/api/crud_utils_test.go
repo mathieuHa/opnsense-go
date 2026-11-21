@@ -30,3 +30,35 @@ func TestDeleteMissingItemSucceeds(t *testing.T) {
 		t.Fatal("reconfigure was called although nothing was deleted")
 	}
 }
+
+func TestNestedMonad(t *testing.T) {
+	var posted string
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.Method {
+		case "POST":
+			b := new(bytes.Buffer)
+			b.ReadFrom(r.Body)
+			posted = b.String()
+			w.Write([]byte(`{"result":"saved","uuid":"u1"}`))
+		default:
+			w.Write([]byte(`{"pac":{"proxy":{"name":"p1"}}}`))
+		}
+	}))
+	defer srv.Close()
+
+	type item struct {
+		Name string `json:"name"`
+	}
+	c := NewClient(Options{Uri: srv.URL, Logger: log.New(&bytes.Buffer{}, "", 0)})
+	opts := ReqOpts{AddEndpoint: "/proxy/settings/add_pac_proxy", GetEndpoint: "/proxy/settings/get_pac_proxy", Monad: "pac.proxy"}
+	if _, err := Add(c, context.Background(), opts, &item{Name: "p1"}); err != nil {
+		t.Fatal(err)
+	}
+	if posted != `{"proxy":{"name":"p1"}}` {
+		t.Fatalf("posted %s", posted)
+	}
+	got, err := Get(c, context.Background(), opts, &item{}, "u1")
+	if err != nil || got.Name != "p1" {
+		t.Fatalf("got %+v, %v", got, err)
+	}
+}

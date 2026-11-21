@@ -5,16 +5,26 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/browningluke/opnsense-go/pkg/errs"
+	"strings"
 )
 
 func resourceWrap[K any](monad string, resource K) map[string]K {
+	path := strings.Split(monad, ".")
 	return map[string]K{
-		monad: resource,
+		path[len(path)-1]: resource,
 	}
 }
 
 func resourceUnwrap[K any](monad string, resource K, reqData map[string]json.RawMessage) error {
-	wrapped, ok := reqData[monad]
+	path := strings.Split(monad, ".")
+	wrapped, ok := reqData[path[0]]
+	for _, key := range path[1:] {
+		var inner map[string]json.RawMessage
+		if !ok || json.Unmarshal(wrapped, &inner) != nil {
+			return errs.NewNotFoundError()
+		}
+		wrapped, ok = inner[key]
+	}
 	if !ok || len(wrapped) == 0 {
 		// Upstream returned 200 but the response did not include the
 		// configured monad — treat as not-found.
