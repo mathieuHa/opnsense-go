@@ -1,0 +1,2097 @@
+---
+name: haproxy
+reconfigureEndpoint: "/haproxy/service/reconfigure"
+resources:
+  - name: Frontend
+    filename: frontend
+    monad: frontend
+    endpoints:
+      add: "/haproxy/settings/add_frontend"
+      get: "/haproxy/settings/get_frontend"
+      update: "/haproxy/settings/set_frontend"
+      delete: "/haproxy/settings/del_frontend"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Name
+        type: string
+        key: name
+      - name: Description
+        type: string
+        key: description
+      - name: Bind
+        type: SelectedMapList
+        key: bind
+      - name: BindOptions
+        type: string
+        key: bindOptions
+      - name: Mode
+        type: SelectedMap
+        key: mode
+      - name: DefaultBackend
+        type: SelectedMap
+        key: defaultBackend
+      - name: SslEnabled
+        type: string
+        key: ssl_enabled
+      - name: SslCertificates
+        type: SelectedMapList
+        key: ssl_certificates
+      - name: SslDefaultCertificate
+        type: SelectedMap
+        key: ssl_default_certificate
+      - name: SslCustomOptions
+        type: string
+        key: ssl_customOptions
+      - name: SslAdvancedEnabled
+        type: string
+        key: ssl_advancedEnabled
+      - name: SslBindOptions
+        type: SelectedMapList
+        key: ssl_bindOptions
+      - name: SslMinVersion
+        type: SelectedMap
+        key: ssl_minVersion
+      - name: SslMaxVersion
+        type: SelectedMap
+        key: ssl_maxVersion
+      - name: SslCipherList
+        type: string
+        key: ssl_cipherList
+      - name: SslCipherSuites
+        type: string
+        key: ssl_cipherSuites
+      - name: SslHstsEnabled
+        type: string
+        key: ssl_hstsEnabled
+      - name: SslHstsIncludeSubDomains
+        type: string
+        key: ssl_hstsIncludeSubDomains
+      - name: SslHstsPreload
+        type: string
+        key: ssl_hstsPreload
+      - name: SslHstsMaxAge
+        type: string
+        key: ssl_hstsMaxAge
+      - name: SslClientAuthEnabled
+        type: string
+        key: ssl_clientAuthEnabled
+      - name: SslClientAuthVerify
+        type: SelectedMap
+        key: ssl_clientAuthVerify
+      - name: SslClientAuthCas
+        type: SelectedMapList
+        key: ssl_clientAuthCAs
+      - name: SslClientAuthCrls
+        type: SelectedMapList
+        key: ssl_clientAuthCRLs
+      - name: BasicAuthEnabled
+        type: string
+        key: basicAuthEnabled
+      - name: BasicAuthUsers
+        type: SelectedMapList
+        key: basicAuthUsers
+      - name: BasicAuthGroups
+        type: SelectedMapList
+        key: basicAuthGroups
+      - name: TuningMaxConnections
+        type: string
+        key: tuning_maxConnections
+      - name: TuningTimeoutClient
+        type: string
+        key: tuning_timeoutClient
+      - name: TuningTimeoutHttpReq
+        type: string
+        key: tuning_timeoutHttpReq
+      - name: TuningTimeoutHttpKeepAlive
+        type: string
+        key: tuning_timeoutHttpKeepAlive
+      - name: LinkedCpuAffinityRules
+        type: SelectedMapList
+        key: linkedCpuAffinityRules
+      - name: TuningShards
+        type: string
+        key: tuning_shards
+      - name: LoggingDontLogNull
+        type: string
+        key: logging_dontLogNull
+      - name: LoggingDontLogNormal
+        type: string
+        key: logging_dontLogNormal
+      - name: LoggingLogSeparateErrors
+        type: string
+        key: logging_logSeparateErrors
+      - name: LoggingDetailedLog
+        type: string
+        key: logging_detailedLog
+      - name: LoggingSocketStats
+        type: string
+        key: logging_socketStats
+      - name: StickinessPattern
+        type: SelectedMap
+        key: stickiness_pattern
+      - name: StickinessDataTypes
+        type: SelectedMapList
+        key: stickiness_dataTypes
+      - name: StickinessExpire
+        type: string
+        key: stickiness_expire
+      - name: StickinessSize
+        type: string
+        key: stickiness_size
+      - name: StickinessCounter
+        type: string
+        key: stickiness_counter
+      - name: StickinessCounterKey
+        type: string
+        key: stickiness_counter_key
+      - name: StickinessLength
+        type: string
+        key: stickiness_length
+      - name: StickinessConnRatePeriod
+        type: string
+        key: stickiness_connRatePeriod
+      - name: StickinessSessRatePeriod
+        type: string
+        key: stickiness_sessRatePeriod
+      - name: StickinessHttpReqRatePeriod
+        type: string
+        key: stickiness_httpReqRatePeriod
+      - name: StickinessHttpErrRatePeriod
+        type: string
+        key: stickiness_httpErrRatePeriod
+      - name: StickinessBytesInRatePeriod
+        type: string
+        key: stickiness_bytesInRatePeriod
+      - name: StickinessBytesOutRatePeriod
+        type: string
+        key: stickiness_bytesOutRatePeriod
+      - name: StickinessGpcElements
+        type: string
+        key: stickiness_gpcElements
+      - name: StickinessGpcRatePeriod
+        type: string
+        key: stickiness_gpcRatePeriod
+      - name: StickinessGptElements
+        type: string
+        key: stickiness_gptElements
+      - name: StickinessHttpFailRatePeriod
+        type: string
+        key: stickiness_httpFailRatePeriod
+      - name: StickinessGlitchRatePeriod
+        type: string
+        key: stickiness_glitchRatePeriod
+      - name: Http2Enabled
+        type: string
+        key: http2Enabled
+      - name: Http2EnabledNontls
+        type: string
+        key: http2Enabled_nontls
+      - name: AdvertisedProtocols
+        type: SelectedMapList
+        key: advertised_protocols
+      - name: ForwardFor
+        type: string
+        key: forwardFor
+      - name: PrometheusEnabled
+        type: string
+        key: prometheus_enabled
+      - name: PrometheusPath
+        type: string
+        key: prometheus_path
+      - name: ConnectionBehaviour
+        type: SelectedMap
+        key: connectionBehaviour
+      - name: CustomOptions
+        type: string
+        key: customOptions
+      - name: LinkedActions
+        type: SelectedMapList
+        key: linkedActions
+      - name: LinkedErrorfiles
+        type: SelectedMapList
+        key: linkedErrorfiles
+  - name: Backend
+    filename: backend
+    monad: backend
+    endpoints:
+      add: "/haproxy/settings/add_backend"
+      get: "/haproxy/settings/get_backend"
+      update: "/haproxy/settings/set_backend"
+      delete: "/haproxy/settings/del_backend"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Name
+        type: string
+        key: name
+      - name: Description
+        type: string
+        key: description
+      - name: Mode
+        type: SelectedMap
+        key: mode
+      - name: Algorithm
+        type: SelectedMap
+        key: algorithm
+      - name: RandomDraws
+        type: string
+        key: random_draws
+      - name: ProxyProtocol
+        type: SelectedMap
+        key: proxyProtocol
+      - name: LinkedServers
+        type: SelectedMapList
+        key: linkedServers
+      - name: LinkedFcgi
+        type: SelectedMap
+        key: linkedFcgi
+      - name: LinkedResolver
+        type: SelectedMap
+        key: linkedResolver
+      - name: ResolverOpts
+        type: SelectedMapList
+        key: resolverOpts
+      - name: ResolvePrefer
+        type: SelectedMap
+        key: resolvePrefer
+      - name: Source
+        type: string
+        key: source
+      - name: HealthCheckEnabled
+        type: string
+        key: healthCheckEnabled
+      - name: HealthCheck
+        type: SelectedMap
+        key: healthCheck
+      - name: HealthCheckLogStatus
+        type: string
+        key: healthCheckLogStatus
+      - name: CheckInterval
+        type: string
+        key: checkInterval
+      - name: CheckDownInterval
+        type: string
+        key: checkDownInterval
+      - name: HealthCheckFall
+        type: string
+        key: healthCheckFall
+      - name: HealthCheckRise
+        type: string
+        key: healthCheckRise
+      - name: LinkedMailer
+        type: SelectedMap
+        key: linkedMailer
+      - name: HealthCheckProxyProto
+        type: SelectedMap
+        key: healthCheckProxyProto
+      - name: Http2Enabled
+        type: string
+        key: http2Enabled
+      - name: Http2EnabledNontls
+        type: string
+        key: http2Enabled_nontls
+      - name: BaAdvertisedProtocols
+        type: SelectedMapList
+        key: ba_advertised_protocols
+      - name: ForwardFor
+        type: string
+        key: forwardFor
+      - name: ForwardedHeader
+        type: string
+        key: forwardedHeader
+      - name: ForwardedHeaderParameters
+        type: SelectedMapList
+        key: forwardedHeaderParameters
+      - name: Persistence
+        type: SelectedMap
+        key: persistence
+      - name: PersistenceCookiemode
+        type: SelectedMap
+        key: persistence_cookiemode
+      - name: PersistenceCookiename
+        type: string
+        key: persistence_cookiename
+      - name: PersistenceStripquotes
+        type: string
+        key: persistence_stripquotes
+      - name: StickinessPattern
+        type: SelectedMap
+        key: stickiness_pattern
+      - name: StickinessDataTypes
+        type: SelectedMapList
+        key: stickiness_dataTypes
+      - name: StickinessExpire
+        type: string
+        key: stickiness_expire
+      - name: StickinessSize
+        type: string
+        key: stickiness_size
+      - name: StickinessCookiename
+        type: string
+        key: stickiness_cookiename
+      - name: StickinessCookielength
+        type: string
+        key: stickiness_cookielength
+      - name: StickinessLength
+        type: string
+        key: stickiness_length
+      - name: StickinessConnRatePeriod
+        type: string
+        key: stickiness_connRatePeriod
+      - name: StickinessSessRatePeriod
+        type: string
+        key: stickiness_sessRatePeriod
+      - name: StickinessHttpReqRatePeriod
+        type: string
+        key: stickiness_httpReqRatePeriod
+      - name: StickinessHttpErrRatePeriod
+        type: string
+        key: stickiness_httpErrRatePeriod
+      - name: StickinessBytesInRatePeriod
+        type: string
+        key: stickiness_bytesInRatePeriod
+      - name: StickinessBytesOutRatePeriod
+        type: string
+        key: stickiness_bytesOutRatePeriod
+      - name: StickinessGpcElements
+        type: string
+        key: stickiness_gpcElements
+      - name: StickinessGptElements
+        type: string
+        key: stickiness_gptElements
+      - name: StickinessGpcRatePeriod
+        type: string
+        key: stickiness_gpcRatePeriod
+      - name: StickinessHttpFailRatePeriod
+        type: string
+        key: stickiness_httpFailRatePeriod
+      - name: StickinessGlitchRatePeriod
+        type: string
+        key: stickiness_glitchRatePeriod
+      - name: BasicAuthEnabled
+        type: string
+        key: basicAuthEnabled
+      - name: BasicAuthUsers
+        type: SelectedMapList
+        key: basicAuthUsers
+      - name: BasicAuthGroups
+        type: SelectedMapList
+        key: basicAuthGroups
+      - name: TuningTimeoutConnect
+        type: string
+        key: tuning_timeoutConnect
+      - name: TuningTimeoutCheck
+        type: string
+        key: tuning_timeoutCheck
+      - name: TuningTimeoutServer
+        type: string
+        key: tuning_timeoutServer
+      - name: TuningRetries
+        type: string
+        key: tuning_retries
+      - name: CustomOptions
+        type: string
+        key: customOptions
+      - name: TuningDefaultserver
+        type: string
+        key: tuning_defaultserver
+      - name: TuningNoport
+        type: string
+        key: tuning_noport
+      - name: TuningHttpreuse
+        type: SelectedMap
+        key: tuning_httpreuse
+      - name: TuningCaching
+        type: string
+        key: tuning_caching
+      - name: LinkedActions
+        type: SelectedMapList
+        key: linkedActions
+      - name: LinkedErrorfiles
+        type: SelectedMapList
+        key: linkedErrorfiles
+  - name: Server
+    filename: server
+    monad: server
+    endpoints:
+      add: "/haproxy/settings/add_server"
+      get: "/haproxy/settings/get_server"
+      update: "/haproxy/settings/set_server"
+      delete: "/haproxy/settings/del_server"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Name
+        type: string
+        key: name
+      - name: Description
+        type: string
+        key: description
+      - name: Address
+        type: string
+        key: address
+      - name: Port
+        type: string
+        key: port
+      - name: Checkport
+        type: string
+        key: checkport
+      - name: Mode
+        type: SelectedMap
+        key: mode
+      - name: MultiplexerProtocol
+        type: SelectedMap
+        key: multiplexer_protocol
+      - name: Type
+        type: SelectedMap
+        key: type
+      - name: ServiceName
+        type: string
+        key: serviceName
+      - name: Number
+        type: string
+        key: number
+      - name: LinkedResolver
+        type: SelectedMap
+        key: linkedResolver
+      - name: ResolverOpts
+        type: SelectedMapList
+        key: resolverOpts
+      - name: ResolvePrefer
+        type: SelectedMap
+        key: resolvePrefer
+      - name: Ssl
+        type: string
+        key: ssl
+      - name: SslSni
+        type: string
+        key: sslSNI
+      - name: SslSniExpr
+        type: string
+        key: sslSNIExpr
+      - name: SslVerify
+        type: string
+        key: sslVerify
+      - name: SslCa
+        type: SelectedMapList
+        key: sslCA
+      - name: SslCrl
+        type: SelectedMap
+        key: sslCRL
+      - name: SslClientCertificate
+        type: SelectedMap
+        key: sslClientCertificate
+      - name: MaxConnections
+        type: string
+        key: maxConnections
+      - name: Weight
+        type: string
+        key: weight
+      - name: CheckInterval
+        type: string
+        key: checkInterval
+      - name: CheckDownInterval
+        type: string
+        key: checkDownInterval
+      - name: Source
+        type: string
+        key: source
+      - name: Advanced
+        type: string
+        key: advanced
+      - name: UnixSocket
+        type: SelectedMap
+        key: unix_socket
+  - name: Healthcheck
+    filename: healthcheck
+    monad: healthcheck
+    endpoints:
+      add: "/haproxy/settings/add_healthcheck"
+      get: "/haproxy/settings/get_healthcheck"
+      update: "/haproxy/settings/set_healthcheck"
+      delete: "/haproxy/settings/del_healthcheck"
+    attrs:
+      - name: Name
+        type: string
+        key: name
+      - name: Description
+        type: string
+        key: description
+      - name: Type
+        type: SelectedMap
+        key: type
+      - name: Interval
+        type: string
+        key: interval
+      - name: Ssl
+        type: SelectedMap
+        key: ssl
+      - name: SslSni
+        type: string
+        key: sslSNI
+      - name: ForceSsl
+        type: string
+        key: force_ssl
+      - name: Checkport
+        type: string
+        key: checkport
+      - name: HttpMethod
+        type: SelectedMap
+        key: http_method
+      - name: HttpUri
+        type: string
+        key: http_uri
+      - name: HttpVersion
+        type: SelectedMap
+        key: http_version
+      - name: HttpHost
+        type: string
+        key: http_host
+      - name: HttpExpressionEnabled
+        type: string
+        key: http_expressionEnabled
+      - name: HttpExpression
+        type: SelectedMap
+        key: http_expression
+      - name: HttpNegate
+        type: string
+        key: http_negate
+      - name: HttpValue
+        type: string
+        key: http_value
+      - name: TcpEnabled
+        type: string
+        key: tcp_enabled
+      - name: TcpSendValue
+        type: string
+        key: tcp_sendValue
+      - name: TcpMatchType
+        type: SelectedMap
+        key: tcp_matchType
+      - name: TcpNegate
+        type: string
+        key: tcp_negate
+      - name: TcpMatchValue
+        type: string
+        key: tcp_matchValue
+      - name: AgentPort
+        type: string
+        key: agent_port
+      - name: MysqlUser
+        type: string
+        key: mysql_user
+      - name: MysqlPost41
+        type: string
+        key: mysql_post41
+      - name: PgsqlUser
+        type: string
+        key: pgsql_user
+      - name: SmtpDomain
+        type: string
+        key: smtp_domain
+      - name: EsmtpDomain
+        type: string
+        key: esmtp_domain
+      - name: DbUser
+        type: string
+        key: dbUser
+  - name: Acl
+    filename: acl
+    monad: acl
+    endpoints:
+      add: "/haproxy/settings/add_acl"
+      get: "/haproxy/settings/get_acl"
+      update: "/haproxy/settings/set_acl"
+      delete: "/haproxy/settings/del_acl"
+    attrs:
+      - name: Name
+        type: string
+        key: name
+      - name: Description
+        type: string
+        key: description
+      - name: Expression
+        type: SelectedMap
+        key: expression
+      - name: Negate
+        type: string
+        key: negate
+      - name: CaseSensitive
+        type: string
+        key: caseSensitive
+      - name: HdrBeg
+        type: string
+        key: hdr_beg
+      - name: HdrEnd
+        type: string
+        key: hdr_end
+      - name: Hdr
+        type: string
+        key: hdr
+      - name: HdrReg
+        type: string
+        key: hdr_reg
+      - name: HdrSub
+        type: string
+        key: hdr_sub
+      - name: PathBeg
+        type: string
+        key: path_beg
+      - name: PathEnd
+        type: string
+        key: path_end
+      - name: Path
+        type: string
+        key: path
+      - name: PathReg
+        type: string
+        key: path_reg
+      - name: PathDir
+        type: string
+        key: path_dir
+      - name: PathSub
+        type: string
+        key: path_sub
+      - name: CustHdrBegName
+        type: string
+        key: cust_hdr_beg_name
+      - name: CustHdrBeg
+        type: string
+        key: cust_hdr_beg
+      - name: CustHdrEndName
+        type: string
+        key: cust_hdr_end_name
+      - name: CustHdrEnd
+        type: string
+        key: cust_hdr_end
+      - name: CustHdrName
+        type: string
+        key: cust_hdr_name
+      - name: CustHdr
+        type: string
+        key: cust_hdr
+      - name: CustHdrRegName
+        type: string
+        key: cust_hdr_reg_name
+      - name: CustHdrReg
+        type: string
+        key: cust_hdr_reg
+      - name: CustHdrSubName
+        type: string
+        key: cust_hdr_sub_name
+      - name: CustHdrSub
+        type: string
+        key: cust_hdr_sub
+      - name: UrlParam
+        type: string
+        key: url_param
+      - name: UrlParamValue
+        type: string
+        key: url_param_value
+      - name: Var
+        type: string
+        key: var
+      - name: VarValue
+        type: string
+        key: var_value
+      - name: VarComparison
+        type: SelectedMap
+        key: var_comparison
+      - name: SslCVerifyCode
+        type: string
+        key: ssl_c_verify_code
+      - name: SslCCaCommonname
+        type: string
+        key: ssl_c_ca_commonname
+      - name: SslHelloType
+        type: SelectedMap
+        key: ssl_hello_type
+      - name: Src
+        type: string
+        key: src
+      - name: SrcBytesInRateComparison
+        type: SelectedMap
+        key: src_bytes_in_rate_comparison
+      - name: SrcBytesInRate
+        type: string
+        key: src_bytes_in_rate
+      - name: SrcBytesOutRateComparison
+        type: SelectedMap
+        key: src_bytes_out_rate_comparison
+      - name: SrcBytesOutRate
+        type: string
+        key: src_bytes_out_rate
+      - name: SrcConnCntComparison
+        type: SelectedMap
+        key: src_conn_cnt_comparison
+      - name: SrcConnCnt
+        type: string
+        key: src_conn_cnt
+      - name: SrcConnCurComparison
+        type: SelectedMap
+        key: src_conn_cur_comparison
+      - name: SrcConnCur
+        type: string
+        key: src_conn_cur
+      - name: SrcConnRateComparison
+        type: SelectedMap
+        key: src_conn_rate_comparison
+      - name: SrcConnRate
+        type: string
+        key: src_conn_rate
+      - name: SrcHttpErrCntComparison
+        type: SelectedMap
+        key: src_http_err_cnt_comparison
+      - name: SrcHttpErrCnt
+        type: string
+        key: src_http_err_cnt
+      - name: SrcHttpErrRateComparison
+        type: SelectedMap
+        key: src_http_err_rate_comparison
+      - name: SrcHttpErrRate
+        type: string
+        key: src_http_err_rate
+      - name: SrcHttpReqCntComparison
+        type: SelectedMap
+        key: src_http_req_cnt_comparison
+      - name: SrcHttpReqCnt
+        type: string
+        key: src_http_req_cnt
+      - name: SrcHttpReqRateComparison
+        type: SelectedMap
+        key: src_http_req_rate_comparison
+      - name: SrcHttpReqRate
+        type: string
+        key: src_http_req_rate
+      - name: SrcKbytesInComparison
+        type: SelectedMap
+        key: src_kbytes_in_comparison
+      - name: SrcKbytesIn
+        type: string
+        key: src_kbytes_in
+      - name: SrcKbytesOutComparison
+        type: SelectedMap
+        key: src_kbytes_out_comparison
+      - name: SrcKbytesOut
+        type: string
+        key: src_kbytes_out
+      - name: SrcPortComparison
+        type: SelectedMap
+        key: src_port_comparison
+      - name: SrcPort
+        type: string
+        key: src_port
+      - name: SrcSessCntComparison
+        type: SelectedMap
+        key: src_sess_cnt_comparison
+      - name: SrcSessCnt
+        type: string
+        key: src_sess_cnt
+      - name: SrcSessRateComparison
+        type: SelectedMap
+        key: src_sess_rate_comparison
+      - name: SrcSessRate
+        type: string
+        key: src_sess_rate
+      - name: Nbsrv
+        type: string
+        key: nbsrv
+      - name: NbsrvBackend
+        type: SelectedMap
+        key: nbsrv_backend
+      - name: SslFcSni
+        type: string
+        key: ssl_fc_sni
+      - name: SslSni
+        type: string
+        key: ssl_sni
+      - name: SslSniSub
+        type: string
+        key: ssl_sni_sub
+      - name: SslSniBeg
+        type: string
+        key: ssl_sni_beg
+      - name: SslSniEnd
+        type: string
+        key: ssl_sni_end
+      - name: SslSniReg
+        type: string
+        key: ssl_sni_reg
+      - name: CustomAcl
+        type: string
+        key: custom_acl
+      - name: Value
+        type: string
+        key: value
+      - name: Urlparam
+        type: string
+        key: urlparam
+      - name: QueryBackend
+        type: SelectedMap
+        key: queryBackend
+      - name: AllowedUsers
+        type: SelectedMapList
+        key: allowedUsers
+      - name: AllowedGroups
+        type: SelectedMapList
+        key: allowedGroups
+      - name: HttpMethod
+        type: SelectedMapList
+        key: http_method
+      - name: ScBytesInRateComparison
+        type: SelectedMap
+        key: sc_bytes_in_rate_comparison
+      - name: ScBytesInRate
+        type: string
+        key: sc_bytes_in_rate
+      - name: ScBytesOutRateComparison
+        type: SelectedMap
+        key: sc_bytes_out_rate_comparison
+      - name: ScBytesOutRate
+        type: string
+        key: sc_bytes_out_rate
+      - name: ScClrGpcComparison
+        type: SelectedMap
+        key: sc_clr_gpc_comparison
+      - name: ScClrGpc
+        type: string
+        key: sc_clr_gpc
+      - name: ScConnCntComparison
+        type: SelectedMap
+        key: sc_conn_cnt_comparison
+      - name: ScConnCnt
+        type: string
+        key: sc_conn_cnt
+      - name: ScConnCurComparison
+        type: SelectedMap
+        key: sc_conn_cur_comparison
+      - name: ScConnCur
+        type: string
+        key: sc_conn_cur
+      - name: ScConnRateComparison
+        type: SelectedMap
+        key: sc_conn_rate_comparison
+      - name: ScConnRate
+        type: string
+        key: sc_conn_rate
+      - name: ScGetGpcComparison
+        type: SelectedMap
+        key: sc_get_gpc_comparison
+      - name: ScGetGpc
+        type: string
+        key: sc_get_gpc
+      - name: ScGlitchCntComparison
+        type: SelectedMap
+        key: sc_glitch_cnt_comparison
+      - name: ScGlitchCnt
+        type: string
+        key: sc_glitch_cnt
+      - name: ScGlitchRateComparison
+        type: SelectedMap
+        key: sc_glitch_rate_comparison
+      - name: ScGlitchRate
+        type: string
+        key: sc_glitch_rate
+      - name: ScGpcRateComparison
+        type: SelectedMap
+        key: sc_gpc_rate_comparison
+      - name: ScGpcRate
+        type: string
+        key: sc_gpc_rate
+      - name: ScHttpErrCntComparison
+        type: SelectedMap
+        key: sc_http_err_cnt_comparison
+      - name: ScHttpErrCnt
+        type: string
+        key: sc_http_err_cnt
+      - name: ScHttpErrRateComparison
+        type: SelectedMap
+        key: sc_http_err_rate_comparison
+      - name: ScHttpErrRate
+        type: string
+        key: sc_http_err_rate
+      - name: ScHttpFailCntComparison
+        type: SelectedMap
+        key: sc_http_fail_cnt_comparison
+      - name: ScHttpFailCnt
+        type: string
+        key: sc_http_fail_cnt
+      - name: ScHttpFailRateComparison
+        type: SelectedMap
+        key: sc_http_fail_rate_comparison
+      - name: ScHttpFailRate
+        type: string
+        key: sc_http_fail_rate
+      - name: ScHttpReqCntComparison
+        type: SelectedMap
+        key: sc_http_req_cnt_comparison
+      - name: ScHttpReqCnt
+        type: string
+        key: sc_http_req_cnt
+      - name: ScHttpReqRateComparison
+        type: SelectedMap
+        key: sc_http_req_rate_comparison
+      - name: ScHttpReqRate
+        type: string
+        key: sc_http_req_rate
+      - name: ScIncGpcComparison
+        type: SelectedMap
+        key: sc_inc_gpc_comparison
+      - name: ScIncGpc
+        type: string
+        key: sc_inc_gpc
+      - name: ScSessCntComparison
+        type: SelectedMap
+        key: sc_sess_cnt_comparison
+      - name: ScSessCnt
+        type: string
+        key: sc_sess_cnt
+      - name: ScSessRateComparison
+        type: SelectedMap
+        key: sc_sess_rate_comparison
+      - name: ScSessRate
+        type: string
+        key: sc_sess_rate
+      - name: SrcGetGpcComparison
+        type: SelectedMap
+        key: src_get_gpc_comparison
+      - name: SrcGetGpc
+        type: string
+        key: src_get_gpc
+      - name: SrcGetGptComparison
+        type: SelectedMap
+        key: src_get_gpt_comparison
+      - name: SrcGetGpt
+        type: string
+        key: src_get_gpt
+      - name: SrcGlitchCntComparison
+        type: SelectedMap
+        key: src_glitch_cnt_comparison
+      - name: SrcGlitchCnt
+        type: string
+        key: src_glitch_cnt
+      - name: SrcGlitchRateComparison
+        type: SelectedMap
+        key: src_glitch_rate_comparison
+      - name: SrcGlitchRate
+        type: string
+        key: src_glitch_rate
+      - name: SrcGpcRateComparison
+        type: SelectedMap
+        key: src_gpc_rate_comparison
+      - name: SrcGpcRate
+        type: string
+        key: src_gpc_rate
+      - name: SrcHttpFailCntComparison
+        type: SelectedMap
+        key: src_http_fail_cnt_comparison
+      - name: SrcHttpFailCnt
+        type: string
+        key: src_http_fail_cnt
+      - name: SrcHttpFailRateComparison
+        type: SelectedMap
+        key: src_http_fail_rate_comparison
+      - name: SrcHttpFailRate
+        type: string
+        key: src_http_fail_rate
+      - name: SrcIncGpcComparison
+        type: SelectedMap
+        key: src_inc_gpc_comparison
+      - name: SrcIncGpc
+        type: string
+        key: src_inc_gpc
+      - name: ScClrGpc0Comparison
+        type: SelectedMap
+        key: sc_clr_gpc0_comparison
+      - name: ScClrGpc0
+        type: string
+        key: sc_clr_gpc0
+      - name: ScClrGpc1Comparison
+        type: SelectedMap
+        key: sc_clr_gpc1_comparison
+      - name: ScClrGpc1
+        type: string
+        key: sc_clr_gpc1
+      - name: Sc0ClrGpc0Comparison
+        type: SelectedMap
+        key: sc0_clr_gpc0_comparison
+      - name: Sc0ClrGpc0
+        type: string
+        key: sc0_clr_gpc0
+      - name: Sc0ClrGpc1Comparison
+        type: SelectedMap
+        key: sc0_clr_gpc1_comparison
+      - name: Sc0ClrGpc1
+        type: string
+        key: sc0_clr_gpc1
+      - name: Sc1ClrGpcComparison
+        type: SelectedMap
+        key: sc1_clr_gpc_comparison
+      - name: Sc1ClrGpc
+        type: string
+        key: sc1_clr_gpc
+      - name: Sc1ClrGpc0Comparison
+        type: SelectedMap
+        key: sc1_clr_gpc0_comparison
+      - name: Sc1ClrGpc0
+        type: string
+        key: sc1_clr_gpc0
+      - name: Sc1ClrGpc1Comparison
+        type: SelectedMap
+        key: sc1_clr_gpc1_comparison
+      - name: Sc1ClrGpc1
+        type: string
+        key: sc1_clr_gpc1
+      - name: Sc2ClrGpcComparison
+        type: SelectedMap
+        key: sc2_clr_gpc_comparison
+      - name: Sc2ClrGpc
+        type: string
+        key: sc2_clr_gpc
+      - name: Sc2ClrGpc0Comparison
+        type: SelectedMap
+        key: sc2_clr_gpc0_comparison
+      - name: Sc2ClrGpc0
+        type: string
+        key: sc2_clr_gpc0
+      - name: Sc2ClrGpc1Comparison
+        type: SelectedMap
+        key: sc2_clr_gpc1_comparison
+      - name: Sc2ClrGpc1
+        type: string
+        key: sc2_clr_gpc1
+      - name: ScGetGpc0Comparison
+        type: SelectedMap
+        key: sc_get_gpc0_comparison
+      - name: ScGetGpc0
+        type: string
+        key: sc_get_gpc0
+      - name: ScGetGpc1Comparison
+        type: SelectedMap
+        key: sc_get_gpc1_comparison
+      - name: ScGetGpc1
+        type: string
+        key: sc_get_gpc1
+      - name: Sc0GetGpc0Comparison
+        type: SelectedMap
+        key: sc0_get_gpc0_comparison
+      - name: Sc0GetGpc0
+        type: string
+        key: sc0_get_gpc0
+      - name: Sc0GetGpc1Comparison
+        type: SelectedMap
+        key: sc0_get_gpc1_comparison
+      - name: Sc0GetGpc1
+        type: string
+        key: sc0_get_gpc1
+      - name: Sc1GetGpc0Comparison
+        type: SelectedMap
+        key: sc1_get_gpc0_comparison
+      - name: Sc1GetGpc0
+        type: string
+        key: sc1_get_gpc0
+      - name: Sc1GetGpc1Comparison
+        type: SelectedMap
+        key: sc1_get_gpc1_comparison
+      - name: Sc1GetGpc1
+        type: string
+        key: sc1_get_gpc1
+      - name: Sc2GetGpc0Comparison
+        type: SelectedMap
+        key: sc2_get_gpc0_comparison
+      - name: Sc2GetGpc0
+        type: string
+        key: sc2_get_gpc0
+      - name: Sc2GetGpc1Comparison
+        type: SelectedMap
+        key: sc2_get_gpc1_comparison
+      - name: Sc2GetGpc1
+        type: string
+        key: sc2_get_gpc1
+      - name: ScGetGptComparison
+        type: SelectedMap
+        key: sc_get_gpt_comparison
+      - name: ScGetGpt
+        type: string
+        key: sc_get_gpt
+      - name: ScGetGpt0Comparison
+        type: SelectedMap
+        key: sc_get_gpt0_comparison
+      - name: ScGetGpt0
+        type: string
+        key: sc_get_gpt0
+      - name: Sc0GetGpt0Comparison
+        type: SelectedMap
+        key: sc0_get_gpt0_comparison
+      - name: Sc0GetGpt0
+        type: string
+        key: sc0_get_gpt0
+      - name: Sc1GetGpt0Comparison
+        type: SelectedMap
+        key: sc1_get_gpt0_comparison
+      - name: Sc1GetGpt0
+        type: string
+        key: sc1_get_gpt0
+      - name: Sc2GetGpt0Comparison
+        type: SelectedMap
+        key: sc2_get_gpt0_comparison
+      - name: Sc2GetGpt0
+        type: string
+        key: sc2_get_gpt0
+      - name: ScGpc0RateComparison
+        type: SelectedMap
+        key: sc_gpc0_rate_comparison
+      - name: ScGpc0Rate
+        type: string
+        key: sc_gpc0_rate
+      - name: ScGpc1RateComparison
+        type: SelectedMap
+        key: sc_gpc1_rate_comparison
+      - name: ScGpc1Rate
+        type: string
+        key: sc_gpc1_rate
+      - name: Sc0Gpc0RateComparison
+        type: SelectedMap
+        key: sc0_gpc0_rate_comparison
+      - name: Sc0Gpc0Rate
+        type: string
+        key: sc0_gpc0_rate
+      - name: Sc0Gpc1RateComparison
+        type: SelectedMap
+        key: sc0_gpc1_rate_comparison
+      - name: Sc0Gpc1Rate
+        type: string
+        key: sc0_gpc1_rate
+      - name: Sc1Gpc0RateComparison
+        type: SelectedMap
+        key: sc1_gpc0_rate_comparison
+      - name: Sc1Gpc0Rate
+        type: string
+        key: sc1_gpc0_rate
+      - name: Sc1Gpc1RateComparison
+        type: SelectedMap
+        key: sc1_gpc1_rate_comparison
+      - name: Sc1Gpc1Rate
+        type: string
+        key: sc1_gpc1_rate
+      - name: Sc2Gpc0RateComparison
+        type: SelectedMap
+        key: sc2_gpc0_rate_comparison
+      - name: Sc2Gpc0Rate
+        type: string
+        key: sc2_gpc0_rate
+      - name: Sc2Gpc1RateComparison
+        type: SelectedMap
+        key: sc2_gpc1_rate_comparison
+      - name: Sc2Gpc1Rate
+        type: string
+        key: sc2_gpc1_rate
+      - name: ScIncGpc0Comparison
+        type: SelectedMap
+        key: sc_inc_gpc0_comparison
+      - name: ScIncGpc0
+        type: string
+        key: sc_inc_gpc0
+      - name: ScIncGpc1Comparison
+        type: SelectedMap
+        key: sc_inc_gpc1_comparison
+      - name: ScIncGpc1
+        type: string
+        key: sc_inc_gpc1
+      - name: Sc0IncGpc0Comparison
+        type: SelectedMap
+        key: sc0_inc_gpc0_comparison
+      - name: Sc0IncGpc0
+        type: string
+        key: sc0_inc_gpc0
+      - name: Sc0IncGpc1Comparison
+        type: SelectedMap
+        key: sc0_inc_gpc1_comparison
+      - name: Sc0IncGpc1
+        type: string
+        key: sc0_inc_gpc1
+      - name: Sc1IncGpc0Comparison
+        type: SelectedMap
+        key: sc1_inc_gpc0_comparison
+      - name: Sc1IncGpc0
+        type: string
+        key: sc1_inc_gpc0
+      - name: Sc1IncGpc1Comparison
+        type: SelectedMap
+        key: sc1_inc_gpc1_comparison
+      - name: Sc1IncGpc1
+        type: string
+        key: sc1_inc_gpc1
+      - name: Sc2IncGpc0Comparison
+        type: SelectedMap
+        key: sc2_inc_gpc0_comparison
+      - name: Sc2IncGpc0
+        type: string
+        key: sc2_inc_gpc0
+      - name: Sc2IncGpc1Comparison
+        type: SelectedMap
+        key: sc2_inc_gpc1_comparison
+      - name: Sc2IncGpc1
+        type: string
+        key: sc2_inc_gpc1
+      - name: SrcClrGpc0Comparison
+        type: SelectedMap
+        key: src_clr_gpc0_comparison
+      - name: SrcClrGpc0
+        type: string
+        key: src_clr_gpc0
+      - name: SrcClrGpc1Comparison
+        type: SelectedMap
+        key: src_clr_gpc1_comparison
+      - name: SrcClrGpc1
+        type: string
+        key: src_clr_gpc1
+      - name: SrcGetGpc0Comparison
+        type: SelectedMap
+        key: src_get_gpc0_comparison
+      - name: SrcGetGpc0
+        type: string
+        key: src_get_gpc0
+      - name: SrcGetGpc1Comparison
+        type: SelectedMap
+        key: src_get_gpc1_comparison
+      - name: SrcGetGpc1
+        type: string
+        key: src_get_gpc1
+      - name: SrcGpc0RateComparison
+        type: SelectedMap
+        key: src_gpc0_rate_comparison
+      - name: SrcGpc0Rate
+        type: string
+        key: src_gpc0_rate
+      - name: SrcGpc1RateComparison
+        type: SelectedMap
+        key: src_gpc1_rate_comparison
+      - name: SrcGpc1Rate
+        type: string
+        key: src_gpc1_rate
+      - name: SrcIncGpc0Comparison
+        type: SelectedMap
+        key: src_inc_gpc0_comparison
+      - name: SrcIncGpc0
+        type: string
+        key: src_inc_gpc0
+      - name: SrcIncGpc1Comparison
+        type: SelectedMap
+        key: src_inc_gpc1_comparison
+      - name: SrcIncGpc1
+        type: string
+        key: src_inc_gpc1
+      - name: GpcNumber
+        type: string
+        key: gpc_number
+      - name: GptNumber
+        type: string
+        key: gpt_number
+      - name: ScNumber
+        type: string
+        key: sc_number
+      - name: TableName
+        type: string
+        key: table_name
+      - name: Mapfile
+        type: SelectedMap
+        key: mapfile
+      - name: Converter
+        type: string
+        key: converter
+  - name: Action
+    filename: action
+    monad: action
+    endpoints:
+      add: "/haproxy/settings/add_action"
+      get: "/haproxy/settings/get_action"
+      update: "/haproxy/settings/set_action"
+      delete: "/haproxy/settings/del_action"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Name
+        type: string
+        key: name
+      - name: Description
+        type: string
+        key: description
+      - name: TestType
+        type: SelectedMap
+        key: testType
+      - name: LinkedAcls
+        type: SelectedMapList
+        key: linkedAcls
+      - name: Operator
+        type: SelectedMap
+        key: operator
+      - name: Type
+        type: SelectedMap
+        key: type
+      - name: UseBackend
+        type: SelectedMap
+        key: use_backend
+      - name: UseServer
+        type: SelectedMap
+        key: use_server
+      - name: FcgiPassHeader
+        type: string
+        key: fcgi_pass_header
+      - name: FcgiSetParam
+        type: string
+        key: fcgi_set_param
+      - name: MonitorFailUri
+        type: string
+        key: monitor_fail_uri
+      - name: Custom
+        type: string
+        key: custom
+      - name: HttpAfterResponseAction
+        type: SelectedMap
+        key: http_after_response_action
+      - name: HttpAfterResponseOption
+        type: string
+        key: http_after_response_option
+      - name: HttpRequestAction
+        type: SelectedMap
+        key: http_request_action
+      - name: HttpRequestOption
+        type: string
+        key: http_request_option
+      - name: HttpResponseAction
+        type: SelectedMap
+        key: http_response_action
+      - name: HttpResponseOption
+        type: string
+        key: http_response_option
+      - name: TcpRequestAction
+        type: SelectedMap
+        key: tcp_request_action
+      - name: TcpRequestOption
+        type: string
+        key: tcp_request_option
+      - name: TcpResponseAction
+        type: SelectedMap
+        key: tcp_response_action
+      - name: TcpResponseOption
+        type: string
+        key: tcp_response_option
+      - name: HttpRequestAuth
+        type: string
+        key: http_request_auth
+      - name: HttpRequestDenyStatus
+        type: string
+        key: http_request_deny_status
+      - name: HttpRequestRedirect
+        type: string
+        key: http_request_redirect
+      - name: HttpRequestLua
+        type: string
+        key: http_request_lua
+      - name: HttpRequestUseService
+        type: string
+        key: http_request_use_service
+      - name: HttpRequestAddHeaderName
+        type: string
+        key: http_request_add_header_name
+      - name: HttpRequestAddHeaderContent
+        type: string
+        key: http_request_add_header_content
+      - name: HttpRequestSetHeaderName
+        type: string
+        key: http_request_set_header_name
+      - name: HttpRequestSetHeaderContent
+        type: string
+        key: http_request_set_header_content
+      - name: HttpRequestDelHeaderName
+        type: string
+        key: http_request_del_header_name
+      - name: HttpRequestReplaceHeaderName
+        type: string
+        key: http_request_replace_header_name
+      - name: HttpRequestReplaceHeaderRegex
+        type: string
+        key: http_request_replace_header_regex
+      - name: HttpRequestReplaceValueName
+        type: string
+        key: http_request_replace_value_name
+      - name: HttpRequestReplaceValueRegex
+        type: string
+        key: http_request_replace_value_regex
+      - name: HttpRequestSetPath
+        type: string
+        key: http_request_set_path
+      - name: HttpRequestSetVarScope
+        type: SelectedMap
+        key: http_request_set_var_scope
+      - name: HttpRequestSetVarName
+        type: string
+        key: http_request_set_var_name
+      - name: HttpRequestSetVarExpr
+        type: string
+        key: http_request_set_var_expr
+      - name: HttpResponseLua
+        type: string
+        key: http_response_lua
+      - name: HttpResponseAddHeaderName
+        type: string
+        key: http_response_add_header_name
+      - name: HttpResponseAddHeaderContent
+        type: string
+        key: http_response_add_header_content
+      - name: HttpResponseSetHeaderName
+        type: string
+        key: http_response_set_header_name
+      - name: HttpResponseSetHeaderContent
+        type: string
+        key: http_response_set_header_content
+      - name: HttpResponseDelHeaderName
+        type: string
+        key: http_response_del_header_name
+      - name: HttpResponseReplaceHeaderName
+        type: string
+        key: http_response_replace_header_name
+      - name: HttpResponseReplaceHeaderRegex
+        type: string
+        key: http_response_replace_header_regex
+      - name: HttpResponseReplaceValueName
+        type: string
+        key: http_response_replace_value_name
+      - name: HttpResponseReplaceValueRegex
+        type: string
+        key: http_response_replace_value_regex
+      - name: HttpResponseSetStatusCode
+        type: string
+        key: http_response_set_status_code
+      - name: HttpResponseSetStatusReason
+        type: string
+        key: http_response_set_status_reason
+      - name: HttpResponseSetVarScope
+        type: SelectedMap
+        key: http_response_set_var_scope
+      - name: HttpResponseSetVarName
+        type: string
+        key: http_response_set_var_name
+      - name: HttpResponseSetVarExpr
+        type: string
+        key: http_response_set_var_expr
+      - name: TcpRequestContentLua
+        type: string
+        key: tcp_request_content_lua
+      - name: TcpRequestContentUseService
+        type: string
+        key: tcp_request_content_use_service
+      - name: TcpRequestInspectDelay
+        type: string
+        key: tcp_request_inspect_delay
+      - name: TcpResponseContentLua
+        type: string
+        key: tcp_response_content_lua
+      - name: TcpResponseInspectDelay
+        type: string
+        key: tcp_response_inspect_delay
+      - name: MapDataUseBackendFile
+        type: SelectedMap
+        key: map_data_use_backend_file
+      - name: MapDataUseBackendDefault
+        type: SelectedMap
+        key: map_data_use_backend_default
+      - name: MapDataUseBackendInput
+        type: string
+        key: map_data_use_backend_input
+      - name: MapUseBackendFile
+        type: SelectedMap
+        key: map_use_backend_file
+      - name: MapUseBackendDefault
+        type: SelectedMap
+        key: map_use_backend_default
+      - name: CompressionAlgoRes
+        type: SelectedMap
+        key: compression_algo_res
+      - name: CompressionAlgoReq
+        type: SelectedMap
+        key: compression_algo_req
+      - name: CompressionMimeRes
+        type: SelectedMapList
+        key: compression_mime_res
+      - name: CompressionMimeReq
+        type: SelectedMapList
+        key: compression_mime_req
+      - name: CompressionOffloading
+        type: string
+        key: compression_offloading
+      - name: CompressionMinsizeRes
+        type: string
+        key: compression_minsize_res
+      - name: CompressionMinsizeReq
+        type: string
+        key: compression_minsize_req
+      - name: CompressionDirection
+        type: SelectedMap
+        key: compression_direction
+      - name: GpcNumber
+        type: string
+        key: gpc_number
+      - name: GptNumber
+        type: string
+        key: gpt_number
+      - name: ScNumber
+        type: string
+        key: sc_number
+      - name: Mapfile
+        type: SelectedMap
+        key: mapfile
+      - name: MapDefault
+        type: string
+        key: map_default
+      - name: SampleFetch
+        type: string
+        key: sample_fetch
+  - name: Lua
+    filename: lua
+    monad: lua
+    endpoints:
+      add: "/haproxy/settings/add_lua"
+      get: "/haproxy/settings/get_lua"
+      update: "/haproxy/settings/set_lua"
+      delete: "/haproxy/settings/del_lua"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Name
+        type: string
+        key: name
+      - name: Description
+        type: string
+        key: description
+      - name: Preload
+        type: string
+        key: preload
+      - name: FilenameScheme
+        type: SelectedMap
+        key: filename_scheme
+      - name: Content
+        type: string
+        key: content
+  - name: Fcgi
+    filename: fcgi
+    monad: fcgi
+    endpoints:
+      add: "/haproxy/settings/add_fcgi"
+      get: "/haproxy/settings/get_fcgi"
+      update: "/haproxy/settings/set_fcgi"
+      delete: "/haproxy/settings/del_fcgi"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Name
+        type: string
+        key: name
+      - name: Description
+        type: string
+        key: description
+      - name: Docroot
+        type: string
+        key: docroot
+      - name: Index
+        type: string
+        key: index
+      - name: PathInfo
+        type: string
+        key: path_info
+      - name: LogStderr
+        type: string
+        key: log_stderr
+      - name: KeepConn
+        type: string
+        key: keep_conn
+      - name: GetValues
+        type: string
+        key: get_values
+      - name: MpxsConns
+        type: string
+        key: mpxs_conns
+      - name: MaxReqs
+        type: string
+        key: max_reqs
+      - name: LinkedActions
+        type: SelectedMapList
+        key: linkedActions
+  - name: Errorfile
+    filename: errorfile
+    monad: errorfile
+    endpoints:
+      add: "/haproxy/settings/add_errorfile"
+      get: "/haproxy/settings/get_errorfile"
+      update: "/haproxy/settings/set_errorfile"
+      delete: "/haproxy/settings/del_errorfile"
+    attrs:
+      - name: Name
+        type: string
+        key: name
+      - name: Description
+        type: string
+        key: description
+      - name: Code
+        type: SelectedMap
+        key: code
+      - name: Content
+        type: string
+        key: content
+  - name: Mapfile
+    filename: mapfile
+    monad: mapfile
+    endpoints:
+      add: "/haproxy/settings/add_mapfile"
+      get: "/haproxy/settings/get_mapfile"
+      update: "/haproxy/settings/set_mapfile"
+      delete: "/haproxy/settings/del_mapfile"
+    attrs:
+      - name: Name
+        type: string
+        key: name
+      - name: Description
+        type: string
+        key: description
+      - name: Type
+        type: SelectedMap
+        key: type
+      - name: Content
+        type: string
+        key: content
+      - name: Url
+        type: string
+        key: url
+  - name: Cpu
+    filename: cpu
+    monad: cpu
+    endpoints:
+      add: "/haproxy/settings/add_cpu"
+      get: "/haproxy/settings/get_cpu"
+      update: "/haproxy/settings/set_cpu"
+      delete: "/haproxy/settings/del_cpu"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Name
+        type: string
+        key: name
+      - name: ThreadId
+        type: SelectedMap
+        key: thread_id
+      - name: CpuId
+        type: SelectedMapList
+        key: cpu_id
+  - name: Group
+    filename: group
+    monad: group
+    endpoints:
+      add: "/haproxy/settings/add_group"
+      get: "/haproxy/settings/get_group"
+      update: "/haproxy/settings/set_group"
+      delete: "/haproxy/settings/del_group"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Name
+        type: string
+        key: name
+      - name: Description
+        type: string
+        key: description
+      - name: Members
+        type: SelectedMapList
+        key: members
+      - name: AddUserlist
+        type: string
+        key: add_userlist
+  - name: User
+    filename: user
+    monad: user
+    endpoints:
+      add: "/haproxy/settings/add_user"
+      get: "/haproxy/settings/get_user"
+      update: "/haproxy/settings/set_user"
+      delete: "/haproxy/settings/del_user"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Name
+        type: string
+        key: name
+      - name: Description
+        type: string
+        key: description
+      - name: Password
+        type: string
+        key: password
+  - name: Resolver
+    filename: resolver
+    monad: resolver
+    endpoints:
+      add: "/haproxy/settings/add_resolver"
+      get: "/haproxy/settings/get_resolver"
+      update: "/haproxy/settings/set_resolver"
+      delete: "/haproxy/settings/del_resolver"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Name
+        type: string
+        key: name
+      - name: Description
+        type: string
+        key: description
+      - name: Nameservers
+        type: SelectedMapList
+        key: nameservers
+      - name: ParseResolvConf
+        type: string
+        key: parse_resolv_conf
+      - name: ResolveRetries
+        type: string
+        key: resolve_retries
+      - name: TimeoutResolve
+        type: string
+        key: timeout_resolve
+      - name: TimeoutRetry
+        type: string
+        key: timeout_retry
+      - name: AcceptedPayloadSize
+        type: string
+        key: accepted_payload_size
+      - name: HoldValid
+        type: string
+        key: hold_valid
+      - name: HoldObsolete
+        type: string
+        key: hold_obsolete
+      - name: HoldRefused
+        type: string
+        key: hold_refused
+      - name: HoldNx
+        type: string
+        key: hold_nx
+      - name: HoldTimeout
+        type: string
+        key: hold_timeout
+      - name: HoldOther
+        type: string
+        key: hold_other
+  - name: Mailer
+    filename: mailer
+    monad: mailer
+    endpoints:
+      add: "/haproxy/settings/add_mailer"
+      get: "/haproxy/settings/get_mailer"
+      update: "/haproxy/settings/set_mailer"
+      delete: "/haproxy/settings/del_mailer"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Name
+        type: string
+        key: name
+      - name: Description
+        type: string
+        key: description
+      - name: Mailservers
+        type: SelectedMapList
+        key: mailservers
+      - name: Sender
+        type: string
+        key: sender
+      - name: Recipient
+        type: string
+        key: recipient
+      - name: Loglevel
+        type: SelectedMap
+        key: loglevel
+      - name: Timeout
+        type: string
+        key: timeout
+      - name: Hostname
+        type: string
+        key: hostname
+
+rpc:
+  - name: Settings
+    filename: settings
+    customTypes:
+      SettingsMonad:
+        - name: Monad
+          type: Settings
+          key: haproxy
+      SettingsGeneralPeers:
+        - name: PeersEnabled
+          type: string
+          key: enabled
+        - name: PeersName1
+          type: string
+          key: name1
+        - name: PeersListen1
+          type: string
+          key: listen1
+        - name: PeersPort1
+          type: string
+          key: port1
+        - name: PeersName2
+          type: string
+          key: name2
+        - name: PeersListen2
+          type: string
+          key: listen2
+        - name: PeersPort2
+          type: string
+          key: port2
+      SettingsGeneralTuning:
+        - name: TuningRoot
+          type: string
+          key: root
+        - name: TuningMaxConnections
+          type: string
+          key: maxConnections
+        - name: TuningNbthread
+          type: string
+          key: nbthread
+        - name: TuningResolversPrefer
+          type: SelectedMap
+          key: resolversPrefer
+        - name: TuningSslServerVerify
+          type: SelectedMap
+          key: sslServerVerify
+        - name: TuningMaxDhSize
+          type: string
+          key: maxDHSize
+        - name: TuningBufferSize
+          type: string
+          key: bufferSize
+        - name: TuningSpreadChecks
+          type: string
+          key: spreadChecks
+        - name: TuningBogusProxyEnabled
+          type: string
+          key: bogusProxyEnabled
+        - name: TuningLuaMaxMem
+          type: string
+          key: luaMaxMem
+        - name: TuningCustomOptions
+          type: string
+          key: customOptions
+        - name: TuningOcspUpdateEnabled
+          type: string
+          key: ocspUpdateEnabled
+        - name: TuningOcspUpdateMinDelay
+          type: string
+          key: ocspUpdateMinDelay
+        - name: TuningOcspUpdateMaxDelay
+          type: string
+          key: ocspUpdateMaxDelay
+        - name: TuningSslDefaultsEnabled
+          type: string
+          key: ssl_defaultsEnabled
+        - name: TuningSslBindOptions
+          type: SelectedMapList
+          key: ssl_bindOptions
+        - name: TuningSslMinVersion
+          type: SelectedMap
+          key: ssl_minVersion
+        - name: TuningSslMaxVersion
+          type: SelectedMap
+          key: ssl_maxVersion
+        - name: TuningSslCipherList
+          type: string
+          key: ssl_cipherList
+        - name: TuningSslCipherSuites
+          type: string
+          key: ssl_cipherSuites
+        - name: TuningH2InitialWindowSize
+          type: string
+          key: h2_initialWindowSize
+        - name: TuningH2InitialWindowSizeOutgoing
+          type: string
+          key: h2_initialWindowSizeOutgoing
+        - name: TuningH2InitialWindowSizeIncoming
+          type: string
+          key: h2_initialWindowSizeIncoming
+        - name: TuningH2MaxConcurrentStreams
+          type: string
+          key: h2_maxConcurrentStreams
+        - name: TuningH2MaxConcurrentStreamsOutgoing
+          type: string
+          key: h2_maxConcurrentStreamsOutgoing
+        - name: TuningH2MaxConcurrentStreamsIncoming
+          type: string
+          key: h2_maxConcurrentStreamsIncoming
+      SettingsGeneralDefaults:
+        - name: DefaultsMaxConnections
+          type: string
+          key: maxConnections
+        - name: DefaultsMaxConnectionsServers
+          type: string
+          key: maxConnectionsServers
+        - name: DefaultsTimeoutClient
+          type: string
+          key: timeoutClient
+        - name: DefaultsTimeoutConnect
+          type: string
+          key: timeoutConnect
+        - name: DefaultsTimeoutCheck
+          type: string
+          key: timeoutCheck
+        - name: DefaultsTimeoutServer
+          type: string
+          key: timeoutServer
+        - name: DefaultsRetries
+          type: string
+          key: retries
+        - name: DefaultsRedispatch
+          type: SelectedMap
+          key: redispatch
+        - name: DefaultsInitAddr
+          type: SelectedMapList
+          key: init_addr
+        - name: DefaultsCustomOptions
+          type: string
+          key: customOptions
+      SettingsGeneralLogging:
+        - name: LoggingHost
+          type: string
+          key: host
+        - name: LoggingFacility
+          type: SelectedMap
+          key: facility
+        - name: LoggingLevel
+          type: SelectedMap
+          key: level
+        - name: LoggingLength
+          type: string
+          key: length
+      SettingsGeneralStats:
+        - name: StatsEnabled
+          type: string
+          key: enabled
+        - name: StatsPort
+          type: string
+          key: port
+        - name: StatsRemoteEnabled
+          type: string
+          key: remoteEnabled
+        - name: StatsRemoteBind
+          type: SelectedMapList
+          key: remoteBind
+        - name: StatsAuthEnabled
+          type: string
+          key: authEnabled
+        - name: StatsUsers
+          type: SelectedMapList
+          key: users
+        - name: StatsAllowedUsers
+          type: SelectedMapList
+          key: allowedUsers
+        - name: StatsAllowedGroups
+          type: SelectedMapList
+          key: allowedGroups
+        - name: StatsCustomOptions
+          type: string
+          key: customOptions
+        - name: StatsPrometheusEnabled
+          type: string
+          key: prometheus_enabled
+        - name: StatsPrometheusBind
+          type: SelectedMapList
+          key: prometheus_bind
+        - name: StatsPrometheusPath
+          type: string
+          key: prometheus_path
+      SettingsGeneralCache:
+        - name: CacheEnabled
+          type: string
+          key: enabled
+        - name: CacheTotalMaxSize
+          type: string
+          key: totalMaxSize
+        - name: CacheMaxAge
+          type: string
+          key: maxAge
+        - name: CacheMaxObjectSize
+          type: string
+          key: maxObjectSize
+        - name: CacheProcessVary
+          type: string
+          key: processVary
+        - name: CacheMaxSecondaryEntries
+          type: string
+          key: maxSecondaryEntries
+      SettingsGeneral:
+        - name: Peers
+          type: SettingsGeneralPeers
+          key: peers
+        - name: Tuning
+          type: SettingsGeneralTuning
+          key: tuning
+        - name: Defaults
+          type: SettingsGeneralDefaults
+          key: defaults
+        - name: Logging
+          type: SettingsGeneralLogging
+          key: logging
+        - name: Stats
+          type: SettingsGeneralStats
+          key: stats
+        - name: Cache
+          type: SettingsGeneralCache
+          key: cache
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: GracefulStop
+          type: string
+          key: gracefulStop
+        - name: HardStopAfter
+          type: string
+          key: hardStopAfter
+        - name: CloseSpreadTime
+          type: string
+          key: closeSpreadTime
+        - name: SeamlessReload
+          type: string
+          key: seamlessReload
+        - name: StoreOcsp
+          type: string
+          key: storeOcsp
+      Settings:
+        - name: General
+          type: SettingsGeneral
+          key: general
+      SettingsSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/haproxy/settings/get"
+        result_type: SettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/haproxy/settings/set"
+        params:
+          - name: haproxy
+            optional: false
+            bodyParameter: true
+            customType: Settings
+        result_type: SettingsSetResult
