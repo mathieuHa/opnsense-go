@@ -1,0 +1,113 @@
+---
+name: zerotier
+reconfigureEndpoint: ""
+resources: []
+
+rpc:
+  - name: Settings
+    filename: settings
+    customTypes:
+      SettingsMonad:
+        - name: Monad
+          type: Settings
+          key: zerotier
+      Settings:
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: ApiAccessToken
+          type: string
+          key: apiAccessToken
+        - name: Localconf
+          type: string
+          key: localconf
+      SettingsSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/zerotier/settings/get"
+        result_type: SettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/zerotier/settings/set"
+        params:
+          - name: zerotier
+            optional: false
+            bodyParameter: true
+            customType: Settings
+        result_type: SettingsSetResult
+  - name: Network
+    filename: network
+    customTypes:
+      Network:
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: NetworkId
+          type: string
+          key: networkId
+        - name: Description
+          type: string
+          key: description
+      NetworkMonad:
+        - name: Network
+          type: Network
+          key: network
+      NetworkRow:
+        - name: UUID
+          type: string
+          key: uuid
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: NetworkId
+          type: string
+          key: networkId
+        - name: Description
+          type: string
+          key: description
+      NetworkSearchResult:
+        - name: Rows
+          type: "[]NetworkRow"
+          key: rows
+      NetworkResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Search
+        method: GET
+        endpoint: "/zerotier/network/search"
+        result_type: NetworkSearchResult
+      - name: Add
+        method: POST
+        endpoint: "/zerotier/network/add"
+        params:
+          - name: network
+            bodyParameter: true
+            customType: Network
+        result_type: NetworkResult
+      - name: Set
+        method: POST
+        endpoint: "/zerotier/network/set"
+        params:
+          - name: uuid
+          - name: network
+            bodyParameter: true
+            customType: Network
+        result_type: NetworkResult
+      - name: Toggle
+        method: POST
+        endpoint: "/zerotier/network/toggle"
+        params:
+          - name: uuid
+        result_type: NetworkResult
+      - name: Delete
+        method: POST
+        endpoint: "/zerotier/network/del"
+        params:
+          - name: uuid
+        result_type: NetworkResult
