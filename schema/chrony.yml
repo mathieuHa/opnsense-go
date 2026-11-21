@@ -1,0 +1,53 @@
+---
+name: chrony
+reconfigureEndpoint: "/chrony/service/reconfigure"
+resources: []
+
+rpc:
+  - name: Settings
+    filename: settings
+    customTypes:
+      SettingsMonad:
+        - name: Monad
+          type: Settings
+          key: general
+      Settings:
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: Port
+          type: string
+          key: port
+        - name: NtsClient
+          type: string
+          key: ntsclient
+        - name: NtsNoCertCheck
+          type: string
+          key: ntsnocert
+        - name: Peers
+          type: SelectedMapList
+          key: peers
+        - name: FallbackPeers
+          type: string
+          key: fallbackpeers
+        - name: AllowedNetworks
+          type: SelectedMapList
+          key: allowednetworks
+      SettingsSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/chrony/general/get"
+        result_type: SettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/chrony/general/set"
+        params:
+          - name: general
+            optional: false
+            bodyParameter: true
+            customType: Settings
+        result_type: SettingsSetResult

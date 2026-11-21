@@ -7,6 +7,7 @@ import (
 	"github.com/browningluke/opnsense-go/pkg/auth"
 	"github.com/browningluke/opnsense-go/pkg/bind"
 	"github.com/browningluke/opnsense-go/pkg/captiveportal"
+	"github.com/browningluke/opnsense-go/pkg/chrony"
 	"github.com/browningluke/opnsense-go/pkg/core"
 	"github.com/browningluke/opnsense-go/pkg/cron"
 	"github.com/browningluke/opnsense-go/pkg/dhcrelay"
@@ -21,6 +22,7 @@ import (
 	"github.com/browningluke/opnsense-go/pkg/ipsec"
 	"github.com/browningluke/opnsense-go/pkg/kea"
 	"github.com/browningluke/opnsense-go/pkg/monit"
+	"github.com/browningluke/opnsense-go/pkg/nodeexporter"
 	"github.com/browningluke/opnsense-go/pkg/openvpn"
 	"github.com/browningluke/opnsense-go/pkg/proxy"
 	"github.com/browningluke/opnsense-go/pkg/quagga"
@@ -28,6 +30,7 @@ import (
 	"github.com/browningluke/opnsense-go/pkg/routes"
 	"github.com/browningluke/opnsense-go/pkg/routing"
 	"github.com/browningluke/opnsense-go/pkg/syslog"
+	"github.com/browningluke/opnsense-go/pkg/tailscale"
 	"github.com/browningluke/opnsense-go/pkg/trafficshaper"
 	"github.com/browningluke/opnsense-go/pkg/trust"
 	"github.com/browningluke/opnsense-go/pkg/unbound"
@@ -46,6 +49,9 @@ type Client interface {
 	Dyndns() *dyndns.Controller
 	Firewall() *firewall.Controller
 	Hasync() *hasync.Controller
+	Tailscale() *tailscale.Controller
+	Chrony() *chrony.Controller
+	NodeExporter() *nodeexporter.Controller
 	Hostdiscovery() *hostdiscovery.Controller
 	CaptivePortal() *captiveportal.Controller
 	Ids() *ids.Controller
@@ -113,6 +119,18 @@ func (c *client) Firewall() *firewall.Controller {
 
 func (c *client) Hasync() *hasync.Controller {
 	return &hasync.Controller{Api: c.a}
+}
+
+func (c *client) Tailscale() *tailscale.Controller {
+	return &tailscale.Controller{Api: c.a}
+}
+
+func (c *client) Chrony() *chrony.Controller {
+	return &chrony.Controller{Api: c.a}
+}
+
+func (c *client) NodeExporter() *nodeexporter.Controller {
+	return &nodeexporter.Controller{Api: c.a}
 }
 
 func (c *client) Hostdiscovery() *hostdiscovery.Controller {

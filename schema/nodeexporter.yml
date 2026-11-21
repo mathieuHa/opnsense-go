@@ -1,0 +1,74 @@
+---
+name: nodeexporter
+reconfigureEndpoint: "/nodeexporter/service/reconfigure"
+resources: []
+
+rpc:
+  - name: Settings
+    filename: settings
+    customTypes:
+      SettingsMonad:
+        - name: Monad
+          type: Settings
+          key: general
+      Settings:
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: ListenAddress
+          type: string
+          key: listenaddress
+        - name: ListenPort
+          type: string
+          key: listenport
+        - name: Cpu
+          type: string
+          key: cpu
+        - name: Exec
+          type: string
+          key: exec
+        - name: Filesystem
+          type: string
+          key: filesystem
+        - name: Loadavg
+          type: string
+          key: loadavg
+        - name: Meminfo
+          type: string
+          key: meminfo
+        - name: Netdev
+          type: string
+          key: netdev
+        - name: Time
+          type: string
+          key: time
+        - name: Devstat
+          type: string
+          key: devstat
+        - name: Interrupts
+          type: string
+          key: interrupts
+        - name: Ntp
+          type: string
+          key: ntp
+        - name: Zfs
+          type: string
+          key: zfs
+      SettingsSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/nodeexporter/general/get"
+        result_type: SettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/nodeexporter/general/set"
+        params:
+          - name: general
+            optional: false
+            bodyParameter: true
+            customType: Settings
+        result_type: SettingsSetResult
