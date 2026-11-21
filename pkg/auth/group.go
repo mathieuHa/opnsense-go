@@ -20,13 +20,13 @@ var GroupOpts = api.ReqOpts{
 // Data structs
 
 type Group struct {
-	GroupId        string              `json:"gid"`
+	GroupId        string              `json:"gid,omitempty"`
 	Name           string              `json:"name"`
 	Scope          string              `json:"scope,omitempty"`
 	Description    string              `json:"description"`
 	Privilege      api.SelectedMapList `json:"priv"`
-	Member         api.SelectedMap     `json:"member"`
-	SourceNetworks api.SelectedMap     `json:"source_networks"`
+	Member         api.SelectedMap     `json:"member,omitempty"`
+	SourceNetworks api.SelectedMap     `json:"source_networks,omitempty"`
 }
 
 // CRUD operations

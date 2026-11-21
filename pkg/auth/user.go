@@ -20,26 +20,26 @@ var UserOpts = api.ReqOpts{
 // Data structs
 
 type User struct {
-	UserId            string              `json:"uid"`
+	UserId            string              `json:"uid,omitempty"`
 	Name              string              `json:"name"`
 	Disabled          string              `json:"disabled"`
 	Scope             string              `json:"scope,omitempty"`
 	Expires           string              `json:"expires"`
 	AuthorizedKeys    string              `json:"authorizedkeys"`
-	OtpSeed           string              `json:"otp_seed"`
+	OtpSeed           string              `json:"otp_seed,omitempty"`
 	Shell             api.SelectedMap     `json:"shell"`
-	Password          string              `json:"password"`
+	Password          string              `json:"password,omitempty"`
 	ScrambledPassword string              `json:"scrambled_password"`
-	PasswordChangedAt string              `json:"pwd_changed_at"`
+	PasswordChangedAt string              `json:"pwd_changed_at,omitempty"`
 	LandingPage       string              `json:"landing_page"`
 	Comment           string              `json:"comment"`
 	Email             string              `json:"email"`
-	ApiKeys           string              `json:"apikeys"`
+	ApiKeys           string              `json:"apikeys,omitempty"`
 	Privilege         api.SelectedMapList `json:"priv"`
 	Language          api.SelectedMap     `json:"language"`
 	GroupMemberships  api.SelectedMapList `json:"group_memberships"`
 	Fullname          string              `json:"descr"`
-	Dashboard         string              `json:"dashboard"`
+	Dashboard         string              `json:"dashboard,omitempty"`
 }
 
 // CRUD operations
