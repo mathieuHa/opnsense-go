@@ -32,7 +32,7 @@ type Cert struct {
 	CertType           api.SelectedMap `json:"cert_type"`
 	Lifetime           string          `json:"lifetime"`
 	PrivateKeyLocation api.SelectedMap `json:"private_key_location"`
-	Country            api.SelectedMap `json:"country"`
+	Country            api.SelectedMap `json:"country,omitempty"`
 	State              string          `json:"state"`
 	City               string          `json:"city"`
 	Organization       string          `json:"organization"`

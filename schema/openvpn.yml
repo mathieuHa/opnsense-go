@@ -21,7 +21,6 @@ resources:
       - name: VPNID
         type: string
         key: vpnid
-        omitEmpty: true
       - name: Description
         type: string
         key: description

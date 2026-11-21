@@ -166,6 +166,9 @@ func Delete(c *Client, ctx context.Context, opts ReqOpts, id string) error {
 	}
 
 	// Validate that override was deleted
+	if respJson.Result == "not found" {
+		return nil
+	}
 	if respJson.Result != "deleted" {
 		return fmt.Errorf("resource not deleted. result: %s", respJson.Result)
 	}

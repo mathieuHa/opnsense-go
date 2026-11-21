@@ -263,3 +263,116 @@ resources:
       - name: Description
         type: string
         key: description
+
+rpc:
+  - name: Settings
+    filename: settings
+    customTypes:
+      SettingsMonad:
+        - name: IPsec
+          type: Settings
+          key: ipsec
+      Settings:
+        - name: General
+          type: SettingsGeneral
+          key: general
+        - name: Charon
+          type: SettingsCharon
+          key: charon
+      SettingsGeneral:
+        - name: PreferredOldSA
+          type: string
+          key: preferred_oldsa
+        - name: DisableVPNRules
+          type: string
+          key: disablevpnrules
+        - name: PassthroughNetworks
+          type: SelectedMapList
+          key: passthrough_networks
+      SettingsCharon:
+        - name: MaxIKEv1Exchanges
+          type: string
+          key: max_ikev1_exchanges
+        - name: Threads
+          type: string
+          key: threads
+        - name: IKESATableSize
+          type: string
+          key: ikesa_table_size
+        - name: IKESATableSegments
+          type: string
+          key: ikesa_table_segments
+        - name: InitLimitHalfOpen
+          type: string
+          key: init_limit_half_open
+        - name: IgnoreAcquireTS
+          type: string
+          key: ignore_acquire_ts
+        - name: InstallRoutes
+          type: string
+          key: install_routes
+        - name: CiscoUnity
+          type: string
+          key: cisco_unity
+        - name: MakeBeforeBreak
+          type: string
+          key: make_before_break
+        - name: RetransmitTries
+          type: string
+          key: retransmit_tries
+        - name: RetransmitTimeout
+          type: string
+          key: retransmit_timeout
+        - name: RetransmitBase
+          type: string
+          key: retransmit_base
+        - name: RetransmitJitter
+          type: string
+          key: retransmit_jitter
+        - name: RetransmitLimit
+          type: string
+          key: retransmit_limit
+        - name: ReqIDBase
+          type: string
+          key: reqid_base
+      SetResult:
+        - name: Result
+          type: string
+          key: result
+        - name: Validations
+          type: map[string]any
+          key: validations
+      EnabledResult:
+        - name: Enabled
+          type: bool
+          key: enabled
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/ipsec/settings/get"
+        result_type: SettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/ipsec/settings/set"
+        params:
+          - name: ipsec
+            optional: false
+            bodyParameter: true
+            customType: Settings
+        result_type: SetResult
+      - name: IsEnabled
+        method: GET
+        endpoint: "/ipsec/connections/is_enabled"
+        result_type: EnabledResult
+      - name: Toggle
+        method: POST
+        endpoint: "/ipsec/connections/toggle"
+        params:
+          - name: enabled
+            optional: false
+            type: string
+        result_type: api.ActionResult
+      - name: Reconfigure
+        method: POST
+        endpoint: "/ipsec/service/reconfigure"
+        result_type: api.ActionResult
