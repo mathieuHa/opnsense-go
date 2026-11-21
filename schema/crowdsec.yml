@@ -1,0 +1,65 @@
+---
+name: crowdsec
+reconfigureEndpoint: "/crowdsec/service/reconfigure"
+resources: []
+
+rpc:
+  - name: Settings
+    filename: settings
+    customTypes:
+      SettingsMonad:
+        - name: Monad
+          type: Settings
+          key: general
+      Settings:
+        - name: AgentEnabled
+          type: string
+          key: agent_enabled
+        - name: LapiEnabled
+          type: string
+          key: lapi_enabled
+        - name: FirewallBouncerEnabled
+          type: string
+          key: firewall_bouncer_enabled
+        - name: LapiManualConfiguration
+          type: string
+          key: lapi_manual_configuration
+        - name: LapiListenAddress
+          type: string
+          key: lapi_listen_address
+        - name: LapiListenPort
+          type: string
+          key: lapi_listen_port
+        - name: RulesEnabled
+          type: string
+          key: rules_enabled
+        - name: RulesLog
+          type: string
+          key: rules_log
+        - name: RulesTag
+          type: string
+          key: rules_tag
+        - name: EnrollKey
+          type: string
+          key: enroll_key
+        - name: CrowdsecFirewallVerbose
+          type: string
+          key: crowdsec_firewall_verbose
+      SettingsSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/crowdsec/general/get"
+        result_type: SettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/crowdsec/general/set"
+        params:
+          - name: general
+            optional: false
+            bodyParameter: true
+            customType: Settings
+        result_type: SettingsSetResult

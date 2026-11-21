@@ -1,0 +1,170 @@
+---
+name: nut
+reconfigureEndpoint: "/nut/service/reconfigure"
+resources: []
+
+rpc:
+  - name: Settings
+    filename: settings
+    customTypes:
+      SettingsMonad:
+        - name: Monad
+          type: Settings
+          key: nut
+      SettingsGeneral:
+        - name: GeneralEnable
+          type: string
+          key: enable
+        - name: GeneralMode
+          type: SelectedMap
+          key: mode
+        - name: GeneralName
+          type: string
+          key: name
+        - name: GeneralListen
+          type: SelectedMap
+          key: listen
+      SettingsAccount:
+        - name: AccountAdminPassword
+          type: string
+          key: admin_password
+        - name: AccountMonPassword
+          type: string
+          key: mon_password
+      SettingsUsbhid:
+        - name: UsbhidEnable
+          type: string
+          key: enable
+        - name: UsbhidArgs
+          type: SelectedMap
+          key: args
+      SettingsApcsmart:
+        - name: ApcsmartEnable
+          type: string
+          key: enable
+        - name: ApcsmartArgs
+          type: SelectedMap
+          key: args
+      SettingsApcupsd:
+        - name: ApcupsdEnable
+          type: string
+          key: enable
+        - name: ApcupsdHostname
+          type: string
+          key: hostname
+        - name: ApcupsdPort
+          type: string
+          key: port
+      SettingsBcmxcpusb:
+        - name: BcmxcpusbEnable
+          type: string
+          key: enable
+        - name: BcmxcpusbArgs
+          type: SelectedMap
+          key: args
+      SettingsBlazerusb:
+        - name: BlazerusbEnable
+          type: string
+          key: enable
+        - name: BlazerusbArgs
+          type: SelectedMap
+          key: args
+      SettingsBlazerser:
+        - name: BlazerserEnable
+          type: string
+          key: enable
+        - name: BlazerserArgs
+          type: SelectedMap
+          key: args
+      SettingsNetclient:
+        - name: NetclientEnable
+          type: string
+          key: enable
+        - name: NetclientAddress
+          type: string
+          key: address
+        - name: NetclientPort
+          type: string
+          key: port
+        - name: NetclientUser
+          type: string
+          key: user
+        - name: NetclientPassword
+          type: string
+          key: password
+      SettingsQx:
+        - name: QxEnable
+          type: string
+          key: enable
+        - name: QxArgs
+          type: SelectedMap
+          key: args
+      SettingsRiello:
+        - name: RielloEnable
+          type: string
+          key: enable
+        - name: RielloArgs
+          type: SelectedMap
+          key: args
+      SettingsSnmp:
+        - name: SnmpEnable
+          type: string
+          key: enable
+        - name: SnmpArgs
+          type: SelectedMap
+          key: args
+      Settings:
+        - name: General
+          type: SettingsGeneral
+          key: general
+        - name: Account
+          type: SettingsAccount
+          key: account
+        - name: Usbhid
+          type: SettingsUsbhid
+          key: usbhid
+        - name: Apcsmart
+          type: SettingsApcsmart
+          key: apcsmart
+        - name: Apcupsd
+          type: SettingsApcupsd
+          key: apcupsd
+        - name: Bcmxcpusb
+          type: SettingsBcmxcpusb
+          key: bcmxcpusb
+        - name: Blazerusb
+          type: SettingsBlazerusb
+          key: blazerusb
+        - name: Blazerser
+          type: SettingsBlazerser
+          key: blazerser
+        - name: Netclient
+          type: SettingsNetclient
+          key: netclient
+        - name: Qx
+          type: SettingsQx
+          key: qx
+        - name: Riello
+          type: SettingsRiello
+          key: riello
+        - name: Snmp
+          type: SettingsSnmp
+          key: snmp
+      SettingsSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/nut/settings/get"
+        result_type: SettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/nut/settings/set"
+        params:
+          - name: nut
+            optional: false
+            bodyParameter: true
+            customType: Settings
+        result_type: SettingsSetResult

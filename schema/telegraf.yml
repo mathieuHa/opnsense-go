@@ -1,0 +1,405 @@
+---
+name: telegraf
+reconfigureEndpoint: "/telegraf/service/reconfigure"
+resources:
+  - name: Key
+    filename: key
+    monad: key
+    endpoints:
+      add: "/telegraf/key/add_key"
+      get: "/telegraf/key/get_key"
+      update: "/telegraf/key/set_key"
+      delete: "/telegraf/key/del_key"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Name
+        type: string
+        key: name
+      - name: Value
+        type: string
+        key: value
+
+rpc:
+  - name: Settings
+    filename: settings
+    customTypes:
+      SettingsMonad:
+        - name: Monad
+          type: Settings
+          key: general
+      Settings:
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: Wheelgroup
+          type: string
+          key: wheelgroup
+        - name: Interval
+          type: string
+          key: interval
+        - name: Roundinterval
+          type: string
+          key: roundinterval
+        - name: MetricBatchSize
+          type: string
+          key: metric_batch_size
+        - name: MetricBufferLimit
+          type: string
+          key: metric_buffer_limit
+        - name: CollectionJitter
+          type: string
+          key: collection_jitter
+        - name: FlushInterval
+          type: string
+          key: flush_interval
+        - name: FlushJitter
+          type: string
+          key: flush_jitter
+        - name: Hostname
+          type: string
+          key: hostname
+        - name: OmitHostname
+          type: string
+          key: omit_hostname
+        - name: Quiet
+          type: string
+          key: quiet
+        - name: Debug
+          type: string
+          key: debug
+      SettingsSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/telegraf/general/get"
+        result_type: SettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/telegraf/general/set"
+        params:
+          - name: general
+            optional: false
+            bodyParameter: true
+            customType: Settings
+        result_type: SettingsSetResult
+  - name: InputSettings
+    filename: input_settings
+    customTypes:
+      InputSettingsMonad:
+        - name: Monad
+          type: InputSettings
+          key: input
+      InputSettings:
+        - name: Cpu
+          type: string
+          key: cpu
+        - name: CpuPercpu
+          type: string
+          key: cpu_percpu
+        - name: CpuTotalcpu
+          type: string
+          key: cpu_totalcpu
+        - name: CollectCpuTime
+          type: string
+          key: collect_cpu_time
+        - name: Disk
+          type: string
+          key: disk
+        - name: DiskMountPoints
+          type: string
+          key: disk_mount_points
+        - name: DiskIgnoreFs
+          type: SelectedMap
+          key: disk_ignore_fs
+        - name: Diskio
+          type: string
+          key: diskio
+        - name: InternetSpeed
+          type: string
+          key: internet_speed
+        - name: InternetSpeedSaving
+          type: string
+          key: internet_speed_saving
+        - name: InternetSpeedInterval
+          type: string
+          key: internet_speed_interval
+        - name: Mem
+          type: string
+          key: mem
+        - name: Processes
+          type: string
+          key: processes
+        - name: Swap
+          type: string
+          key: swap
+        - name: System
+          type: string
+          key: system
+        - name: Network
+          type: string
+          key: network
+        - name: Pf
+          type: string
+          key: pf
+        - name: Ping
+          type: string
+          key: ping
+        - name: PingCount
+          type: string
+          key: ping_count
+        - name: PingHosts
+          type: SelectedMap
+          key: ping_hosts
+        - name: Ping6
+          type: string
+          key: ping6
+        - name: Ping6Count
+          type: string
+          key: ping6_count
+        - name: Ping6Hosts
+          type: SelectedMap
+          key: ping6_hosts
+        - name: Haproxy
+          type: string
+          key: haproxy
+        - name: Zfs
+          type: string
+          key: zfs
+        - name: Ntpq
+          type: string
+          key: ntpq
+        - name: NtpqDnsLookup
+          type: string
+          key: ntpq_dns_lookup
+        - name: IntrusionDetectionAlerts
+          type: string
+          key: intrusion_detection_alerts
+        - name: Unbound
+          type: string
+          key: unbound
+        - name: Apcupsd
+          type: string
+          key: apcupsd
+        - name: ApcupsdServer
+          type: string
+          key: apcupsd_server
+      InputSettingsSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/telegraf/input/get"
+        result_type: InputSettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/telegraf/input/set"
+        params:
+          - name: input
+            optional: false
+            bodyParameter: true
+            customType: InputSettings
+        result_type: InputSettingsSetResult
+  - name: OutputSettings
+    filename: output_settings
+    customTypes:
+      OutputSettingsMonad:
+        - name: Monad
+          type: OutputSettings
+          key: output
+      OutputSettings:
+        - name: InfluxEnable
+          type: string
+          key: influx_enable
+        - name: InfluxUrl
+          type: string
+          key: influx_url
+        - name: InfluxDatabase
+          type: string
+          key: influx_database
+        - name: InfluxTimeout
+          type: string
+          key: influx_timeout
+        - name: InfluxNamePrefix
+          type: string
+          key: influx_name_prefix
+        - name: InfluxUsername
+          type: string
+          key: influx_username
+        - name: InfluxPassword
+          type: string
+          key: influx_password
+        - name: InfluxInsecureSkipVerify
+          type: string
+          key: influx_insecure_skip_verify
+        - name: GraphiteEnable
+          type: string
+          key: graphite_enable
+        - name: GraphiteServer
+          type: string
+          key: graphite_server
+        - name: GraphitePrefix
+          type: string
+          key: graphite_prefix
+        - name: GraphiteTemplate
+          type: string
+          key: graphite_template
+        - name: GraphiteSslDisable
+          type: string
+          key: graphite_ssl_disable
+        - name: GraphiteVerify
+          type: string
+          key: graphite_verify
+        - name: GraphiteTagsupport
+          type: string
+          key: graphite_tagsupport
+        - name: GraylogEnable
+          type: string
+          key: graylog_enable
+        - name: GraylogServer
+          type: string
+          key: graylog_server
+        - name: ElasticEnable
+          type: string
+          key: elastic_enable
+        - name: ElasticUrl
+          type: string
+          key: elastic_url
+        - name: ElasticUsername
+          type: string
+          key: elastic_username
+        - name: ElasticPassword
+          type: string
+          key: elastic_password
+        - name: ElasticTimeout
+          type: string
+          key: elastic_timeout
+        - name: ElasticIndexname
+          type: string
+          key: elastic_indexname
+        - name: PrometheusEnable
+          type: string
+          key: prometheus_enable
+        - name: PrometheusListen
+          type: string
+          key: prometheus_listen
+        - name: PrometheusExclude
+          type: SelectedMap
+          key: prometheus_exclude
+        - name: PrometheusStringaslabel
+          type: string
+          key: prometheus_stringaslabel
+        - name: InfluxV2Enable
+          type: string
+          key: influx_v2_enable
+        - name: InfluxV2Url
+          type: string
+          key: influx_v2_url
+        - name: InfluxV2Token
+          type: string
+          key: influx_v2_token
+        - name: InfluxV2Organization
+          type: string
+          key: influx_v2_organization
+        - name: InfluxV2Bucket
+          type: string
+          key: influx_v2_bucket
+        - name: InfluxV2InsecureSkipVerify
+          type: string
+          key: influx_v2_insecure_skip_verify
+        - name: InfluxV2Timeout
+          type: string
+          key: influx_v2_timeout
+        - name: DatadogEnable
+          type: string
+          key: datadog_enable
+        - name: DatadogUrl
+          type: string
+          key: datadog_url
+        - name: DatadogApikey
+          type: string
+          key: datadog_apikey
+        - name: MqttEnable
+          type: string
+          key: mqtt_enable
+        - name: MqttTopicPrefix
+          type: string
+          key: mqtt_topic_prefix
+        - name: MqttTopic
+          type: string
+          key: mqtt_topic
+        - name: MqttServers
+          type: SelectedMapList
+          key: mqtt_servers
+        - name: MqttInsecureSkipVerify
+          type: string
+          key: mqtt_insecure_skip_verify
+        - name: MqttClientId
+          type: string
+          key: mqtt_client_id
+        - name: MqttQos
+          type: SelectedMap
+          key: mqtt_qos
+        - name: MqttRetain
+          type: string
+          key: mqtt_retain
+        - name: MqttTimeout
+          type: string
+          key: mqtt_timeout
+        - name: MqttUsername
+          type: string
+          key: mqtt_username
+        - name: MqttPassword
+          type: string
+          key: mqtt_password
+        - name: MqttLayout
+          type: SelectedMap
+          key: mqtt_layout
+        - name: MqttDataFormat
+          type: SelectedMap
+          key: mqtt_data_format
+        - name: OpentelemetryEnable
+          type: string
+          key: opentelemetry_enable
+        - name: OpentelemetryServer
+          type: string
+          key: opentelemetry_server
+        - name: OpentelemetryInsecureSkipVerify
+          type: string
+          key: opentelemetry_insecure_skip_verify
+        - name: OpentelemetryTimeout
+          type: string
+          key: opentelemetry_timeout
+        - name: OpentelemetryCompression
+          type: SelectedMap
+          key: opentelemetry_compression
+        - name: OpentelemetryHeaderName
+          type: string
+          key: opentelemetry_header_name
+        - name: OpentelemetryHeaderValue
+          type: string
+          key: opentelemetry_header_value
+      OutputSettingsSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/telegraf/output/get"
+        result_type: OutputSettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/telegraf/output/set"
+        params:
+          - name: output
+            optional: false
+            bodyParameter: true
+            customType: OutputSettings
+        result_type: OutputSettingsSetResult

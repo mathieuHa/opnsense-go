@@ -12,6 +12,7 @@ import (
 	"github.com/browningluke/opnsense-go/pkg/chrony"
 	"github.com/browningluke/opnsense-go/pkg/core"
 	"github.com/browningluke/opnsense-go/pkg/cron"
+	"github.com/browningluke/opnsense-go/pkg/crowdsec"
 	"github.com/browningluke/opnsense-go/pkg/dhcrelay"
 	"github.com/browningluke/opnsense-go/pkg/diagnostics"
 	"github.com/browningluke/opnsense-go/pkg/dnsmasq"
@@ -26,6 +27,7 @@ import (
 	"github.com/browningluke/opnsense-go/pkg/kea"
 	"github.com/browningluke/opnsense-go/pkg/monit"
 	"github.com/browningluke/opnsense-go/pkg/nodeexporter"
+	"github.com/browningluke/opnsense-go/pkg/nut"
 	"github.com/browningluke/opnsense-go/pkg/openvpn"
 	"github.com/browningluke/opnsense-go/pkg/proxy"
 	"github.com/browningluke/opnsense-go/pkg/quagga"
@@ -34,10 +36,12 @@ import (
 	"github.com/browningluke/opnsense-go/pkg/routing"
 	"github.com/browningluke/opnsense-go/pkg/syslog"
 	"github.com/browningluke/opnsense-go/pkg/tailscale"
+	"github.com/browningluke/opnsense-go/pkg/telegraf"
 	"github.com/browningluke/opnsense-go/pkg/trafficshaper"
 	"github.com/browningluke/opnsense-go/pkg/trust"
 	"github.com/browningluke/opnsense-go/pkg/unbound"
 	"github.com/browningluke/opnsense-go/pkg/wireguard"
+	"github.com/browningluke/opnsense-go/pkg/zerotier"
 )
 
 // Client defines a client interface for the Proxmox Virtual Environment API.
@@ -52,6 +56,10 @@ type Client interface {
 	Dyndns() *dyndns.Controller
 	Firewall() *firewall.Controller
 	Hasync() *hasync.Controller
+	Telegraf() *telegraf.Controller
+	Zerotier() *zerotier.Controller
+	Nut() *nut.Controller
+	CrowdSec() *crowdsec.Controller
 	HAProxy() *haproxy.Controller
 	AcmeClient() *acmeclient.Controller
 	Caddy() *caddy.Controller
@@ -125,6 +133,22 @@ func (c *client) Firewall() *firewall.Controller {
 
 func (c *client) Hasync() *hasync.Controller {
 	return &hasync.Controller{Api: c.a}
+}
+
+func (c *client) Telegraf() *telegraf.Controller {
+	return &telegraf.Controller{Api: c.a}
+}
+
+func (c *client) Zerotier() *zerotier.Controller {
+	return &zerotier.Controller{Api: c.a}
+}
+
+func (c *client) Nut() *nut.Controller {
+	return &nut.Controller{Api: c.a}
+}
+
+func (c *client) CrowdSec() *crowdsec.Controller {
+	return &crowdsec.Controller{Api: c.a}
 }
 
 func (c *client) HAProxy() *haproxy.Controller {
