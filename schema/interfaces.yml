@@ -121,6 +121,38 @@ resources:
       - name: Gateway
         type: string
         key: gateway
+      - name: VHID
+        type: string
+        key: vhid
+      - name: AdvBase
+        type: string
+        key: advbase
+        omitEmpty: true
+      - name: AdvSkew
+        type: string
+        key: advskew
+        omitEmpty: true
+      - name: Password
+        type: string
+        key: password
+      - name: Peer
+        type: string
+        key: peer
+      - name: Peer6
+        type: string
+        key: peer6
+      - name: NoSync
+        type: string
+        key: nosync
+        omitEmpty: true
+      - name: NoBind
+        type: string
+        key: nobind
+        omitEmpty: true
+      - name: NoExpand
+        type: string
+        key: noexpand
+        omitEmpty: true
 
   - name: Assign
     filename: assign
