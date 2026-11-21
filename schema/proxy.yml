@@ -1,0 +1,476 @@
+---
+name: proxy
+reconfigureEndpoint: "/proxy/service/reconfigure"
+resources:
+  - name: RemoteBlacklist
+    filename: remote_blacklist
+    monad: blacklist
+    endpoints:
+      add: "/proxy/settings/add_remote_blacklist"
+      get: "/proxy/settings/get_remote_blacklist"
+      update: "/proxy/settings/set_remote_blacklist"
+      delete: "/proxy/settings/del_remote_blacklist"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Filename
+        type: string
+        key: filename
+      - name: URL
+        type: string
+        key: url
+      - name: Username
+        type: string
+        key: username
+      - name: Password
+        type: string
+        key: password
+      - name: Filter
+        type: SelectedMapList
+        key: filter
+      - name: SSLNoVerify
+        type: string
+        key: sslNoVerify
+      - name: Description
+        type: string
+        key: description
+  - name: PacProxy
+    filename: pac_proxy
+    monad: pac.proxy
+    endpoints:
+      add: "/proxy/settings/add_pac_proxy"
+      get: "/proxy/settings/get_pac_proxy"
+      update: "/proxy/settings/set_pac_proxy"
+      delete: "/proxy/settings/del_pac_proxy"
+    attrs:
+      - name: Name
+        type: string
+        key: name
+      - name: ProxyType
+        type: SelectedMap
+        key: proxy_type
+      - name: URL
+        type: string
+        key: url
+      - name: Description
+        type: string
+        key: description
+  - name: PacMatch
+    filename: pac_match
+    monad: pac.match
+    endpoints:
+      add: "/proxy/settings/add_pac_match"
+      get: "/proxy/settings/get_pac_match"
+      update: "/proxy/settings/set_pac_match"
+      delete: "/proxy/settings/del_pac_match"
+    attrs:
+      - name: Name
+        type: string
+        key: name
+      - name: Description
+        type: string
+        key: description
+      - name: Negate
+        type: string
+        key: negate
+      - name: MatchType
+        type: SelectedMap
+        key: match_type
+      - name: Hostname
+        type: string
+        key: hostname
+      - name: URL
+        type: string
+        key: url
+      - name: Network
+        type: string
+        key: network
+      - name: DomainLevelFrom
+        type: string
+        key: domain_level_from
+      - name: DomainLevelTo
+        type: string
+        key: domain_level_to
+      - name: TimeFrom
+        type: string
+        key: time_from
+      - name: TimeTo
+        type: string
+        key: time_to
+      - name: DateFrom
+        type: SelectedMap
+        key: date_from
+      - name: DateTo
+        type: SelectedMap
+        key: date_to
+      - name: WeekdayFrom
+        type: SelectedMap
+        key: weekday_from
+      - name: WeekdayTo
+        type: SelectedMap
+        key: weekday_to
+  - name: PacRule
+    filename: pac_rule
+    monad: pac.rule
+    endpoints:
+      add: "/proxy/settings/add_pac_rule"
+      get: "/proxy/settings/get_pac_rule"
+      update: "/proxy/settings/set_pac_rule"
+      delete: "/proxy/settings/del_pac_rule"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Description
+        type: string
+        key: description
+      - name: Matches
+        type: SelectedMapList
+        key: matches
+      - name: JoinType
+        type: SelectedMap
+        key: join_type
+      - name: MatchType
+        type: SelectedMap
+        key: match_type
+      - name: Proxies
+        type: SelectedMapList
+        key: proxies
+
+rpc:
+  - name: Settings
+    filename: settings
+    customTypes:
+      SettingsMonad:
+        - name: Proxy
+          type: Settings
+          key: proxy
+      SettingsGeneralLoggingEnable:
+        - name: AccessLog
+          type: string
+          key: accessLog
+        - name: StoreLog
+          type: string
+          key: storeLog
+      SettingsGeneralLogging:
+        - name: Enable
+          type: SettingsGeneralLoggingEnable
+          key: enable
+        - name: LogTarget
+          type: SelectedMap
+          key: target
+        - name: IgnoreLogAcl
+          type: SelectedMapList
+          key: ignoreLogACL
+      SettingsGeneralCacheLocal:
+        - name: CacheEnabled
+          type: string
+          key: enabled
+        - name: CacheDirectory
+          type: string
+          key: directory
+        - name: CacheMemory
+          type: string
+          key: cache_mem
+        - name: CacheMaxObjectSize
+          type: string
+          key: maximum_object_size
+        - name: CacheMaxObjectSizeInMemory
+          type: string
+          key: maximum_object_size_in_memory
+        - name: CacheMemoryMode
+          type: SelectedMap
+          key: memory_cache_mode
+        - name: CacheSize
+          type: string
+          key: size
+        - name: CacheSwapTimeout
+          type: string
+          key: swap_timeout
+        - name: CacheMaxSwapRate
+          type: string
+          key: max_swap_rate
+        - name: CacheSlotSize
+          type: string
+          key: slot_size
+        - name: CacheLinuxPackages
+          type: string
+          key: cache_linux_packages
+        - name: CacheWindowsUpdates
+          type: string
+          key: cache_windows_updates
+      SettingsGeneralCache:
+        - name: Local
+          type: SettingsGeneralCacheLocal
+          key: local
+      SettingsGeneralTraffic:
+        - name: TrafficEnabled
+          type: string
+          key: enabled
+        - name: MaxDownloadSize
+          type: string
+          key: maxDownloadSize
+        - name: MaxUploadSize
+          type: string
+          key: maxUploadSize
+        - name: OverallBandwidth
+          type: string
+          key: OverallBandwidthTrotteling
+        - name: PerHostBandwidth
+          type: string
+          key: perHostTrotteling
+      SettingsGeneralParentproxy:
+        - name: ParentProxyEnabled
+          type: string
+          key: enabled
+        - name: ParentProxyHost
+          type: string
+          key: host
+        - name: ParentProxyAuth
+          type: string
+          key: enableauth
+        - name: ParentProxyUser
+          type: string
+          key: user
+        - name: ParentProxyPassword
+          type: string
+          key: password
+        - name: ParentProxyPort
+          type: string
+          key: port
+        - name: ParentProxyLocalDomains
+          type: SelectedMapList
+          key: localdomains
+        - name: ParentProxyLocalIps
+          type: SelectedMapList
+          key: localips
+      SettingsGeneral:
+        - name: Logging
+          type: SettingsGeneralLogging
+          key: logging
+        - name: Cache
+          type: SettingsGeneralCache
+          key: cache
+        - name: Traffic
+          type: SettingsGeneralTraffic
+          key: traffic
+        - name: Parentproxy
+          type: SettingsGeneralParentproxy
+          key: parentproxy
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: ErrorPages
+          type: SelectedMap
+          key: error_pages
+        - name: IcpPort
+          type: string
+          key: icpPort
+        - name: AlternateDnsServers
+          type: SelectedMapList
+          key: alternateDNSservers
+        - name: ForwardedForHandling
+          type: SelectedMap
+          key: forwardedForHandling
+        - name: UriWhitespaceHandling
+          type: SelectedMap
+          key: uriWhitespaceHandling
+        - name: EnablePinger
+          type: string
+          key: enablePinger
+        - name: UseViaHeader
+          type: string
+          key: useViaHeader
+        - name: SuppressVersion
+          type: string
+          key: suppressVersion
+        - name: ConnectTimeout
+          type: string
+          key: connecttimeout
+        - name: VisibleEmail
+          type: string
+          key: VisibleEmail
+        - name: VisibleHostname
+          type: string
+          key: VisibleHostname
+      SettingsForwardAcl:
+        - name: AclAllowedSubnets
+          type: SelectedMapList
+          key: allowedSubnets
+        - name: AclUnrestricted
+          type: SelectedMapList
+          key: unrestricted
+        - name: AclBannedHosts
+          type: SelectedMapList
+          key: bannedHosts
+        - name: AclAllowWhitelistBannedHosts
+          type: string
+          key: allowWhitelistBannedHosts
+        - name: AclWhitelist
+          type: SelectedMapList
+          key: whiteList
+        - name: AclBlacklist
+          type: SelectedMapList
+          key: blackList
+        - name: AclBrowser
+          type: SelectedMapList
+          key: browser
+        - name: AclMimeType
+          type: SelectedMapList
+          key: mimeType
+        - name: AclGoogleApps
+          type: string
+          key: googleapps
+        - name: AclYoutube
+          type: SelectedMap
+          key: youtube
+        - name: AclSafePorts
+          type: SelectedMapList
+          key: safePorts
+        - name: AclSslPorts
+          type: SelectedMapList
+          key: sslPorts
+      SettingsForwardIcap:
+        - name: IcapEnabled
+          type: string
+          key: enable
+        - name: IcapRequestUrl
+          type: string
+          key: RequestURL
+        - name: IcapResponseUrl
+          type: string
+          key: ResponseURL
+        - name: IcapSendClientIp
+          type: string
+          key: SendClientIP
+        - name: IcapSendUsername
+          type: string
+          key: SendUsername
+        - name: IcapEncodeUsername
+          type: string
+          key: EncodeUsername
+        - name: IcapUsernameHeader
+          type: string
+          key: UsernameHeader
+        - name: IcapEnablePreview
+          type: string
+          key: EnablePreview
+        - name: IcapPreviewSize
+          type: string
+          key: PreviewSize
+        - name: IcapOptionsTtl
+          type: string
+          key: OptionsTTL
+        - name: IcapExclude
+          type: SelectedMapList
+          key: exclude
+      SettingsForwardAuthentication:
+        - name: AuthMethod
+          type: SelectedMapList
+          key: method
+        - name: AuthEnforceGroup
+          type: SelectedMapList
+          key: authEnforceGroup
+        - name: AuthRealm
+          type: string
+          key: realm
+        - name: AuthCredentialsTtl
+          type: string
+          key: credentialsttl
+        - name: AuthChildren
+          type: string
+          key: children
+      SettingsForward:
+        - name: Acl
+          type: SettingsForwardAcl
+          key: acl
+        - name: Icap
+          type: SettingsForwardIcap
+          key: icap
+        - name: Authentication
+          type: SettingsForwardAuthentication
+          key: authentication
+        - name: Interfaces
+          type: SelectedMapList
+          key: interfaces
+        - name: Port
+          type: string
+          key: port
+        - name: SslBumpPort
+          type: string
+          key: sslbumpport
+        - name: SslBump
+          type: string
+          key: sslbump
+        - name: SslUrlOnly
+          type: string
+          key: sslurlonly
+        - name: SslCertificate
+          type: SelectedMap
+          key: sslcertificate
+        - name: SslNoBumpSites
+          type: SelectedMapList
+          key: sslnobumpsites
+        - name: Workers
+          type: string
+          key: workers
+        - name: SslCrtdStorageMaxSize
+          type: string
+          key: ssl_crtd_storage_max_size
+        - name: SslCrtdChildren
+          type: string
+          key: sslcrtd_children
+        - name: SnmpEnabled
+          type: string
+          key: snmp_enable
+        - name: SnmpPort
+          type: string
+          key: snmp_port
+        - name: SnmpPassword
+          type: string
+          key: snmp_password
+        - name: FtpInterfaces
+          type: SelectedMapList
+          key: ftpInterfaces
+        - name: FtpPort
+          type: string
+          key: ftpPort
+        - name: FtpTransparentMode
+          type: string
+          key: ftpTransparentMode
+        - name: AclForInterfaceSubnets
+          type: string
+          key: addACLforInterfaceSubnets
+        - name: TransparentMode
+          type: string
+          key: transparentMode
+      Settings:
+        - name: General
+          type: SettingsGeneral
+          key: general
+        - name: Forward
+          type: SettingsForward
+          key: forward
+      SetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/proxy/settings/get"
+        result_type: SettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/proxy/settings/set"
+        params:
+          - name: proxy
+            optional: false
+            bodyParameter: true
+            customType: Settings
+        result_type: SetResult
+      - name: Reconfigure
+        method: POST
+        endpoint: "/proxy/service/reconfigure"
+        result_type: api.ActionResult

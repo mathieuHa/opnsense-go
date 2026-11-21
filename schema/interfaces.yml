@@ -154,42 +154,221 @@ resources:
         key: noexpand
         omitEmpty: true
 
-  - name: Assign
-    filename: assign
-    monad: assign
+  - name: Assignment
+    filename: assignment
+    monad: interface
     endpoints:
-      add: "/interfaces/assign_settings/addItem"
-      get: "/interfaces/assign_settings/getItem"
-      update: "/interfaces/assign_settings/setItem"
-      delete: "/interfaces/assign_settings/delItem"
-      reconfigure: "/interfaces/assign_settings/reconfigure"
+      add: "/interfaces/assignment/add_item"
+      get: "/interfaces/assignment/get_item"
+      update: "/interfaces/assignment/set_item"
+      delete: "/interfaces/assignment/del_item"
+      reconfigure: "/interfaces/assignment/reconfigure"
     attrs:
-      - name: Interface
+      - name: Device
+        type: SelectedMap
+        key: if
+      - name: Description
         type: string
-        key: interface
+        key: descr
+      - name: Lock
+        type: string
+        key: lock
+      - name: Identifier
+        type: string
+        key: identifier
+        omitEmpty: true
+
+  - name: Loopback
+    filename: loopback
+    monad: loopback
+    endpoints:
+      add: "/interfaces/loopback_settings/add_item"
+      get: "/interfaces/loopback_settings/get_item"
+      update: "/interfaces/loopback_settings/set_item"
+      delete: "/interfaces/loopback_settings/del_item"
+      reconfigure: "/interfaces/loopback_settings/reconfigure"
+    attrs:
+      - name: DeviceID
+        type: string
+        key: deviceId
+        omitEmpty: true
+      - name: Description
+        type: string
+        key: description
+
+  - name: Lagg
+    filename: lagg
+    monad: lagg
+    endpoints:
+      add: "/interfaces/lagg_settings/add_item"
+      get: "/interfaces/lagg_settings/get_item"
+      update: "/interfaces/lagg_settings/set_item"
+      delete: "/interfaces/lagg_settings/del_item"
+      reconfigure: "/interfaces/lagg_settings/reconfigure"
+    attrs:
       - name: Device
         type: string
-        key: device
-      - name: Ip
+        key: laggif
+        omitEmpty: true
+      - name: Members
+        type: SelectedMapList
+        key: members
+      - name: PrimaryMember
+        type: SelectedMap
+        key: primary_member
+      - name: Proto
+        type: SelectedMap
+        key: proto
+      - name: LacpFastTimeout
         type: string
-        key: ipaddr
-      - name: Subnet
+        key: lacp_fast_timeout
+      - name: UseFlowID
+        type: SelectedMap
+        key: use_flowid
+      - name: Hash
+        type: SelectedMapList
+        key: lagghash
+      - name: LacpStrict
+        type: SelectedMap
+        key: lacp_strict
+      - name: MTU
         type: string
-        key: subnet
-      - name: Gateway
-        type: string
-        key: gateway
-      - name: GatewayInterface
-        type: string
-        key: gateway_interface
-      - name: Enable
-        type: string
-        key: enable
+        key: mtu
       - name: Description
         type: string
         key: descr
 
+  - name: Gre
+    filename: gre
+    monad: gre
+    endpoints:
+      add: "/interfaces/gre_settings/add_item"
+      get: "/interfaces/gre_settings/get_item"
+      update: "/interfaces/gre_settings/set_item"
+      delete: "/interfaces/gre_settings/del_item"
+      reconfigure: "/interfaces/gre_settings/reconfigure"
+    attrs:
+      - name: Device
+        type: string
+        key: greif
+        omitEmpty: true
+      - name: LocalAddress
+        type: string
+        key: local-addr
+      - name: RemoteAddress
+        type: string
+        key: remote-addr
+      - name: TunnelLocalAddress
+        type: string
+        key: tunnel-local-addr
+      - name: TunnelRemoteAddress
+        type: string
+        key: tunnel-remote-addr
+      - name: TunnelRemoteNet
+        type: string
+        key: tunnel-remote-net
+      - name: Description
+        type: string
+        key: descr
+
+  - name: Gif
+    filename: gif
+    monad: gif
+    endpoints:
+      add: "/interfaces/gif_settings/add_item"
+      get: "/interfaces/gif_settings/get_item"
+      update: "/interfaces/gif_settings/set_item"
+      delete: "/interfaces/gif_settings/del_item"
+      reconfigure: "/interfaces/gif_settings/reconfigure"
+    attrs:
+      - name: Device
+        type: string
+        key: gifif
+        omitEmpty: true
+      - name: LocalAddress
+        type: string
+        key: local-addr
+      - name: RemoteAddress
+        type: string
+        key: remote-addr
+      - name: TunnelLocalAddress
+        type: string
+        key: tunnel-local-addr
+      - name: TunnelRemoteAddress
+        type: string
+        key: tunnel-remote-addr
+      - name: TunnelRemoteNet
+        type: string
+        key: tunnel-remote-net
+      - name: Description
+        type: string
+        key: descr
+      - name: Link1
+        type: string
+        key: link1
+      - name: Link2
+        type: string
+        key: link2
+
+  - name: Vxlan
+    filename: vxlan
+    monad: vxlan
+    endpoints:
+      add: "/interfaces/vxlan_settings/add_item"
+      get: "/interfaces/vxlan_settings/get_item"
+      update: "/interfaces/vxlan_settings/set_item"
+      delete: "/interfaces/vxlan_settings/del_item"
+      reconfigure: "/interfaces/vxlan_settings/reconfigure"
+    attrs:
+      - name: DeviceID
+        type: string
+        key: deviceId
+        omitEmpty: true
+      - name: VNI
+        type: string
+        key: vxlanid
+      - name: Local
+        type: string
+        key: vxlanlocal
+      - name: LocalPort
+        type: string
+        key: vxlanlocalport
+      - name: Remote
+        type: string
+        key: vxlanremote
+      - name: RemotePort
+        type: string
+        key: vxlanremoteport
+      - name: Group
+        type: string
+        key: vxlangroup
+      - name: Interface
+        type: SelectedMap
+        key: vxlandev
+
 rpc:
+  - name: Assignments
+    filename: assignment_search
+    customTypes:
+      AssignmentSearchResult:
+        - name: Rows
+          type: "[]AssignmentRow"
+          key: rows
+      AssignmentRow:
+        - name: Identifier
+          type: string
+          key: identifier
+        - name: Device
+          type: string
+          key: if
+        - name: Description
+          type: string
+          key: descr
+    rpc_calls:
+      - name: Search
+        method: GET
+        endpoint: "/interfaces/assignment/search_item"
+        result_type: AssignmentSearchResult
   - name: "Overview"
     filename: overview
     customTypes:
