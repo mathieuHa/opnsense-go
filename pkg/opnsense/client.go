@@ -3,6 +3,7 @@
 package opnsense
 
 import (
+	"github.com/browningluke/opnsense-go/pkg/acmeclient"
 	"github.com/browningluke/opnsense-go/pkg/api"
 	"github.com/browningluke/opnsense-go/pkg/auth"
 	"github.com/browningluke/opnsense-go/pkg/bind"
@@ -50,6 +51,7 @@ type Client interface {
 	Dyndns() *dyndns.Controller
 	Firewall() *firewall.Controller
 	Hasync() *hasync.Controller
+	AcmeClient() *acmeclient.Controller
 	Caddy() *caddy.Controller
 	Tailscale() *tailscale.Controller
 	Chrony() *chrony.Controller
@@ -121,6 +123,10 @@ func (c *client) Firewall() *firewall.Controller {
 
 func (c *client) Hasync() *hasync.Controller {
 	return &hasync.Controller{Api: c.a}
+}
+
+func (c *client) AcmeClient() *acmeclient.Controller {
+	return &acmeclient.Controller{Api: c.a}
 }
 
 func (c *client) Caddy() *caddy.Controller {
