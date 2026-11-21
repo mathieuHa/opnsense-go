@@ -59,8 +59,9 @@ func NewClient(options Options) *Client {
 
 	// Configure HTTP client
 	client.client.HTTPClient.Transport = &http.Transport{
-		Proxy:           http.ProxyFromEnvironment,
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: options.AllowInsecure},
+		Proxy:             http.ProxyFromEnvironment,
+		TLSClientConfig:   &tls.Config{InsecureSkipVerify: options.AllowInsecure},
+		ForceAttemptHTTP2: true,
 	}
 
 	//   Set defaults for retries
