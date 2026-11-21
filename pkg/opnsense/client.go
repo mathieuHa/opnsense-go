@@ -17,6 +17,7 @@ import (
 	"github.com/browningluke/opnsense-go/pkg/dnsmasq"
 	"github.com/browningluke/opnsense-go/pkg/dyndns"
 	"github.com/browningluke/opnsense-go/pkg/firewall"
+	"github.com/browningluke/opnsense-go/pkg/haproxy"
 	"github.com/browningluke/opnsense-go/pkg/hasync"
 	"github.com/browningluke/opnsense-go/pkg/hostdiscovery"
 	"github.com/browningluke/opnsense-go/pkg/ids"
@@ -51,6 +52,7 @@ type Client interface {
 	Dyndns() *dyndns.Controller
 	Firewall() *firewall.Controller
 	Hasync() *hasync.Controller
+	HAProxy() *haproxy.Controller
 	AcmeClient() *acmeclient.Controller
 	Caddy() *caddy.Controller
 	Tailscale() *tailscale.Controller
@@ -123,6 +125,10 @@ func (c *client) Firewall() *firewall.Controller {
 
 func (c *client) Hasync() *hasync.Controller {
 	return &hasync.Controller{Api: c.a}
+}
+
+func (c *client) HAProxy() *haproxy.Controller {
+	return &haproxy.Controller{Api: c.a}
 }
 
 func (c *client) AcmeClient() *acmeclient.Controller {
