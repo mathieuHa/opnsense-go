@@ -1,0 +1,259 @@
+---
+name: ids
+reconfigureEndpoint: "/ids/service/reconfigure"
+resources:
+  - name: UserRule
+    filename: user_rule
+    monad: rule
+    endpoints:
+      add: "/ids/settings/add_user_rule"
+      get: "/ids/settings/get_user_rule"
+      update: "/ids/settings/set_user_rule"
+      delete: "/ids/settings/del_user_rule"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Source
+        type: string
+        key: source
+      - name: Destination
+        type: string
+        key: destination
+      - name: Fingerprint
+        type: string
+        key: fingerprint
+      - name: Description
+        type: string
+        key: description
+      - name: Action
+        type: SelectedMap
+        key: action
+      - name: Bypass
+        type: string
+        key: bypass
+  - name: Policy
+    filename: policy
+    monad: policy
+    endpoints:
+      add: "/ids/settings/add_policy"
+      get: "/ids/settings/get_policy"
+      update: "/ids/settings/set_policy"
+      delete: "/ids/settings/del_policy"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Priority
+        type: string
+        key: prio
+      - name: Action
+        type: SelectedMapList
+        key: action
+      - name: Rulesets
+        type: SelectedMapList
+        key: rulesets
+      - name: Content
+        type: SelectedMapList
+        key: content
+      - name: NewAction
+        type: SelectedMap
+        key: new_action
+      - name: Description
+        type: string
+        key: description
+  - name: PolicyRule
+    filename: policy_rule
+    monad: rule
+    endpoints:
+      add: "/ids/settings/add_policy_rule"
+      get: "/ids/settings/get_policy_rule"
+      update: "/ids/settings/set_policy_rule"
+      delete: "/ids/settings/del_policy_rule"
+    attrs:
+      - name: Sid
+        type: string
+        key: sid
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Action
+        type: SelectedMap
+        key: action
+
+rpc:
+  - name: Settings
+    filename: settings
+    customTypes:
+      SettingsMonad:
+        - name: Ids
+          type: Settings
+          key: ids
+      SettingsGeneralDetect:
+        - name: DetectProfile
+          type: SelectedMap
+          key: Profile
+        - name: DetectToclientGroups
+          type: string
+          key: toclient_groups
+        - name: DetectToserverGroups
+          type: string
+          key: toserver_groups
+      SettingsGeneralEveLogHttp:
+        - name: EveHttpEnabled
+          type: string
+          key: enable
+        - name: EveHttpExtended
+          type: string
+          key: extended
+        - name: EveHttpDumpAllHeaders
+          type: SelectedMap
+          key: dumpAllHeaders
+      SettingsGeneralEveLogTls:
+        - name: EveTlsEnabled
+          type: string
+          key: enable
+        - name: EveTlsExtended
+          type: string
+          key: extended
+        - name: EveTlsSessionResumption
+          type: string
+          key: sessionResumption
+        - name: EveTlsCustom
+          type: SelectedMapList
+          key: custom
+      SettingsGeneralEveLog:
+        - name: Http
+          type: SettingsGeneralEveLogHttp
+          key: http
+        - name: Tls
+          type: SettingsGeneralEveLogTls
+          key: tls
+      SettingsGeneral:
+        - name: Detect
+          type: SettingsGeneralDetect
+          key: detect
+        - name: EveLog
+          type: SettingsGeneralEveLog
+          key: eveLog
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: Mode
+          type: SelectedMap
+          key: mode
+        - name: DivertListeners
+          type: string
+          key: divert_listeners
+        - name: Promiscuous
+          type: string
+          key: promisc
+        - name: Interfaces
+          type: SelectedMapList
+          key: interfaces
+        - name: HomeNetworks
+          type: SelectedMapList
+          key: homenet
+        - name: DefaultPacketSize
+          type: string
+          key: defaultPacketSize
+        - name: UpdateCron
+          type: SelectedMap
+          key: UpdateCron
+        - name: AlertLogrotate
+          type: SelectedMap
+          key: AlertLogrotate
+        - name: AlertSaveLogs
+          type: string
+          key: AlertSaveLogs
+        - name: PatternMatcher
+          type: SelectedMap
+          key: MPMAlgo
+        - name: SyslogAlerts
+          type: string
+          key: syslog
+        - name: SyslogEve
+          type: string
+          key: syslog_eve
+        - name: LogPayload
+          type: string
+          key: LogPayload
+        - name: Verbosity
+          type: SelectedMap
+          key: verbosity
+      Settings:
+        - name: General
+          type: SettingsGeneral
+          key: general
+      SetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/ids/settings/get"
+        result_type: SettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/ids/settings/set"
+        params:
+          - name: ids
+            optional: false
+            bodyParameter: true
+            customType: Settings
+        result_type: SetResult
+      - name: Reconfigure
+        method: POST
+        endpoint: "/ids/service/reconfigure"
+        result_type: api.ReconfigureStatusResult
+      - name: ReloadRules
+        method: POST
+        endpoint: "/ids/service/reload_rules"
+        result_type: api.ReconfigureStatusResult
+  - name: Ruleset
+    filename: ruleset
+    customTypes:
+      Ruleset:
+        - name: Description
+          type: string
+          key: description
+        - name: Filename
+          type: string
+          key: filename
+        - name: Enabled
+          type: string
+          key: enabled
+      RulesetToggleResult:
+        - name: Status
+          type: string
+          key: status
+      PolicyOptions:
+        - name: Rulesets
+          type: api.OptionMap
+          key: rulesets
+      PolicyOptionsMonad:
+        - name: Policy
+          type: PolicyOptions
+          key: policy
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/ids/settings/get_ruleset"
+        params:
+          - name: filename
+            optional: false
+        result_type: Ruleset
+      - name: Toggle
+        method: POST
+        endpoint: "/ids/settings/toggle_ruleset"
+        params:
+          - name: filename
+            optional: false
+          - name: enabled
+            optional: false
+        result_type: RulesetToggleResult
+      - name: Options
+        method: GET
+        endpoint: "/ids/settings/get_policy"
+        result_type: PolicyOptionsMonad
