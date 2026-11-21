@@ -1,0 +1,73 @@
+---
+name: hasync
+reconfigureEndpoint: "/core/hasync/reconfigure"
+resources: []
+
+rpc:
+  - name: Settings
+    filename: settings
+    customTypes:
+      SettingsMonad:
+        - name: Hasync
+          type: Settings
+          key: hasync
+      Settings:
+        - name: DisablePreempt
+          type: string
+          key: disablepreempt
+        - name: DisconnectPpps
+          type: string
+          key: disconnectppps
+        - name: PfsyncInterface
+          type: SelectedMap
+          key: pfsyncinterface
+        - name: PfsyncPeerIp
+          type: string
+          key: pfsyncpeerip
+        - name: PfsyncVersion
+          type: SelectedMap
+          key: pfsyncversion
+        - name: PfsyncDefer
+          type: string
+          key: pfsyncdefer
+        - name: SynchronizeToIp
+          type: string
+          key: synchronizetoip
+        - name: VerifyPeer
+          type: string
+          key: verifypeer
+        - name: Username
+          type: string
+          key: username
+        - name: Password
+          type: string
+          key: password
+        - name: SyncItems
+          type: SelectedMapList
+          key: syncitems
+      SetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/core/hasync/get"
+        result_type: SettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/core/hasync/set"
+        params:
+          - name: hasync
+            optional: false
+            bodyParameter: true
+            customType: Settings
+        result_type: SetResult
+      - name: Reconfigure
+        method: POST
+        endpoint: "/core/hasync/reconfigure"
+        result_type: api.ActionResult
+      - name: SyncAll
+        method: POST
+        endpoint: "/core/hasync_status/restart_all"
+        result_type: api.ActionResult

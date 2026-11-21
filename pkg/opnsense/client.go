@@ -8,10 +8,12 @@ import (
 	"github.com/browningluke/opnsense-go/pkg/bind"
 	"github.com/browningluke/opnsense-go/pkg/core"
 	"github.com/browningluke/opnsense-go/pkg/cron"
+	"github.com/browningluke/opnsense-go/pkg/dhcrelay"
 	"github.com/browningluke/opnsense-go/pkg/diagnostics"
 	"github.com/browningluke/opnsense-go/pkg/dnsmasq"
 	"github.com/browningluke/opnsense-go/pkg/dyndns"
 	"github.com/browningluke/opnsense-go/pkg/firewall"
+	"github.com/browningluke/opnsense-go/pkg/hasync"
 	"github.com/browningluke/opnsense-go/pkg/interfaces"
 	"github.com/browningluke/opnsense-go/pkg/ipsec"
 	"github.com/browningluke/opnsense-go/pkg/kea"
@@ -19,6 +21,7 @@ import (
 	"github.com/browningluke/opnsense-go/pkg/openvpn"
 	"github.com/browningluke/opnsense-go/pkg/proxy"
 	"github.com/browningluke/opnsense-go/pkg/quagga"
+	"github.com/browningluke/opnsense-go/pkg/radvd"
 	"github.com/browningluke/opnsense-go/pkg/routes"
 	"github.com/browningluke/opnsense-go/pkg/routing"
 	"github.com/browningluke/opnsense-go/pkg/syslog"
@@ -34,10 +37,12 @@ type Client interface {
 	Bind() *bind.Controller
 	Core() *core.Controller
 	Cron() *cron.Controller
+	Dhcrelay() *dhcrelay.Controller
 	Diagnostics() *diagnostics.Controller
 	Dnsmasq() *dnsmasq.Controller
 	Dyndns() *dyndns.Controller
 	Firewall() *firewall.Controller
+	Hasync() *hasync.Controller
 	Interfaces() *interfaces.Controller
 	Ipsec() *ipsec.Controller
 	Kea() *kea.Controller
@@ -45,6 +50,7 @@ type Client interface {
 	Openvpn() *openvpn.Controller
 	Proxy() *proxy.Controller
 	Quagga() *quagga.Controller
+	Radvd() *radvd.Controller
 	Routes() *routes.Controller
 	Routing() *routing.Controller
 	Syslog() *syslog.Controller
@@ -79,6 +85,10 @@ func (c *client) Cron() *cron.Controller {
 	return &cron.Controller{Api: c.a}
 }
 
+func (c *client) Dhcrelay() *dhcrelay.Controller {
+	return &dhcrelay.Controller{Api: c.a}
+}
+
 func (c *client) Diagnostics() *diagnostics.Controller {
 	return &diagnostics.Controller{Api: c.a}
 }
@@ -93,6 +103,10 @@ func (c *client) Dyndns() *dyndns.Controller {
 
 func (c *client) Firewall() *firewall.Controller {
 	return &firewall.Controller{Api: c.a}
+}
+
+func (c *client) Hasync() *hasync.Controller {
+	return &hasync.Controller{Api: c.a}
 }
 
 func (c *client) Interfaces() *interfaces.Controller {
@@ -121,6 +135,10 @@ func (c *client) Proxy() *proxy.Controller {
 
 func (c *client) Quagga() *quagga.Controller {
 	return &quagga.Controller{Api: c.a}
+}
+
+func (c *client) Radvd() *radvd.Controller {
+	return &radvd.Controller{Api: c.a}
 }
 
 func (c *client) Routes() *routes.Controller {

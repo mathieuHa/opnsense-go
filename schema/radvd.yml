@@ -1,0 +1,85 @@
+---
+name: radvd
+reconfigureEndpoint: "/radvd/service/reconfigure"
+resources:
+  - name: Entry
+    filename: entry
+    monad: entries
+    endpoints:
+      add: "/radvd/settings/add_entry"
+      get: "/radvd/settings/get_entry"
+      update: "/radvd/settings/set_entry"
+      delete: "/radvd/settings/del_entry"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Interface
+        type: SelectedMap
+        key: interface
+      - name: BaseInterface
+        type: SelectedMap
+        key: Base6Interface
+      - name: Mode
+        type: SelectedMap
+        key: mode
+      - name: DeprecatePrefix
+        type: SelectedMap
+        key: DeprecatePrefix
+      - name: RemoveAdvOnExit
+        type: SelectedMap
+        key: RemoveAdvOnExit
+      - name: RemoveRoute
+        type: SelectedMap
+        key: RemoveRoute
+      - name: Routes
+        type: SelectedMapList
+        key: routes
+      - name: RDNSS
+        type: SelectedMapList
+        key: RDNSS
+      - name: DNSSL
+        type: SelectedMapList
+        key: DNSSL
+      - name: DNS
+        type: string
+        key: dns
+      - name: MinRtrAdvInterval
+        type: string
+        key: MinRtrAdvInterval
+      - name: MaxRtrAdvInterval
+        type: string
+        key: MaxRtrAdvInterval
+      - name: AdvDNSSLLifetime
+        type: string
+        key: AdvDNSSLLifetime
+      - name: AdvDefaultLifetime
+        type: string
+        key: AdvDefaultLifetime
+      - name: AdvLinkMTU
+        type: string
+        key: AdvLinkMTU
+      - name: AdvPreferredLifetime
+        type: string
+        key: AdvPreferredLifetime
+      - name: AdvRASrcAddress
+        type: string
+        key: AdvRASrcAddress
+      - name: AdvRDNSSLifetime
+        type: string
+        key: AdvRDNSSLifetime
+      - name: AdvRouteLifetime
+        type: string
+        key: AdvRouteLifetime
+      - name: AdvValidLifetime
+        type: string
+        key: AdvValidLifetime
+      - name: AdvDefaultPreference
+        type: SelectedMap
+        key: AdvDefaultPreference
+      - name: NAT64Prefix
+        type: string
+        key: nat64prefix
+      - name: AdvCurHopLimit
+        type: string
+        key: AdvCurHopLimit
