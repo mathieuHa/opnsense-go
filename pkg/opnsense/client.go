@@ -6,6 +6,7 @@ import (
 	"github.com/browningluke/opnsense-go/pkg/api"
 	"github.com/browningluke/opnsense-go/pkg/auth"
 	"github.com/browningluke/opnsense-go/pkg/bind"
+	"github.com/browningluke/opnsense-go/pkg/caddy"
 	"github.com/browningluke/opnsense-go/pkg/captiveportal"
 	"github.com/browningluke/opnsense-go/pkg/chrony"
 	"github.com/browningluke/opnsense-go/pkg/core"
@@ -49,6 +50,7 @@ type Client interface {
 	Dyndns() *dyndns.Controller
 	Firewall() *firewall.Controller
 	Hasync() *hasync.Controller
+	Caddy() *caddy.Controller
 	Tailscale() *tailscale.Controller
 	Chrony() *chrony.Controller
 	NodeExporter() *nodeexporter.Controller
@@ -119,6 +121,10 @@ func (c *client) Firewall() *firewall.Controller {
 
 func (c *client) Hasync() *hasync.Controller {
 	return &hasync.Controller{Api: c.a}
+}
+
+func (c *client) Caddy() *caddy.Controller {
+	return &caddy.Controller{Api: c.a}
 }
 
 func (c *client) Tailscale() *tailscale.Controller {
