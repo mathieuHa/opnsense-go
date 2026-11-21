@@ -1,0 +1,60 @@
+---
+name: hostdiscovery
+reconfigureEndpoint: "/hostdiscovery/service/reconfigure"
+resources: []
+
+rpc:
+  - name: Settings
+    filename: settings
+    customTypes:
+      SettingsMonad:
+        - name: Monad
+          type: Settings
+          key: hostdiscovery
+      SettingsGeneral:
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: Promiscuous
+          type: string
+          key: promisc
+        - name: Verbose
+          type: string
+          key: verbose
+        - name: SkipNetworks
+          type: SelectedMapList
+          key: skip_nets
+        - name: Expire4Interval
+          type: string
+          key: expire4_interval
+        - name: Expire6Interval
+          type: string
+          key: expire6_interval
+        - name: Interfaces
+          type: SelectedMapList
+          key: interface
+      Settings:
+        - name: General
+          type: SettingsGeneral
+          key: general
+      SettingsSetResult:
+        - name: Result
+          type: string
+          key: result
+        - name: Status
+          type: string
+          key: status
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/hostdiscovery/settings/get"
+        result_type: SettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/hostdiscovery/settings/set"
+        params:
+          - name: hostdiscovery
+            optional: false
+            bodyParameter: true
+            customType: Settings
+        result_type: SettingsSetResult

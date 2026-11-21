@@ -345,6 +345,25 @@ resources:
       - name: Interface
         type: SelectedMap
         key: vxlandev
+  - name: Neighbor
+    filename: neighbor
+    monad: neighbor
+    endpoints:
+      add: "/interfaces/neighbor_settings/add_item"
+      get: "/interfaces/neighbor_settings/get_item"
+      update: "/interfaces/neighbor_settings/set_item"
+      delete: "/interfaces/neighbor_settings/del_item"
+      reconfigure: "/interfaces/neighbor_settings/reconfigure"
+    attrs:
+      - name: MacAddress
+        type: string
+        key: etheraddr
+      - name: IpAddress
+        type: string
+        key: ipaddress
+      - name: Description
+        type: string
+        key: descr
 
 rpc:
   - name: Assignments
@@ -1211,3 +1230,59 @@ rpc:
         method: "GET"
         endpoint: "/interfaces/overview/interfaces_info"
         result_type: "InterfacesInfoResponse"
+  - name: GlobalSettings
+    filename: global_settings
+    customTypes:
+      GlobalSettingsMonad:
+        - name: Monad
+          type: GlobalSettings
+          key: settings
+      GlobalSettings:
+        - name: DisableChecksumOffloading
+          type: string
+          key: disablechecksumoffloading
+        - name: DisableSegmentationOffloading
+          type: string
+          key: disablesegmentationoffloading
+        - name: DisableLargeReceiveOffloading
+          type: string
+          key: disablelargereceiveoffloading
+        - name: VlanHwFilter
+          type: SelectedMap
+          key: disablevlanhwfilter
+        - name: DisableIpv6
+          type: string
+          key: disableipv6
+        - name: Dhcp6NoRelease
+          type: string
+          key: dhcp6_norelease
+        - name: Dhcp6Debug
+          type: string
+          key: dhcp6_debug
+        - name: Dhcp6Duid
+          type: string
+          key: dhcp6_duid
+        - name: Dhcp6RaTimeout
+          type: string
+          key: dhcp6_ratimeout
+      GlobalSettingsSetResult:
+        - name: Result
+          type: string
+          key: result
+        - name: Status
+          type: string
+          key: status
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/interfaces/settings/get"
+        result_type: GlobalSettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/interfaces/settings/set"
+        params:
+          - name: settings
+            optional: false
+            bodyParameter: true
+            customType: GlobalSettings
+        result_type: GlobalSettingsSetResult

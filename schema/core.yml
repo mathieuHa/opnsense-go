@@ -137,3 +137,106 @@ rpc:
             optional: false
             type: string
         result_type: "ServiceActionResult"
+  - name: FirmwareSettings
+    filename: firmware_settings
+    customTypes:
+      FirmwareSettingsMonad:
+        - name: Monad
+          type: FirmwareSettings
+          key: firmware
+      FirmwareSettings:
+        - name: Mirror
+          type: string
+          key: mirror
+        - name: Flavour
+          type: string
+          key: flavour
+        - name: Type
+          type: string
+          key: type
+        - name: Subscription
+          type: string
+          key: subscription
+      FirmwareSettingsSetResult:
+        - name: Result
+          type: string
+          key: result
+        - name: Status
+          type: string
+          key: status
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/core/firmware/get"
+        result_type: FirmwareSettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/core/firmware/set"
+        params:
+          - name: firmware
+            optional: false
+            bodyParameter: true
+            customType: FirmwareSettings
+        result_type: FirmwareSettingsSetResult
+  - name: Firmware
+    filename: firmware
+    customTypes:
+      FirmwarePackage:
+        - name: Name
+          type: string
+          key: name
+        - name: Version
+          type: string
+          key: version
+        - name: Comment
+          type: string
+          key: comment
+        - name: Installed
+          type: string
+          key: installed
+      FirmwareInfo:
+        - name: Packages
+          type: "[]FirmwarePackage"
+          key: package
+        - name: Plugins
+          type: "[]FirmwarePackage"
+          key: plugin
+      FirmwareActionResult:
+        - name: Status
+          type: string
+          key: status
+        - name: MsgUUID
+          type: string
+          key: msg_uuid
+      FirmwareStatus:
+        - name: Status
+          type: string
+          key: status
+        - name: Log
+          type: string
+          key: log
+    rpc_calls:
+      - name: Info
+        method: GET
+        endpoint: "/core/firmware/info"
+        result_type: FirmwareInfo
+      - name: Install
+        method: POST
+        endpoint: "/core/firmware/install"
+        params:
+          - name: pkg
+        result_type: FirmwareActionResult
+      - name: Remove
+        method: POST
+        endpoint: "/core/firmware/remove"
+        params:
+          - name: pkg
+        result_type: FirmwareActionResult
+      - name: Running
+        method: GET
+        endpoint: "/core/firmware/running"
+        result_type: FirmwareStatus
+      - name: UpgradeStatus
+        method: GET
+        endpoint: "/core/firmware/upgradestatus"
+        result_type: FirmwareStatus
