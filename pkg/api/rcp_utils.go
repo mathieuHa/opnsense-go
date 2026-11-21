@@ -3,6 +3,7 @@ package api
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 )
 
 func Call[R any](c *Client, ctx context.Context, rcpOpts RPCOpts, result *R) (*R, error) {
@@ -29,6 +30,14 @@ func Call[R any](c *Client, ctx context.Context, rcpOpts RPCOpts, result *R) (*R
 	// Handle request errors
 	if err != nil {
 		return nil, err
+	}
+
+	var status struct {
+		Result      string         `json:"result"`
+		Validations map[string]any `json:"validations"`
+	}
+	if json.Unmarshal(reqData, &status) == nil && status.Result == "failed" {
+		return nil, fmt.Errorf("%s %s failed. validations: %v", rcpOpts.Method, rcpOpts.EndpointURL(), status.Validations)
 	}
 
 	if err := json.Unmarshal(reqData, result); err != nil {
