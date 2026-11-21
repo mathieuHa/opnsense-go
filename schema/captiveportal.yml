@@ -1,0 +1,125 @@
+---
+name: captiveportal
+reconfigureEndpoint: "/captiveportal/service/reconfigure"
+resources:
+  - name: Zone
+    filename: zone
+    monad: zone
+    endpoints:
+      add: "/captiveportal/settings/add_zone"
+      get: "/captiveportal/settings/get_zone"
+      update: "/captiveportal/settings/set_zone"
+      delete: "/captiveportal/settings/del_zone"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: ZoneId
+        type: string
+        key: zoneid
+        omitEmpty: true
+      - name: Interfaces
+        type: SelectedMapList
+        key: interfaces
+      - name: DisableRules
+        type: string
+        key: disableRules
+      - name: AuthServers
+        type: SelectedMapList
+        key: authservers
+      - name: Roaming
+        type: string
+        key: roaming
+      - name: AlwaysSendAccountingReqs
+        type: string
+        key: alwaysSendAccountingReqs
+      - name: AuthEnforceGroup
+        type: SelectedMap
+        key: authEnforceGroup
+      - name: IdleTimeout
+        type: string
+        key: idletimeout
+      - name: HardTimeout
+        type: string
+        key: hardtimeout
+      - name: ConcurrentLogins
+        type: string
+        key: concurrentlogins
+      - name: Certificate
+        type: SelectedMap
+        key: certificate
+      - name: ServerName
+        type: string
+        key: servername
+      - name: AllowedAddresses
+        type: SelectedMapList
+        key: allowedAddresses
+      - name: AllowedMACAddresses
+        type: SelectedMapList
+        key: allowedMACAddresses
+      - name: ExtendedPreAuthData
+        type: string
+        key: extendedPreAuthData
+      - name: Template
+        type: SelectedMap
+        key: template
+      - name: Description
+        type: string
+        key: description
+
+rpc:
+  - name: Template
+    filename: template
+    customTypes:
+      TemplateRow:
+        - name: UUID
+          type: string
+          key: uuid
+        - name: Name
+          type: string
+          key: name
+        - name: FileId
+          type: string
+          key: fileid
+      TemplateSearchResult:
+        - name: Rows
+          type: "[]TemplateRow"
+          key: rows
+      TemplateSaveResult:
+        - name: Name
+          type: string
+          key: name
+        - name: Error
+          type: string
+          key: error
+    rpc_calls:
+      - name: Search
+        method: GET
+        endpoint: "/captiveportal/template/search_templates"
+        result_type: TemplateSearchResult
+      - name: Create
+        method: POST
+        endpoint: "/captiveportal/template/save_template"
+        params:
+          - name: name
+            bodyParameter: true
+          - name: content
+            bodyParameter: true
+        result_type: TemplateSaveResult
+      - name: Update
+        method: POST
+        endpoint: "/captiveportal/template/save_template"
+        params:
+          - name: uuid
+            bodyParameter: true
+          - name: name
+            bodyParameter: true
+          - name: content
+            bodyParameter: true
+        result_type: TemplateSaveResult
+      - name: Delete
+        method: POST
+        endpoint: "/captiveportal/template/del_template"
+        params:
+          - name: uuid
+        result_type: api.ActionResult
