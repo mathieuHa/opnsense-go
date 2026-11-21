@@ -12,6 +12,7 @@ import (
 	"github.com/browningluke/opnsense-go/pkg/dnsmasq"
 	"github.com/browningluke/opnsense-go/pkg/dyndns"
 	"github.com/browningluke/opnsense-go/pkg/firewall"
+	"github.com/browningluke/opnsense-go/pkg/hasync"
 	"github.com/browningluke/opnsense-go/pkg/interfaces"
 	"github.com/browningluke/opnsense-go/pkg/ipsec"
 	"github.com/browningluke/opnsense-go/pkg/kea"
@@ -38,6 +39,7 @@ type Client interface {
 	Dnsmasq() *dnsmasq.Controller
 	Dyndns() *dyndns.Controller
 	Firewall() *firewall.Controller
+	Hasync() *hasync.Controller
 	Interfaces() *interfaces.Controller
 	Ipsec() *ipsec.Controller
 	Kea() *kea.Controller
@@ -93,6 +95,10 @@ func (c *client) Dyndns() *dyndns.Controller {
 
 func (c *client) Firewall() *firewall.Controller {
 	return &firewall.Controller{Api: c.a}
+}
+
+func (c *client) Hasync() *hasync.Controller {
+	return &hasync.Controller{Api: c.a}
 }
 
 func (c *client) Interfaces() *interfaces.Controller {
