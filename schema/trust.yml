@@ -263,3 +263,77 @@ rpc:
         method: POST
         endpoint: "/trust/settings/reconfigure"
         result_type: ActionResult
+  - name: Crl
+    filename: crl
+    customTypes:
+      CrlData:
+        - name: Descr
+          type: string
+          key: descr
+        - name: Crlmethod
+          type: SelectedMap
+          key: crlmethod
+        - name: Lifetime
+          type: string
+          key: lifetime
+        - name: Serial
+          type: string
+          key: serial
+          omitEmpty: true
+        - name: Text
+          type: string
+          key: text
+        - name: RevokedReason0
+          type: SelectedMapList
+          key: revoked_reason_0
+        - name: RevokedReason1
+          type: SelectedMapList
+          key: revoked_reason_1
+        - name: RevokedReason2
+          type: SelectedMapList
+          key: revoked_reason_2
+        - name: RevokedReason3
+          type: SelectedMapList
+          key: revoked_reason_3
+        - name: RevokedReason4
+          type: SelectedMapList
+          key: revoked_reason_4
+        - name: RevokedReason5
+          type: SelectedMapList
+          key: revoked_reason_5
+        - name: RevokedReason6
+          type: SelectedMapList
+          key: revoked_reason_6
+      CrlMonad:
+        - name: Crl
+          type: CrlData
+          key: crl
+      CrlResult:
+        - name: Status
+          type: string
+          key: status
+        - name: Validations
+          type: map[string]string
+          key: validations
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/trust/crl/get"
+        params:
+          - name: caref
+        result_type: CrlMonad
+      - name: Set
+        method: POST
+        endpoint: "/trust/crl/set"
+        params:
+          - name: caref
+          - name: crl
+            bodyParameter: true
+            customType: CrlData
+        result_type: CrlResult
+      - name: Delete
+        method: POST
+        endpoint: "/trust/crl/del"
+        params:
+          - name: caref
+        result_type: CrlResult

@@ -25,13 +25,14 @@ type OptionDataV6 struct {
 }
 
 type SubnetV6 struct {
-	Subnet      string          `json:"subnet"`
-	Allocator   api.SelectedMap `json:"allocator"`
-	PDAllocator api.SelectedMap `json:"pd-allocator"`
-	Pools       string          `json:"pools"`
-	Interface   api.SelectedMap `json:"interface"`
-	OptionData  OptionDataV6    `json:"option_data"`
-	Description string          `json:"description"`
+	Options     api.SelectedMapList `json:"option"`
+	Subnet      string              `json:"subnet"`
+	Allocator   api.SelectedMap     `json:"allocator"`
+	PDAllocator api.SelectedMap     `json:"pd-allocator"`
+	Pools       string              `json:"pools"`
+	Interface   api.SelectedMap     `json:"interface"`
+	OptionData  OptionDataV6        `json:"option_data"`
+	Description string              `json:"description"`
 }
 
 // CRUD operations

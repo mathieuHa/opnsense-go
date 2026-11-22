@@ -219,3 +219,99 @@ rpc:
         method: POST
         endpoint: "/monit/service/reconfigure"
         result_type: ActionResult
+  - name: GeneralConfig
+    filename: general_config
+    customTypes:
+      GeneralConfigMonad:
+        - name: Monad
+          type: GeneralConfig
+          key: monit
+      GeneralConfigGeneral:
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: Interval
+          type: string
+          key: interval
+        - name: Startdelay
+          type: string
+          key: startdelay
+        - name: Mailserver
+          type: SelectedMapList
+          key: mailserver
+        - name: Port
+          type: string
+          key: port
+        - name: Username
+          type: string
+          key: username
+        - name: Password
+          type: string
+          key: password
+        - name: Ssl
+          type: string
+          key: ssl
+        - name: Sslversion
+          type: SelectedMap
+          key: sslversion
+        - name: Sslverify
+          type: string
+          key: sslverify
+        - name: Logfile
+          type: string
+          key: logfile
+        - name: Statefile
+          type: string
+          key: statefile
+        - name: EventqueuePath
+          type: string
+          key: eventqueuePath
+        - name: EventqueueSlots
+          type: string
+          key: eventqueueSlots
+        - name: HttpdEnabled
+          type: string
+          key: httpdEnabled
+        - name: HttpdUsername
+          type: string
+          key: httpdUsername
+        - name: HttpdPassword
+          type: string
+          key: httpdPassword
+        - name: HttpdPort
+          type: string
+          key: httpdPort
+        - name: HttpdAllow
+          type: SelectedMapList
+          key: httpdAllow
+        - name: MmonitUrl
+          type: string
+          key: mmonitUrl
+        - name: MmonitTimeout
+          type: string
+          key: mmonitTimeout
+        - name: MmonitRegisterCredentials
+          type: string
+          key: mmonitRegisterCredentials
+      GeneralConfig:
+        - name: General
+          type: GeneralConfigGeneral
+          key: general
+      GeneralConfigSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/monit/settings/get"
+        result_type: GeneralConfigMonad
+      - name: Set
+        method: POST
+        endpoint: "/monit/settings/set"
+        params:
+          - name: monit
+            optional: false
+            bodyParameter: true
+            customType: GeneralConfig
+        result_type: GeneralConfigSetResult

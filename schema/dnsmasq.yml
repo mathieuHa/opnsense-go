@@ -718,3 +718,138 @@ rpc:
       - name: DisableHASync
         type: string
         key: nosync
+  - name: DnsmasqConfig
+    filename: dnsmasq_config
+    customTypes:
+      DnsmasqConfigMonad:
+        - name: Monad
+          type: DnsmasqConfig
+          key: dnsmasq
+      DnsmasqConfigDhcp:
+        - name: DhcpNoInterface
+          type: SelectedMapList
+          key: no_interface
+        - name: DhcpFqdn
+          type: string
+          key: fqdn
+        - name: DhcpDomain
+          type: string
+          key: domain
+        - name: DhcpLocal
+          type: string
+          key: local
+        - name: DhcpLeaseMax
+          type: string
+          key: lease_max
+        - name: DhcpAuthoritative
+          type: string
+          key: authoritative
+        - name: DhcpDefaultFwRules
+          type: string
+          key: default_fw_rules
+        - name: DhcpReplyDelay
+          type: string
+          key: reply_delay
+        - name: DhcpEnableRa
+          type: string
+          key: enable_ra
+        - name: DhcpHostPing
+          type: string
+          key: host_ping
+        - name: DhcpNosync
+          type: string
+          key: nosync
+        - name: DhcpLogDhcp
+          type: string
+          key: log_dhcp
+        - name: DhcpLogQuiet
+          type: string
+          key: log_quiet
+      DnsmasqConfig:
+        - name: Dhcp
+          type: DnsmasqConfigDhcp
+          key: dhcp
+        - name: Enable
+          type: string
+          key: enable
+        - name: Regdhcp
+          type: string
+          key: regdhcp
+        - name: Regdhcpstatic
+          type: string
+          key: regdhcpstatic
+        - name: Dhcpfirst
+          type: string
+          key: dhcpfirst
+        - name: StrictOrder
+          type: string
+          key: strict_order
+        - name: DomainNeeded
+          type: string
+          key: domain_needed
+        - name: NoPrivateReverse
+          type: string
+          key: no_private_reverse
+        - name: NoResolv
+          type: string
+          key: no_resolv
+        - name: LogQueries
+          type: string
+          key: log_queries
+        - name: NoHosts
+          type: string
+          key: no_hosts
+        - name: Strictbind
+          type: string
+          key: strictbind
+        - name: Dnssec
+          type: string
+          key: dnssec
+        - name: Regdhcpdomain
+          type: string
+          key: regdhcpdomain
+        - name: Interface
+          type: SelectedMapList
+          key: interface
+        - name: Port
+          type: string
+          key: port
+        - name: DnsForwardMax
+          type: string
+          key: dns_forward_max
+        - name: CacheSize
+          type: string
+          key: cache_size
+        - name: LocalTtl
+          type: string
+          key: local_ttl
+        - name: AddMac
+          type: SelectedMap
+          key: add_mac
+        - name: AddSubnet
+          type: string
+          key: add_subnet
+        - name: StripSubnet
+          type: string
+          key: strip_subnet
+        - name: NoIdent
+          type: string
+          key: no_ident
+      DnsmasqConfigSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/dnsmasq/settings/get"
+        result_type: DnsmasqConfigMonad
+      - name: Set
+        method: POST
+        endpoint: "/dnsmasq/settings/set"
+        params:
+          - name: dnsmasq
+            optional: false
+            bodyParameter: true
+            customType: DnsmasqConfig
+        result_type: DnsmasqConfigSetResult

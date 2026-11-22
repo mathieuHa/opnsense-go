@@ -20,6 +20,7 @@ var ReservationV6Opts = api.ReqOpts{
 // Data structs
 
 type ReservationV6 struct {
+	Options      api.SelectedMapList `json:"option"`
 	Subnet       api.SelectedMap     `json:"subnet"`
 	IpAddress    string              `json:"ip_address"`
 	DUID         string              `json:"duid"`
