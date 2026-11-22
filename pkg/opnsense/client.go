@@ -26,6 +26,7 @@ import (
 	"github.com/browningluke/opnsense-go/pkg/ipsec"
 	"github.com/browningluke/opnsense-go/pkg/kea"
 	"github.com/browningluke/opnsense-go/pkg/monit"
+	"github.com/browningluke/opnsense-go/pkg/nginx"
 	"github.com/browningluke/opnsense-go/pkg/nodeexporter"
 	"github.com/browningluke/opnsense-go/pkg/nut"
 	"github.com/browningluke/opnsense-go/pkg/openvpn"
@@ -56,6 +57,7 @@ type Client interface {
 	Dyndns() *dyndns.Controller
 	Firewall() *firewall.Controller
 	Hasync() *hasync.Controller
+	Nginx() *nginx.Controller
 	Telegraf() *telegraf.Controller
 	Zerotier() *zerotier.Controller
 	Nut() *nut.Controller
@@ -133,6 +135,10 @@ func (c *client) Firewall() *firewall.Controller {
 
 func (c *client) Hasync() *hasync.Controller {
 	return &hasync.Controller{Api: c.a}
+}
+
+func (c *client) Nginx() *nginx.Controller {
+	return &nginx.Controller{Api: c.a}
 }
 
 func (c *client) Telegraf() *telegraf.Controller {

@@ -1,0 +1,1299 @@
+---
+name: nginx
+reconfigureEndpoint: "/nginx/service/reconfigure"
+resources:
+  - name: UpstreamServer
+    filename: upstream_server
+    monad: upstream_server
+    endpoints:
+      add: "/nginx/settings/add_upstream_server"
+      get: "/nginx/settings/get_upstream_server"
+      update: "/nginx/settings/set_upstream_server"
+      delete: "/nginx/settings/del_upstream_server"
+    attrs:
+      - name: Description
+        type: string
+        key: description
+      - name: Server
+        type: string
+        key: server
+      - name: Port
+        type: string
+        key: port
+      - name: Priority
+        type: string
+        key: priority
+      - name: MaxConns
+        type: string
+        key: max_conns
+      - name: MaxFails
+        type: string
+        key: max_fails
+      - name: FailTimeout
+        type: string
+        key: fail_timeout
+      - name: NoUse
+        type: SelectedMap
+        key: no_use
+  - name: Upstream
+    filename: upstream
+    monad: upstream
+    endpoints:
+      add: "/nginx/settings/add_upstream"
+      get: "/nginx/settings/get_upstream"
+      update: "/nginx/settings/set_upstream"
+      delete: "/nginx/settings/del_upstream"
+    attrs:
+      - name: Description
+        type: string
+        key: description
+      - name: Serverentries
+        type: SelectedMapList
+        key: serverentries
+      - name: LoadBalancingAlgorithm
+        type: SelectedMap
+        key: load_balancing_algorithm
+      - name: Keepalive
+        type: string
+        key: keepalive
+      - name: KeepaliveRequests
+        type: string
+        key: keepalive_requests
+      - name: KeepaliveTimeout
+        type: string
+        key: keepalive_timeout
+      - name: HostPort
+        type: string
+        key: host_port
+      - name: XForwardedHostVerbatim
+        type: string
+        key: x_forwarded_host_verbatim
+      - name: ProxyProtocol
+        type: string
+        key: proxy_protocol
+      - name: Store
+        type: string
+        key: store
+      - name: TlsEnable
+        type: string
+        key: tls_enable
+      - name: TlsClientCertificate
+        type: SelectedMap
+        key: tls_client_certificate
+      - name: TlsNameOverride
+        type: string
+        key: tls_name_override
+      - name: TlsProtocolVersions
+        type: SelectedMapList
+        key: tls_protocol_versions
+      - name: TlsSessionReuse
+        type: string
+        key: tls_session_reuse
+      - name: TlsTrustedCertificate
+        type: SelectedMapList
+        key: tls_trusted_certificate
+      - name: TlsVerify
+        type: string
+        key: tls_verify
+      - name: TlsVerifyDepth
+        type: string
+        key: tls_verify_depth
+  - name: Location
+    filename: location
+    monad: location
+    endpoints:
+      add: "/nginx/settings/add_location"
+      get: "/nginx/settings/get_location"
+      update: "/nginx/settings/set_location"
+      delete: "/nginx/settings/del_location"
+    attrs:
+      - name: Description
+        type: string
+        key: description
+      - name: Urlpattern
+        type: string
+        key: urlpattern
+      - name: Matchtype
+        type: SelectedMap
+        key: matchtype
+      - name: EnableSecrules
+        type: string
+        key: enable_secrules
+      - name: EnableLearningMode
+        type: string
+        key: enable_learning_mode
+      - name: SecrulesErrorpage
+        type: SelectedMap
+        key: secrules_errorpage
+      - name: XssBlockScore
+        type: string
+        key: xss_block_score
+      - name: SqliBlockScore
+        type: string
+        key: sqli_block_score
+      - name: CustomPolicy
+        type: SelectedMapList
+        key: custom_policy
+      - name: Upstream
+        type: SelectedMap
+        key: upstream
+      - name: PathPrefix
+        type: string
+        key: path_prefix
+      - name: CachePath
+        type: SelectedMap
+        key: cache_path
+      - name: CacheUseStale
+        type: SelectedMapList
+        key: cache_use_stale
+      - name: CacheMethods
+        type: SelectedMapList
+        key: cache_methods
+      - name: CacheMinUses
+        type: string
+        key: cache_min_uses
+      - name: CacheValid
+        type: string
+        key: cache_valid
+      - name: ProxyCacheValid
+        type: SelectedMapList
+        key: proxy_cache_valid
+      - name: CacheBackgroundUpdate
+        type: string
+        key: cache_background_update
+      - name: CacheLock
+        type: string
+        key: cache_lock
+      - name: CacheRevalidate
+        type: string
+        key: cache_revalidate
+      - name: Root
+        type: string
+        key: root
+      - name: Rewrites
+        type: SelectedMapList
+        key: rewrites
+      - name: Index
+        type: SelectedMapList
+        key: index
+      - name: Autoindex
+        type: string
+        key: autoindex
+      - name: Authbasic
+        type: string
+        key: authbasic
+      - name: Authbasicuserfile
+        type: SelectedMap
+        key: authbasicuserfile
+      - name: AdvancedAcl
+        type: string
+        key: advanced_acl
+      - name: ForceHttps
+        type: string
+        key: force_https
+      - name: PhpEnable
+        type: string
+        key: php_enable
+      - name: PhpOverrideScriptname
+        type: string
+        key: php_override_scriptname
+      - name: LimitRequestConnections
+        type: SelectedMapList
+        key: limit_request_connections
+      - name: MaxBodySize
+        type: string
+        key: max_body_size
+      - name: BodyBufferSize
+        type: string
+        key: body_buffer_size
+      - name: Honeypot
+        type: string
+        key: honeypot
+      - name: Websocket
+        type: string
+        key: websocket
+      - name: UpstreamKeepalive
+        type: string
+        key: upstream_keepalive
+      - name: ProxyBufferSize
+        type: string
+        key: proxy_buffer_size
+      - name: ProxyBuffersCount
+        type: string
+        key: proxy_buffers_count
+      - name: ProxyBuffersSize
+        type: string
+        key: proxy_buffers_size
+      - name: ProxyBusyBuffersSize
+        type: string
+        key: proxy_busy_buffers_size
+      - name: ProxyIgnoreClientAbort
+        type: string
+        key: proxy_ignore_client_abort
+      - name: ProxyRequestBuffering
+        type: string
+        key: proxy_request_buffering
+      - name: ProxyBuffering
+        type: string
+        key: proxy_buffering
+      - name: ProxyReadTimeout
+        type: string
+        key: proxy_read_timeout
+      - name: ProxySendTimeout
+        type: string
+        key: proxy_send_timeout
+      - name: IpAcl
+        type: SelectedMap
+        key: ip_acl
+      - name: Satisfy
+        type: SelectedMap
+        key: satisfy
+      - name: ProxyMaxTempFileSize
+        type: string
+        key: proxy_max_temp_file_size
+      - name: ProxySslServerName
+        type: string
+        key: proxy_ssl_server_name
+      - name: Errorpages
+        type: SelectedMapList
+        key: errorpages
+      - name: ProxyInterceptErrors
+        type: SelectedMap
+        key: proxy_intercept_errors
+  - name: HttpServer
+    filename: http_server
+    monad: httpserver
+    endpoints:
+      add: "/nginx/settings/add_http_server"
+      get: "/nginx/settings/get_http_server"
+      update: "/nginx/settings/set_http_server"
+      delete: "/nginx/settings/del_http_server"
+    attrs:
+      - name: Servername
+        type: SelectedMapList
+        key: servername
+      - name: SyslogTargets
+        type: SelectedMapList
+        key: syslog_targets
+      - name: ListenHttpAddress
+        type: SelectedMapList
+        key: listen_http_address
+      - name: ListenHttpsAddress
+        type: SelectedMapList
+        key: listen_https_address
+      - name: DefaultServer
+        type: string
+        key: default_server
+      - name: TlsRejectHandshake
+        type: string
+        key: tls_reject_handshake
+      - name: ProxyProtocol
+        type: string
+        key: proxy_protocol
+      - name: TrustedProxies
+        type: SelectedMapList
+        key: trusted_proxies
+      - name: TrustedProxiesAlias
+        type: SelectedMap
+        key: trusted_proxies_alias
+      - name: RealIpSource
+        type: SelectedMap
+        key: real_ip_source
+      - name: Locations
+        type: SelectedMapList
+        key: locations
+      - name: Rewrites
+        type: SelectedMapList
+        key: rewrites
+      - name: Root
+        type: string
+        key: root
+      - name: Certificate
+        type: SelectedMap
+        key: certificate
+      - name: Ca
+        type: SelectedMapList
+        key: ca
+      - name: VerifyClient
+        type: SelectedMap
+        key: verify_client
+      - name: AccessLogFormat
+        type: SelectedMap
+        key: access_log_format
+      - name: ErrorLogLevel
+        type: SelectedMap
+        key: error_log_level
+      - name: LogHandshakes
+        type: string
+        key: log_handshakes
+      - name: EnableAcmeSupport
+        type: string
+        key: enable_acme_support
+      - name: Charset
+        type: SelectedMap
+        key: charset
+      - name: HttpsOnly
+        type: string
+        key: https_only
+      - name: Http2
+        type: string
+        key: http2
+      - name: EnableHttp3
+        type: string
+        key: enable_http3
+      - name: TlsProtocols
+        type: SelectedMapList
+        key: tls_protocols
+      - name: TlsCiphers
+        type: string
+        key: tls_ciphers
+      - name: TlsEcdhCurve
+        type: string
+        key: tls_ecdh_curve
+      - name: TlsPreferServerCiphers
+        type: string
+        key: tls_prefer_server_ciphers
+      - name: Resolver
+        type: SelectedMap
+        key: resolver
+      - name: OcspStapling
+        type: string
+        key: ocsp_stapling
+      - name: OcspVerify
+        type: string
+        key: ocsp_verify
+      - name: BlockNonpublicData
+        type: string
+        key: block_nonpublic_data
+      - name: DisableBotProtection
+        type: string
+        key: disable_bot_protection
+      - name: DisableGzip
+        type: string
+        key: disable_gzip
+      - name: NaxsiWhitelistSrcip
+        type: SelectedMapList
+        key: naxsi_whitelist_srcip
+      - name: NaxsiExtensiveLog
+        type: string
+        key: naxsi_extensive_log
+      - name: Sendfile
+        type: string
+        key: sendfile
+      - name: ClientHeaderBufferSize
+        type: string
+        key: client_header_buffer_size
+      - name: LargeClientHeaderBuffersNumber
+        type: string
+        key: large_client_header_buffers_number
+      - name: LargeClientHeaderBuffersSize
+        type: string
+        key: large_client_header_buffers_size
+      - name: SecurityHeader
+        type: SelectedMap
+        key: security_header
+      - name: LimitRequestConnections
+        type: SelectedMapList
+        key: limit_request_connections
+      - name: MaxBodySize
+        type: string
+        key: max_body_size
+      - name: BodyBufferSize
+        type: string
+        key: body_buffer_size
+      - name: IpAcl
+        type: SelectedMap
+        key: ip_acl
+      - name: AdvancedAclServer
+        type: SelectedMap
+        key: advanced_acl_server
+      - name: Satisfy
+        type: SelectedMap
+        key: satisfy
+      - name: ZeroRtt
+        type: string
+        key: zero_rtt
+      - name: Errorpages
+        type: SelectedMapList
+        key: errorpages
+      - name: ProxyInterceptErrors
+        type: string
+        key: proxy_intercept_errors
+  - name: StreamServer
+    filename: stream_server
+    monad: streamserver
+    endpoints:
+      add: "/nginx/settings/add_stream_server"
+      get: "/nginx/settings/get_stream_server"
+      update: "/nginx/settings/set_stream_server"
+      delete: "/nginx/settings/del_stream_server"
+    attrs:
+      - name: ListenAddress
+        type: SelectedMapList
+        key: listen_address
+      - name: SyslogTargets
+        type: SelectedMapList
+        key: syslog_targets
+      - name: Udp
+        type: string
+        key: udp
+      - name: TrustedProxies
+        type: SelectedMapList
+        key: trusted_proxies
+      - name: ProxyProtocol
+        type: string
+        key: proxy_protocol
+      - name: Certificate
+        type: SelectedMap
+        key: certificate
+      - name: Ca
+        type: SelectedMap
+        key: ca
+      - name: VerifyClient
+        type: SelectedMap
+        key: verify_client
+      - name: AccessLogFormat
+        type: SelectedMap
+        key: access_log_format
+      - name: ErrorLogLevel
+        type: SelectedMap
+        key: error_log_level
+      - name: RouteField
+        type: SelectedMap
+        key: route_field
+      - name: Upstream
+        type: SelectedMap
+        key: upstream
+      - name: SniUpstreamMap
+        type: SelectedMap
+        key: sni_upstream_map
+      - name: IpAcl
+        type: SelectedMap
+        key: ip_acl
+      - name: ProxyResponses
+        type: string
+        key: proxy_responses
+      - name: ProxyConnectTimeout
+        type: string
+        key: proxy_connect_timeout
+      - name: ProxyTimeout
+        type: string
+        key: proxy_timeout
+  - name: Credential
+    filename: credential
+    monad: credential
+    endpoints:
+      add: "/nginx/settings/add_credential"
+      get: "/nginx/settings/get_credential"
+      update: "/nginx/settings/set_credential"
+      delete: "/nginx/settings/del_credential"
+    attrs:
+      - name: Username
+        type: string
+        key: username
+      - name: Password
+        type: string
+        key: password
+  - name: Userlist
+    filename: userlist
+    monad: userlist
+    endpoints:
+      add: "/nginx/settings/add_userlist"
+      get: "/nginx/settings/get_userlist"
+      update: "/nginx/settings/set_userlist"
+      delete: "/nginx/settings/del_userlist"
+    attrs:
+      - name: Name
+        type: string
+        key: name
+      - name: Users
+        type: SelectedMapList
+        key: users
+  - name: HttpRewrite
+    filename: http_rewrite
+    monad: httprewrite
+    endpoints:
+      add: "/nginx/settings/add_http_rewrite"
+      get: "/nginx/settings/get_http_rewrite"
+      update: "/nginx/settings/set_http_rewrite"
+      delete: "/nginx/settings/del_http_rewrite"
+    attrs:
+      - name: Description
+        type: string
+        key: description
+      - name: Source
+        type: string
+        key: source
+      - name: Destination
+        type: string
+        key: destination
+      - name: Flag
+        type: SelectedMap
+        key: flag
+  - name: NaxsiRule
+    filename: naxsi_rule
+    monad: naxsi_rule
+    endpoints:
+      add: "/nginx/settings/add_naxsi_rule"
+      get: "/nginx/settings/get_naxsi_rule"
+      update: "/nginx/settings/set_naxsi_rule"
+      delete: "/nginx/settings/del_naxsi_rule"
+    attrs:
+      - name: Description
+        type: string
+        key: description
+      - name: Ruletype
+        type: SelectedMap
+        key: ruletype
+      - name: Message
+        type: string
+        key: message
+      - name: Identifier
+        type: SelectedMapList
+        key: identifier
+      - name: DollarUrl
+        type: string
+        key: dollar_url
+      - name: MatchValue
+        type: string
+        key: match_value
+      - name: MatchType
+        type: SelectedMap
+        key: match_type
+      - name: Negate
+        type: string
+        key: negate
+      - name: Score
+        type: string
+        key: score
+      - name: Regex
+        type: string
+        key: regex
+      - name: Args
+        type: string
+        key: args
+      - name: Url
+        type: string
+        key: url
+      - name: Headers
+        type: string
+        key: headers
+      - name: Body
+        type: string
+        key: body
+      - name: DollarArgsVar
+        type: string
+        key: dollar_args_var
+      - name: DollarBodyVar
+        type: string
+        key: dollar_body_var
+      - name: DollarHeadersVar
+        type: string
+        key: dollar_headers_var
+      - name: FileExtension
+        type: string
+        key: file_extension
+      - name: RawBody
+        type: string
+        key: raw_body
+      - name: Name
+        type: string
+        key: name
+  - name: CustomPolicy
+    filename: custom_policy
+    monad: custompolicy
+    endpoints:
+      add: "/nginx/settings/add_custom_policy"
+      get: "/nginx/settings/get_custom_policy"
+      update: "/nginx/settings/set_custom_policy"
+      delete: "/nginx/settings/del_custom_policy"
+    attrs:
+      - name: Name
+        type: string
+        key: name
+      - name: NaxsiRules
+        type: SelectedMapList
+        key: naxsi_rules
+      - name: Value
+        type: string
+        key: value
+      - name: Operator
+        type: SelectedMap
+        key: operator
+      - name: Action
+        type: SelectedMap
+        key: action
+  - name: SecurityHeader
+    filename: security_header
+    monad: security_header
+    endpoints:
+      add: "/nginx/settings/add_security_header"
+      get: "/nginx/settings/get_security_header"
+      update: "/nginx/settings/set_security_header"
+      delete: "/nginx/settings/del_security_header"
+    attrs:
+      - name: Description
+        type: string
+        key: description
+      - name: Referrer
+        type: SelectedMap
+        key: referrer
+      - name: Xssprotection
+        type: SelectedMap
+        key: xssprotection
+      - name: ContentTypeOptions
+        type: string
+        key: content_type_options
+      - name: StrictTransportSecurityTime
+        type: string
+        key: strict_transport_security_time
+      - name: StrictTransportSecurityIncludeSubdomains
+        type: string
+        key: strict_transport_security_include_subdomains
+      - name: StrictTransportSecurityPreload
+        type: string
+        key: strict_transport_security_preload
+      - name: EnableCsp
+        type: string
+        key: enable_csp
+      - name: CspLogViolations
+        type: string
+        key: csp_log_violations
+      - name: CspReportOnly
+        type: string
+        key: csp_report_only
+      - name: CspDefaultSrcEnabled
+        type: string
+        key: csp_default_src_enabled
+      - name: CspDefaultSrcDataUrls
+        type: string
+        key: csp_default_src_data_urls
+      - name: CspDefaultSrcHttpUrls
+        type: SelectedMapList
+        key: csp_default_src_http_urls
+      - name: CspDefaultSrcInline
+        type: string
+        key: csp_default_src_inline
+      - name: CspDefaultSrcEval
+        type: string
+        key: csp_default_src_eval
+      - name: CspDefaultSrcSelf
+        type: string
+        key: csp_default_src_self
+      - name: CspDefaultSrcBlob
+        type: string
+        key: csp_default_src_blob
+      - name: CspDefaultSrcMediastream
+        type: string
+        key: csp_default_src_mediastream
+      - name: CspDefaultSrcFilesystem
+        type: string
+        key: csp_default_src_filesystem
+      - name: CspDefaultSrcNone
+        type: string
+        key: csp_default_src_none
+      - name: CspScriptSrcEnabled
+        type: string
+        key: csp_script_src_enabled
+      - name: CspScriptSrcDataUrls
+        type: string
+        key: csp_script_src_data_urls
+      - name: CspScriptSrcHttpUrls
+        type: SelectedMapList
+        key: csp_script_src_http_urls
+      - name: CspScriptSrcInline
+        type: string
+        key: csp_script_src_inline
+      - name: CspScriptSrcEval
+        type: string
+        key: csp_script_src_eval
+      - name: CspScriptSrcSelf
+        type: string
+        key: csp_script_src_self
+      - name: CspScriptSrcBlob
+        type: string
+        key: csp_script_src_blob
+      - name: CspScriptSrcMediastream
+        type: string
+        key: csp_script_src_mediastream
+      - name: CspScriptSrcFilesystem
+        type: string
+        key: csp_script_src_filesystem
+      - name: CspScriptSrcNone
+        type: string
+        key: csp_script_src_none
+      - name: CspImgSrcEnabled
+        type: string
+        key: csp_img_src_enabled
+      - name: CspImgSrcDataUrls
+        type: string
+        key: csp_img_src_data_urls
+      - name: CspImgSrcHttpUrls
+        type: SelectedMapList
+        key: csp_img_src_http_urls
+      - name: CspImgSrcInline
+        type: string
+        key: csp_img_src_inline
+      - name: CspImgSrcEval
+        type: string
+        key: csp_img_src_eval
+      - name: CspImgSrcSelf
+        type: string
+        key: csp_img_src_self
+      - name: CspImgSrcBlob
+        type: string
+        key: csp_img_src_blob
+      - name: CspImgSrcMediastream
+        type: string
+        key: csp_img_src_mediastream
+      - name: CspImgSrcFilesystem
+        type: string
+        key: csp_img_src_filesystem
+      - name: CspImgSrcNone
+        type: string
+        key: csp_img_src_none
+      - name: CspStyleSrcEnabled
+        type: string
+        key: csp_style_src_enabled
+      - name: CspStyleSrcDataUrls
+        type: string
+        key: csp_style_src_data_urls
+      - name: CspStyleSrcHttpUrls
+        type: SelectedMapList
+        key: csp_style_src_http_urls
+      - name: CspStyleSrcInline
+        type: string
+        key: csp_style_src_inline
+      - name: CspStyleSrcEval
+        type: string
+        key: csp_style_src_eval
+      - name: CspStyleSrcSelf
+        type: string
+        key: csp_style_src_self
+      - name: CspStyleSrcBlob
+        type: string
+        key: csp_style_src_blob
+      - name: CspStyleSrcMediastream
+        type: string
+        key: csp_style_src_mediastream
+      - name: CspStyleSrcFilesystem
+        type: string
+        key: csp_style_src_filesystem
+      - name: CspStyleSrcNone
+        type: string
+        key: csp_style_src_none
+      - name: CspMediaSrcEnabled
+        type: string
+        key: csp_media_src_enabled
+      - name: CspMediaSrcDataUrls
+        type: string
+        key: csp_media_src_data_urls
+      - name: CspMediaSrcHttpUrls
+        type: SelectedMapList
+        key: csp_media_src_http_urls
+      - name: CspMediaSrcInline
+        type: string
+        key: csp_media_src_inline
+      - name: CspMediaSrcEval
+        type: string
+        key: csp_media_src_eval
+      - name: CspMediaSrcSelf
+        type: string
+        key: csp_media_src_self
+      - name: CspMediaSrcBlob
+        type: string
+        key: csp_media_src_blob
+      - name: CspMediaSrcMediastream
+        type: string
+        key: csp_media_src_mediastream
+      - name: CspMediaSrcFilesystem
+        type: string
+        key: csp_media_src_filesystem
+      - name: CspMediaSrcNone
+        type: string
+        key: csp_media_src_none
+      - name: CspFontSrcEnabled
+        type: string
+        key: csp_font_src_enabled
+      - name: CspFontSrcDataUrls
+        type: string
+        key: csp_font_src_data_urls
+      - name: CspFontSrcHttpUrls
+        type: SelectedMapList
+        key: csp_font_src_http_urls
+      - name: CspFontSrcInline
+        type: string
+        key: csp_font_src_inline
+      - name: CspFontSrcEval
+        type: string
+        key: csp_font_src_eval
+      - name: CspFontSrcSelf
+        type: string
+        key: csp_font_src_self
+      - name: CspFontSrcBlob
+        type: string
+        key: csp_font_src_blob
+      - name: CspFontSrcMediastream
+        type: string
+        key: csp_font_src_mediastream
+      - name: CspFontSrcFilesystem
+        type: string
+        key: csp_font_src_filesystem
+      - name: CspFontSrcNone
+        type: string
+        key: csp_font_src_none
+      - name: CspFrameSrcEnabled
+        type: string
+        key: csp_frame_src_enabled
+      - name: CspFrameSrcDataUrls
+        type: string
+        key: csp_frame_src_data_urls
+      - name: CspFrameSrcHttpUrls
+        type: SelectedMapList
+        key: csp_frame_src_http_urls
+      - name: CspFrameSrcInline
+        type: string
+        key: csp_frame_src_inline
+      - name: CspFrameSrcEval
+        type: string
+        key: csp_frame_src_eval
+      - name: CspFrameSrcSelf
+        type: string
+        key: csp_frame_src_self
+      - name: CspFrameSrcBlob
+        type: string
+        key: csp_frame_src_blob
+      - name: CspFrameSrcMediastream
+        type: string
+        key: csp_frame_src_mediastream
+      - name: CspFrameSrcFilesystem
+        type: string
+        key: csp_frame_src_filesystem
+      - name: CspFrameSrcNone
+        type: string
+        key: csp_frame_src_none
+      - name: CspFrameAncestorsEnabled
+        type: string
+        key: csp_frame_ancestors_enabled
+      - name: CspFrameAncestorsDataUrls
+        type: string
+        key: csp_frame_ancestors_data_urls
+      - name: CspFrameAncestorsHttpUrls
+        type: SelectedMapList
+        key: csp_frame_ancestors_http_urls
+      - name: CspFrameAncestorsSelf
+        type: string
+        key: csp_frame_ancestors_self
+      - name: CspFrameAncestorsBlob
+        type: string
+        key: csp_frame_ancestors_blob
+      - name: CspFrameAncestorsMediastream
+        type: string
+        key: csp_frame_ancestors_mediastream
+      - name: CspFrameAncestorsFilesystem
+        type: string
+        key: csp_frame_ancestors_filesystem
+      - name: CspFrameAncestorsNone
+        type: string
+        key: csp_frame_ancestors_none
+      - name: CspConnectSrcEnabled
+        type: string
+        key: csp_connect_src_enabled
+      - name: CspConnectSrcHttpUrls
+        type: SelectedMapList
+        key: csp_connect_src_http_urls
+      - name: CspConnectSrcNone
+        type: string
+        key: csp_connect_src_none
+      - name: CspWorkerSrcEnabled
+        type: string
+        key: csp_worker_src_enabled
+      - name: CspWorkerSrcDataUrls
+        type: string
+        key: csp_worker_src_data_urls
+      - name: CspWorkerSrcHttpUrls
+        type: SelectedMapList
+        key: csp_worker_src_http_urls
+      - name: CspWorkerSrcInline
+        type: string
+        key: csp_worker_src_inline
+      - name: CspWorkerSrcEval
+        type: string
+        key: csp_worker_src_eval
+      - name: CspWorkerSrcSelf
+        type: string
+        key: csp_worker_src_self
+      - name: CspWorkerSrcBlob
+        type: string
+        key: csp_worker_src_blob
+      - name: CspWorkerSrcFilesystem
+        type: string
+        key: csp_worker_src_filesystem
+      - name: CspWorkerSrcNone
+        type: string
+        key: csp_worker_src_none
+      - name: CspFormActionEnabled
+        type: string
+        key: csp_form_action_enabled
+      - name: CspFormActionDataUrls
+        type: string
+        key: csp_form_action_data_urls
+      - name: CspFormActionHttpUrls
+        type: SelectedMapList
+        key: csp_form_action_http_urls
+      - name: CspFormActionInline
+        type: string
+        key: csp_form_action_inline
+      - name: CspFormActionEval
+        type: string
+        key: csp_form_action_eval
+      - name: CspFormActionSelf
+        type: string
+        key: csp_form_action_self
+      - name: CspFormActionBlob
+        type: string
+        key: csp_form_action_blob
+      - name: CspFormActionMediastream
+        type: string
+        key: csp_form_action_mediastream
+      - name: CspFormActionFilesystem
+        type: string
+        key: csp_form_action_filesystem
+      - name: CspFormActionNone
+        type: string
+        key: csp_form_action_none
+  - name: LimitZone
+    filename: limit_zone
+    monad: limit_zone
+    endpoints:
+      add: "/nginx/settings/add_limit_zone"
+      get: "/nginx/settings/get_limit_zone"
+      update: "/nginx/settings/set_limit_zone"
+      delete: "/nginx/settings/del_limit_zone"
+    attrs:
+      - name: Description
+        type: string
+        key: description
+      - name: Key
+        type: SelectedMap
+        key: key
+      - name: RateUnit
+        type: SelectedMap
+        key: rate_unit
+      - name: Size
+        type: string
+        key: size
+      - name: Rate
+        type: string
+        key: rate
+  - name: LimitRequestConnection
+    filename: limit_request_connection
+    monad: limit_request_connection
+    endpoints:
+      add: "/nginx/settings/add_limit_request_connection"
+      get: "/nginx/settings/get_limit_request_connection"
+      update: "/nginx/settings/set_limit_request_connection"
+      delete: "/nginx/settings/del_limit_request_connection"
+    attrs:
+      - name: LimitZone
+        type: SelectedMapList
+        key: limit_zone
+      - name: ConnectionCount
+        type: string
+        key: connection_count
+      - name: Burst
+        type: string
+        key: burst
+      - name: Nodelay
+        type: string
+        key: nodelay
+      - name: Description
+        type: string
+        key: description
+  - name: CachePath
+    filename: cache_path
+    monad: cache_path
+    endpoints:
+      add: "/nginx/settings/add_cache_path"
+      get: "/nginx/settings/get_cache_path"
+      update: "/nginx/settings/set_cache_path"
+      delete: "/nginx/settings/del_cache_path"
+    attrs:
+      - name: Path
+        type: string
+        key: path
+      - name: Size
+        type: string
+        key: size
+      - name: Inactive
+        type: string
+        key: inactive
+      - name: UseTempPath
+        type: string
+        key: use_temp_path
+      - name: MaxSize
+        type: string
+        key: max_size
+  - name: ProxyCacheValid
+    filename: proxy_cache_valid
+    monad: proxy_cache_valid
+    endpoints:
+      add: "/nginx/settings/add_proxy_cache_valid"
+      get: "/nginx/settings/get_proxy_cache_valid"
+      update: "/nginx/settings/set_proxy_cache_valid"
+      delete: "/nginx/settings/del_proxy_cache_valid"
+    attrs:
+      - name: Description
+        type: string
+        key: description
+      - name: Code
+        type: SelectedMapList
+        key: code
+      - name: Valid
+        type: string
+        key: valid
+  - name: Resolver
+    filename: resolver
+    monad: resolver
+    endpoints:
+      add: "/nginx/settings/add_resolver"
+      get: "/nginx/settings/get_resolver"
+      update: "/nginx/settings/set_resolver"
+      delete: "/nginx/settings/del_resolver"
+    attrs:
+      - name: Description
+        type: string
+        key: description
+      - name: Address
+        type: SelectedMapList
+        key: address
+      - name: Valid
+        type: string
+        key: valid
+      - name: Ipv4Off
+        type: string
+        key: ipv4_off
+      - name: Ipv6Off
+        type: string
+        key: ipv6_off
+      - name: Timeout
+        type: string
+        key: timeout
+  - name: SyslogTarget
+    filename: syslog_target
+    monad: syslog_target
+    endpoints:
+      add: "/nginx/settings/add_syslog_target"
+      get: "/nginx/settings/get_syslog_target"
+      update: "/nginx/settings/set_syslog_target"
+      delete: "/nginx/settings/del_syslog_target"
+    attrs:
+      - name: Description
+        type: string
+        key: description
+      - name: Host
+        type: string
+        key: host
+      - name: Port
+        type: string
+        key: port
+      - name: Facility
+        type: SelectedMap
+        key: facility
+      - name: Severity
+        type: SelectedMap
+        key: severity
+      - name: Tag
+        type: string
+        key: tag
+      - name: Nohostname
+        type: string
+        key: nohostname
+  - name: TlsFingerprint
+    filename: tls_fingerprint
+    monad: tls_fingerprint
+    endpoints:
+      add: "/nginx/settings/add_tls_fingerprint"
+      get: "/nginx/settings/get_tls_fingerprint"
+      update: "/nginx/settings/set_tls_fingerprint"
+      delete: "/nginx/settings/del_tls_fingerprint"
+    attrs:
+      - name: Description
+        type: string
+        key: description
+      - name: UserAgent
+        type: string
+        key: user_agent
+      - name: Trusted
+        type: string
+        key: trusted
+      - name: Curves
+        type: string
+        key: curves
+      - name: Ciphers
+        type: string
+        key: ciphers
+  - name: Errorpage
+    filename: errorpage
+    monad: errorpage
+    endpoints:
+      add: "/nginx/settings/add_errorpage"
+      get: "/nginx/settings/get_errorpage"
+      update: "/nginx/settings/set_errorpage"
+      delete: "/nginx/settings/del_errorpage"
+    attrs:
+      - name: Name
+        type: string
+        key: name
+      - name: Statuscodes
+        type: SelectedMapList
+        key: statuscodes
+      - name: Pagecontent
+        type: string
+        key: pagecontent
+      - name: Redirect
+        type: string
+        key: redirect
+      - name: Response
+        type: SelectedMap
+        key: response
+  - name: IpAcl
+    filename: ip_acl
+    monad: ipacl
+    endpoints:
+      add: "/nginx/settings/add_ipacl"
+      get: "/nginx/settings/get_ipacl"
+      update: "/nginx/settings/set_ipacl"
+      delete: "/nginx/settings/del_ipacl"
+    attrs:
+      - name: Description
+        type: string
+        key: description
+      - name: DefaultAction
+        type: SelectedMap
+        key: default_action
+      - name: Data
+        type: "[]IpAclEntry"
+        key: data
+    customTypes:
+      IpAclEntry:
+        - name: Network
+          type: string
+          key: network
+        - name: Action
+          type: string
+          key: action
+  - name: SniHostnameMap
+    filename: sni_hostname_map
+    monad: snihostname
+    endpoints:
+      add: "/nginx/settings/add_snifwd"
+      get: "/nginx/settings/get_snifwd"
+      update: "/nginx/settings/set_snifwd"
+      delete: "/nginx/settings/del_snifwd"
+    attrs:
+      - name: Description
+        type: string
+        key: description
+      - name: Data
+        type: "[]SniHostnameMapEntry"
+        key: data
+    customTypes:
+      SniHostnameMapEntry:
+        - name: Hostname
+          type: string
+          key: hostname
+        - name: Upstream
+          type: string
+          key: upstream
+
+rpc:
+  - name: Settings
+    filename: settings
+    customTypes:
+      SettingsMonad:
+        - name: Monad
+          type: Settings
+          key: nginx
+      SettingsGeneral:
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: BanTtl
+          type: string
+          key: ban_ttl
+      SettingsHttp:
+        - name: HttpWorkerProcesses
+          type: string
+          key: workerprocesses
+        - name: HttpWorkerConnections
+          type: string
+          key: workerconnections
+        - name: HttpSendfile
+          type: string
+          key: sendfile
+        - name: HttpKeepaliveTimeout
+          type: string
+          key: keepalive_timeout
+        - name: HttpResetTimedout
+          type: string
+          key: reset_timedout
+        - name: HttpDefaultType
+          type: string
+          key: default_type
+        - name: HttpServerNamesHashBucketSize
+          type: string
+          key: server_names_hash_bucket_size
+        - name: HttpServerNamesHashMaxSize
+          type: string
+          key: server_names_hash_max_size
+        - name: HttpVariablesHashMaxSize
+          type: string
+          key: variables_hash_max_size
+        - name: HttpVariablesHashBucketSize
+          type: string
+          key: variables_hash_bucket_size
+        - name: HttpBanResponse
+          type: SelectedMap
+          key: ban_response
+        - name: HttpLogPermBan
+          type: string
+          key: log_perm_ban
+        - name: HttpBotsUa
+          type: SelectedMapList
+          key: bots_ua
+        - name: HttpHeadersMoreEnable
+          type: string
+          key: headers_more_enable
+      SettingsWebgui:
+        - name: WebguiLimitNetworks
+          type: string
+          key: limitnetworks
+      Settings:
+        - name: General
+          type: SettingsGeneral
+          key: general
+        - name: Http
+          type: SettingsHttp
+          key: http
+        - name: Webgui
+          type: SettingsWebgui
+          key: webgui
+      SettingsSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/nginx/settings/get"
+        result_type: SettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/nginx/settings/set"
+        params:
+          - name: nginx
+            optional: false
+            bodyParameter: true
+            customType: Settings
+        result_type: SettingsSetResult

@@ -114,7 +114,7 @@ rpc:
           type: string
           key: disk_mount_points
         - name: DiskIgnoreFs
-          type: SelectedMap
+          type: SelectedMapList
           key: disk_ignore_fs
         - name: Diskio
           type: string
@@ -153,7 +153,7 @@ rpc:
           type: string
           key: ping_count
         - name: PingHosts
-          type: SelectedMap
+          type: SelectedMapList
           key: ping_hosts
         - name: Ping6
           type: string
@@ -162,7 +162,7 @@ rpc:
           type: string
           key: ping6_count
         - name: Ping6Hosts
-          type: SelectedMap
+          type: SelectedMapList
           key: ping6_hosts
         - name: Haproxy
           type: string
@@ -290,7 +290,7 @@ rpc:
           type: string
           key: prometheus_listen
         - name: PrometheusExclude
-          type: SelectedMap
+          type: SelectedMapList
           key: prometheus_exclude
         - name: PrometheusStringaslabel
           type: string

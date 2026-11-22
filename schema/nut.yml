@@ -22,7 +22,7 @@ rpc:
           type: string
           key: name
         - name: GeneralListen
-          type: SelectedMap
+          type: SelectedMapList
           key: listen
       SettingsAccount:
         - name: AccountAdminPassword
@@ -36,14 +36,14 @@ rpc:
           type: string
           key: enable
         - name: UsbhidArgs
-          type: SelectedMap
+          type: SelectedMapList
           key: args
       SettingsApcsmart:
         - name: ApcsmartEnable
           type: string
           key: enable
         - name: ApcsmartArgs
-          type: SelectedMap
+          type: SelectedMapList
           key: args
       SettingsApcupsd:
         - name: ApcupsdEnable
@@ -60,21 +60,21 @@ rpc:
           type: string
           key: enable
         - name: BcmxcpusbArgs
-          type: SelectedMap
+          type: SelectedMapList
           key: args
       SettingsBlazerusb:
         - name: BlazerusbEnable
           type: string
           key: enable
         - name: BlazerusbArgs
-          type: SelectedMap
+          type: SelectedMapList
           key: args
       SettingsBlazerser:
         - name: BlazerserEnable
           type: string
           key: enable
         - name: BlazerserArgs
-          type: SelectedMap
+          type: SelectedMapList
           key: args
       SettingsNetclient:
         - name: NetclientEnable
@@ -97,21 +97,21 @@ rpc:
           type: string
           key: enable
         - name: QxArgs
-          type: SelectedMap
+          type: SelectedMapList
           key: args
       SettingsRiello:
         - name: RielloEnable
           type: string
           key: enable
         - name: RielloArgs
-          type: SelectedMap
+          type: SelectedMapList
           key: args
       SettingsSnmp:
         - name: SnmpEnable
           type: string
           key: enable
         - name: SnmpArgs
-          type: SelectedMap
+          type: SelectedMapList
           key: args
       Settings:
         - name: General
