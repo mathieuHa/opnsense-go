@@ -37,7 +37,7 @@ type OutputSettings struct {
 	ElasticIndexname                string              `json:"elastic_indexname"`
 	PrometheusEnable                string              `json:"prometheus_enable"`
 	PrometheusListen                string              `json:"prometheus_listen"`
-	PrometheusExclude               api.SelectedMap     `json:"prometheus_exclude"`
+	PrometheusExclude               api.SelectedMapList `json:"prometheus_exclude"`
 	PrometheusStringaslabel         string              `json:"prometheus_stringaslabel"`
 	InfluxV2Enable                  string              `json:"influx_v2_enable"`
 	InfluxV2Url                     string              `json:"influx_v2_url"`

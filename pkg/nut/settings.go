@@ -32,8 +32,8 @@ type SettingsAccount struct {
 }
 
 type SettingsApcsmart struct {
-	ApcsmartEnable string          `json:"enable"`
-	ApcsmartArgs   api.SelectedMap `json:"args"`
+	ApcsmartEnable string              `json:"enable"`
+	ApcsmartArgs   api.SelectedMapList `json:"args"`
 }
 
 type SettingsApcupsd struct {
@@ -43,25 +43,25 @@ type SettingsApcupsd struct {
 }
 
 type SettingsBcmxcpusb struct {
-	BcmxcpusbEnable string          `json:"enable"`
-	BcmxcpusbArgs   api.SelectedMap `json:"args"`
+	BcmxcpusbEnable string              `json:"enable"`
+	BcmxcpusbArgs   api.SelectedMapList `json:"args"`
 }
 
 type SettingsBlazerser struct {
-	BlazerserEnable string          `json:"enable"`
-	BlazerserArgs   api.SelectedMap `json:"args"`
+	BlazerserEnable string              `json:"enable"`
+	BlazerserArgs   api.SelectedMapList `json:"args"`
 }
 
 type SettingsBlazerusb struct {
-	BlazerusbEnable string          `json:"enable"`
-	BlazerusbArgs   api.SelectedMap `json:"args"`
+	BlazerusbEnable string              `json:"enable"`
+	BlazerusbArgs   api.SelectedMapList `json:"args"`
 }
 
 type SettingsGeneral struct {
-	GeneralEnable string          `json:"enable"`
-	GeneralMode   api.SelectedMap `json:"mode"`
-	GeneralName   string          `json:"name"`
-	GeneralListen api.SelectedMap `json:"listen"`
+	GeneralEnable string              `json:"enable"`
+	GeneralMode   api.SelectedMap     `json:"mode"`
+	GeneralName   string              `json:"name"`
+	GeneralListen api.SelectedMapList `json:"listen"`
 }
 
 type SettingsMonad struct {
@@ -77,13 +77,13 @@ type SettingsNetclient struct {
 }
 
 type SettingsQx struct {
-	QxEnable string          `json:"enable"`
-	QxArgs   api.SelectedMap `json:"args"`
+	QxEnable string              `json:"enable"`
+	QxArgs   api.SelectedMapList `json:"args"`
 }
 
 type SettingsRiello struct {
-	RielloEnable string          `json:"enable"`
-	RielloArgs   api.SelectedMap `json:"args"`
+	RielloEnable string              `json:"enable"`
+	RielloArgs   api.SelectedMapList `json:"args"`
 }
 
 type SettingsSetResult struct {
@@ -91,13 +91,13 @@ type SettingsSetResult struct {
 }
 
 type SettingsSnmp struct {
-	SnmpEnable string          `json:"enable"`
-	SnmpArgs   api.SelectedMap `json:"args"`
+	SnmpEnable string              `json:"enable"`
+	SnmpArgs   api.SelectedMapList `json:"args"`
 }
 
 type SettingsUsbhid struct {
-	UsbhidEnable string          `json:"enable"`
-	UsbhidArgs   api.SelectedMap `json:"args"`
+	UsbhidEnable string              `json:"enable"`
+	UsbhidArgs   api.SelectedMapList `json:"args"`
 }
 
 // SettingsGet executes the Get RPC call of the Settings controller
