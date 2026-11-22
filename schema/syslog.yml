@@ -41,3 +41,47 @@ resources:
       - name: Description
         type: string
         key: description
+
+rpc:
+  - name: SyslogConfig
+    filename: syslog_config
+    customTypes:
+      SyslogConfigMonad:
+        - name: Monad
+          type: SyslogConfig
+          key: syslog
+      SyslogConfigGeneral:
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: Loglocal
+          type: string
+          key: loglocal
+        - name: Maxpreserve
+          type: string
+          key: maxpreserve
+        - name: Maxfilesize
+          type: string
+          key: maxfilesize
+      SyslogConfig:
+        - name: General
+          type: SyslogConfigGeneral
+          key: general
+      SyslogConfigSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/syslog/settings/get"
+        result_type: SyslogConfigMonad
+      - name: Set
+        method: POST
+        endpoint: "/syslog/settings/set"
+        params:
+          - name: syslog
+            optional: false
+            bodyParameter: true
+            customType: SyslogConfig
+        result_type: SyslogConfigSetResult

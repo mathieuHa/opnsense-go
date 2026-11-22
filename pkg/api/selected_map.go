@@ -50,6 +50,9 @@ func (s *SelectedMap) UnmarshalJSON(data []byte) error {
 						*s = SelectedMap(strconv.Itoa(idx))
 					}
 				}
+				if selectedStr, ok := v.Selected.(string); ok && selectedStr == "1" {
+					*s = SelectedMap(strconv.Itoa(idx))
+				}
 			}
 			return nil
 		}
@@ -70,6 +73,9 @@ func (s *SelectedMap) UnmarshalJSON(data []byte) error {
 			if selectedInt == 1 {
 				*s = SelectedMap(k)
 			}
+		}
+		if selectedStr, ok := v.Selected.(string); ok && selectedStr == "1" {
+			*s = SelectedMap(k)
 		}
 	}
 

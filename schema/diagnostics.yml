@@ -87,3 +87,89 @@ resources:
         - name: Tentative
           type: bool
           key: tentative
+
+rpc:
+  - name: NetflowConfig
+    filename: netflow_config
+    customTypes:
+      NetflowConfigMonad:
+        - name: Monad
+          type: NetflowConfig
+          key: netflow
+      NetflowConfigCapture:
+        - name: CaptureInterfaces
+          type: SelectedMapList
+          key: interfaces
+        - name: CaptureEgressOnly
+          type: SelectedMapList
+          key: egress_only
+        - name: CaptureVersion
+          type: SelectedMap
+          key: version
+        - name: CaptureTargets
+          type: SelectedMapList
+          key: targets
+      NetflowConfigCollect:
+        - name: CollectEnable
+          type: string
+          key: enable
+      NetflowConfig:
+        - name: Capture
+          type: NetflowConfigCapture
+          key: capture
+        - name: Collect
+          type: NetflowConfigCollect
+          key: collect
+        - name: ActiveTimeout
+          type: string
+          key: activeTimeout
+        - name: InactiveTimeout
+          type: string
+          key: inactiveTimeout
+      NetflowConfigSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/diagnostics/netflow/getconfig"
+        result_type: NetflowConfigMonad
+      - name: Set
+        method: POST
+        endpoint: "/diagnostics/netflow/setconfig"
+        params:
+          - name: netflow
+            optional: false
+            bodyParameter: true
+            customType: NetflowConfig
+        result_type: NetflowConfigSetResult
+  - name: SystemHealthConfig
+    filename: systemhealth_config
+    customTypes:
+      SystemHealthConfigMonad:
+        - name: Monad
+          type: SystemHealthConfig
+          key: systemhealth
+      SystemHealthConfig:
+        - name: Enabled
+          type: string
+          key: enabled
+      SystemHealthConfigSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/diagnostics/systemhealth/get"
+        result_type: SystemHealthConfigMonad
+      - name: Set
+        method: POST
+        endpoint: "/diagnostics/systemhealth/set"
+        params:
+          - name: systemhealth
+            optional: false
+            bodyParameter: true
+            customType: SystemHealthConfig
+        result_type: SystemHealthConfigSetResult

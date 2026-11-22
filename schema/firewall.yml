@@ -401,3 +401,71 @@ resources:
       - name: Description
         type: string
         key: description
+
+rpc:
+  - name: OutboundNatConfig
+    filename: outbound_nat_config
+    customTypes:
+      OutboundNatConfigMonad:
+        - name: Monad
+          type: OutboundNatConfig
+          key: filter
+      OutboundNatConfigGeneral:
+        - name: Mode
+          type: SelectedMap
+          key: snat_mode
+      OutboundNatConfig:
+        - name: General
+          type: OutboundNatConfigGeneral
+          key: general
+      OutboundNatConfigSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/firewall/source_nat/get"
+        result_type: OutboundNatConfigMonad
+      - name: Set
+        method: POST
+        endpoint: "/firewall/source_nat/set"
+        params:
+          - name: filter
+            optional: false
+            bodyParameter: true
+            customType: OutboundNatConfig
+        result_type: OutboundNatConfigSetResult
+  - name: AliasConfig
+    filename: alias_config
+    customTypes:
+      AliasConfigMonad:
+        - name: Monad
+          type: AliasConfig
+          key: alias
+      AliasConfigGeoip:
+        - name: GeoipUrl
+          type: string
+          key: url
+      AliasConfig:
+        - name: Geoip
+          type: AliasConfigGeoip
+          key: geoip
+      AliasConfigSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/firewall/alias/get_geo_ip"
+        result_type: AliasConfigMonad
+      - name: Set
+        method: POST
+        endpoint: "/firewall/alias/set"
+        params:
+          - name: alias
+            optional: false
+            bodyParameter: true
+            customType: AliasConfig
+        result_type: AliasConfigSetResult

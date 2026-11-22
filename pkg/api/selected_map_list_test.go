@@ -305,3 +305,20 @@ func TestSelectedMapListNL_String(t *testing.T) {
 		})
 	}
 }
+
+func TestSelectedStringFlags(t *testing.T) {
+	var l SelectedMapList
+	if err := l.UnmarshalJSON([]byte(`{"a":{"value":"A","selected":"1"},"b":{"value":"B","selected":"0"},"c":{"value":"C","selected":"1"}}`)); err != nil {
+		t.Fatal(err)
+	}
+	if len(l) != 2 || l[0] != "a" || l[1] != "c" {
+		t.Fatalf("got %v", l)
+	}
+	var m SelectedMap
+	if err := m.UnmarshalJSON([]byte(`{"internal":{"value":"Internal","selected":"1"},"existing":{"value":"Import","selected":"0"}}`)); err != nil {
+		t.Fatal(err)
+	}
+	if m != "internal" {
+		t.Fatalf("got %q", m)
+	}
+}

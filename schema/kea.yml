@@ -11,6 +11,9 @@ resources:
       update: "/kea/dhcpv4/set_subnet"
       delete: "/kea/dhcpv4/del_subnet"
     attrs:
+      - name: Options
+        type: SelectedMapList
+        key: option
       - name: Subnet
         type: string
         key: subnet
@@ -112,6 +115,9 @@ resources:
       update: "/kea/dhcpv4/set_reservation"
       delete: "/kea/dhcpv4/del_reservation"
     attrs:
+      - name: Options
+        type: SelectedMapList
+        key: option
       - name: Subnet
         type: SelectedMap
         key: subnet
@@ -155,6 +161,9 @@ resources:
       update: "/kea/dhcpv6/set_subnet"
       delete: "/kea/dhcpv6/del_subnet"
     attrs:
+      - name: Options
+        type: SelectedMapList
+        key: option
       - name: Subnet
         type: string
         key: subnet
@@ -193,6 +202,9 @@ resources:
       update: "/kea/dhcpv6/set_reservation"
       delete: "/kea/dhcpv6/del_reservation"
     attrs:
+      - name: Options
+        type: SelectedMapList
+        key: option
       - name: Subnet
         type: SelectedMap
         key: subnet
@@ -250,6 +262,72 @@ resources:
       - name: DelegatedLen
         type: string
         key: delegated_len
+      - name: Description
+        type: string
+        key: description
+  - name: OptionV4
+    filename: optionv4
+    monad: option
+    endpoints:
+      add: "/kea/dhcpv4/add_option"
+      get: "/kea/dhcpv4/get_option"
+      update: "/kea/dhcpv4/set_option"
+      delete: "/kea/dhcpv4/del_option"
+    attrs:
+      - name: Code
+        type: SelectedMap
+        key: code
+      - name: Encoding
+        type: SelectedMap
+        key: encoding
+      - name: Data
+        type: string
+        key: data
+      - name: Force
+        type: string
+        key: force
+      - name: MatchCode
+        type: SelectedMap
+        key: match_code
+      - name: MatchEncoding
+        type: SelectedMap
+        key: match_encoding
+      - name: MatchData
+        type: string
+        key: match_data
+      - name: Description
+        type: string
+        key: description
+  - name: OptionV6
+    filename: optionv6
+    monad: option
+    endpoints:
+      add: "/kea/dhcpv6/add_option"
+      get: "/kea/dhcpv6/get_option"
+      update: "/kea/dhcpv6/set_option"
+      delete: "/kea/dhcpv6/del_option"
+    attrs:
+      - name: Code
+        type: SelectedMap
+        key: code
+      - name: Encoding
+        type: SelectedMap
+        key: encoding
+      - name: Data
+        type: string
+        key: data
+      - name: Force
+        type: string
+        key: force
+      - name: MatchCode
+        type: SelectedMap
+        key: match_code
+      - name: MatchEncoding
+        type: SelectedMap
+        key: match_encoding
+      - name: MatchData
+        type: string
+        key: match_data
       - name: Description
         type: string
         key: description
