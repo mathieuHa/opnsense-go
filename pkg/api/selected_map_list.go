@@ -117,6 +117,9 @@ func unmarshalJSON(data []byte) ([]string, error) {
 				s = append(s, k)
 			}
 		}
+		if selectedStr, ok := v.Selected.(string); ok && selectedStr == "1" {
+			s = append(s, k)
+		}
 	}
 	sort.Strings(s)
 
