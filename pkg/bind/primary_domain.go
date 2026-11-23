@@ -20,17 +20,19 @@ var PrimaryDomainOpts = api.ReqOpts{
 // Data structs
 
 type PrimaryDomain struct {
-	DomainName    string              `json:"domainname"`
-	Enabled       string              `json:"enabled"`
-	AllowTransfer api.SelectedMapList `json:"allowtransfer"`
-	AllowQuery    api.SelectedMapList `json:"allowquery"`
-	TimeToLive    string              `json:"ttl"`
-	Refresh       string              `json:"refresh"`
-	Retry         string              `json:"retry"`
-	Expire        string              `json:"expire"`
-	Negative      string              `json:"negative"`
-	MailAdmin     string              `json:"mailadmin"`
-	DnsServer     string              `json:"dnsserver"`
+	Enabled           string              `json:"enabled"`
+	Domainname        string              `json:"domainname"`
+	Allowtransfer     api.SelectedMapList `json:"allowtransfer"`
+	Allowrndctransfer string              `json:"allowrndctransfer"`
+	Allowquery        api.SelectedMapList `json:"allowquery"`
+	Allowrndcupdate   string              `json:"allowrndcupdate"`
+	Ttl               string              `json:"ttl"`
+	Refresh           string              `json:"refresh"`
+	Retry             string              `json:"retry"`
+	Expire            string              `json:"expire"`
+	Negative          string              `json:"negative"`
+	Mailadmin         string              `json:"mailadmin"`
+	Dnsserver         string              `json:"dnsserver"`
 }
 
 // CRUD operations
