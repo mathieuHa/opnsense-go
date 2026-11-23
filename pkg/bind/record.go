@@ -20,8 +20,8 @@ var RecordOpts = api.ReqOpts{
 // Data structs
 
 type Record struct {
-	Domain  api.SelectedMap `json:"domain"`
 	Enabled string          `json:"enabled"`
+	Domain  api.SelectedMap `json:"domain"`
 	Name    string          `json:"name"`
 	Type    api.SelectedMap `json:"type"`
 	Value   string          `json:"value"`

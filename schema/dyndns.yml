@@ -44,7 +44,7 @@ resources:
       - name: Checkip
         type: SelectedMap
         key: checkip
-      - name: DynIpv6Host
+      - name: Dynipv6host
         type: string
         key: dynipv6host
       - name: CheckipTimeout
@@ -62,12 +62,6 @@ resources:
       - name: Description
         type: string
         key: description
-      - name: CurrentIp
-        type: string
-        key: current_ip
-      - name: CurrentMtime
-        type: string
-        key: current_mtime
 
 rpc:
   - name: Service
@@ -77,3 +71,48 @@ rpc:
         method: POST
         endpoint: /dyndns/service/reconfigure
         result_type: api.ReconfigureStatusResult
+  - name: GeneralSettings
+    filename: general_settings
+    customTypes:
+      GeneralSettingsMonad:
+        - name: Monad
+          type: GeneralSettings
+          key: ddclient
+      GeneralSettingsGeneral:
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: Verbose
+          type: string
+          key: verbose
+        - name: Allowipv6
+          type: string
+          key: allowipv6
+        - name: DaemonDelay
+          type: string
+          key: daemon_delay
+        - name: Backend
+          type: SelectedMap
+          key: backend
+      GeneralSettings:
+        - name: General
+          type: GeneralSettingsGeneral
+          key: general
+      GeneralSettingsSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/dyndns/settings/get"
+        result_type: GeneralSettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/dyndns/settings/set"
+        params:
+          - name: ddclient
+            optional: false
+            bodyParameter: true
+            customType: GeneralSettings
+        result_type: GeneralSettingsSetResult

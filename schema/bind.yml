@@ -12,16 +12,15 @@ resources:
       update: "/bind/acl/set_acl"
       delete: "/bind/acl/del_acl"
     attrs:
-      - name: Name
-        type: string
-        key: name
       - name: Enabled
         type: string
         key: enabled
+      - name: Name
+        type: string
+        key: name
       - name: Networks
         type: SelectedMapList
         key: networks
-
   - name: PrimaryDomain
     filename: primary_domain
     monad: domain
@@ -31,19 +30,25 @@ resources:
       update: "/bind/domain/set_domain"
       delete: "/bind/domain/del_domain"
     attrs:
-      - name: DomainName
-        type: string
-        key: domainname
       - name: Enabled
         type: string
         key: enabled
-      - name: AllowTransfer
+      - name: Domainname
+        type: string
+        key: domainname
+      - name: Allowtransfer
         type: SelectedMapList
         key: allowtransfer
-      - name: AllowQuery
+      - name: Allowrndctransfer
+        type: string
+        key: allowrndctransfer
+      - name: Allowquery
         type: SelectedMapList
         key: allowquery
-      - name: TimeToLive
+      - name: Allowrndcupdate
+        type: string
+        key: allowrndcupdate
+      - name: Ttl
         type: string
         key: ttl
       - name: Refresh
@@ -58,13 +63,66 @@ resources:
       - name: Negative
         type: string
         key: negative
-      - name: MailAdmin
+      - name: Mailadmin
         type: string
         key: mailadmin
-      - name: DnsServer
+      - name: Dnsserver
         type: string
         key: dnsserver
-
+  - name: SecondaryDomain
+    filename: secondary_domain
+    monad: domain
+    endpoints:
+      add: "/bind/domain/add_secondary_domain"
+      get: "/bind/domain/get_domain"
+      update: "/bind/domain/set_domain"
+      delete: "/bind/domain/del_domain"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Primaryip
+        type: SelectedMapList
+        key: primaryip
+      - name: Transferkeyalgo
+        type: SelectedMap
+        key: transferkeyalgo
+      - name: Transferkeyname
+        type: string
+        key: transferkeyname
+      - name: Transferkey
+        type: string
+        key: transferkey
+      - name: Allownotifysecondary
+        type: SelectedMapList
+        key: allownotifysecondary
+      - name: Domainname
+        type: string
+        key: domainname
+      - name: Allowtransfer
+        type: SelectedMapList
+        key: allowtransfer
+      - name: Allowquery
+        type: SelectedMapList
+        key: allowquery
+  - name: ForwardDomain
+    filename: forward_domain
+    monad: domain
+    endpoints:
+      add: "/bind/domain/add_forward_domain"
+      get: "/bind/domain/get_domain"
+      update: "/bind/domain/set_domain"
+      delete: "/bind/domain/del_domain"
+    attrs:
+      - name: Enabled
+        type: string
+        key: enabled
+      - name: Forwardserver
+        type: SelectedMapList
+        key: forwardserver
+      - name: Domainname
+        type: string
+        key: domainname
   - name: Record
     filename: record
     monad: record
@@ -74,12 +132,12 @@ resources:
       update: "/bind/record/set_record"
       delete: "/bind/record/del_record"
     attrs:
-      - name: Domain
-        type: SelectedMap
-        key: domain
       - name: Enabled
         type: string
         key: enabled
+      - name: Domain
+        type: SelectedMap
+        key: domain
       - name: Name
         type: string
         key: name
@@ -89,3 +147,165 @@ resources:
       - name: Value
         type: string
         key: value
+
+rpc:
+  - name: GeneralSettings
+    filename: general_settings
+    customTypes:
+      GeneralSettingsMonad:
+        - name: Monad
+          type: GeneralSettings
+          key: general
+      GeneralSettings:
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: Disablev6
+          type: string
+          key: disablev6
+        - name: Enablerpz
+          type: string
+          key: enablerpz
+        - name: Listenv4
+          type: SelectedMapList
+          key: listenv4
+        - name: Listenv6
+          type: SelectedMapList
+          key: listenv6
+        - name: Querysource
+          type: string
+          key: querysource
+        - name: Querysourcev6
+          type: string
+          key: querysourcev6
+        - name: Transfersource
+          type: string
+          key: transfersource
+        - name: Transfersourcev6
+          type: string
+          key: transfersourcev6
+        - name: Port
+          type: string
+          key: port
+        - name: Forwarders
+          type: SelectedMapList
+          key: forwarders
+        - name: Filteraaaav4
+          type: string
+          key: filteraaaav4
+        - name: Filteraaaav6
+          type: string
+          key: filteraaaav6
+        - name: Filteraaaaacl
+          type: SelectedMapList
+          key: filteraaaaacl
+        - name: Logsize
+          type: string
+          key: logsize
+        - name: GeneralLogLevel
+          type: SelectedMap
+          key: general_log_level
+        - name: Maxcachesize
+          type: string
+          key: maxcachesize
+        - name: Recursion
+          type: SelectedMapList
+          key: recursion
+        - name: Allowtransfer
+          type: SelectedMapList
+          key: allowtransfer
+        - name: Allowquery
+          type: SelectedMapList
+          key: allowquery
+        - name: Dnssecvalidation
+          type: SelectedMap
+          key: dnssecvalidation
+        - name: Hidehostname
+          type: string
+          key: hidehostname
+        - name: Hideversion
+          type: string
+          key: hideversion
+        - name: Disableprefetch
+          type: string
+          key: disableprefetch
+        - name: Enableratelimiting
+          type: string
+          key: enableratelimiting
+        - name: Ratelimitcount
+          type: string
+          key: ratelimitcount
+        - name: Ratelimitexcept
+          type: SelectedMapList
+          key: ratelimitexcept
+        - name: Rndcalgo
+          type: SelectedMap
+          key: rndcalgo
+        - name: Rndcsecret
+          type: string
+          key: rndcsecret
+      GeneralSettingsSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/bind/general/get"
+        result_type: GeneralSettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/bind/general/set"
+        params:
+          - name: general
+            optional: false
+            bodyParameter: true
+            customType: GeneralSettings
+        result_type: GeneralSettingsSetResult
+  - name: DnsblSettings
+    filename: dnsbl_settings
+    customTypes:
+      DnsblSettingsMonad:
+        - name: Monad
+          type: DnsblSettings
+          key: dnsbl
+      DnsblSettings:
+        - name: Enabled
+          type: string
+          key: enabled
+        - name: Type
+          type: SelectedMapList
+          key: type
+        - name: Whitelists
+          type: SelectedMapList
+          key: whitelists
+        - name: Forcesafegoogle
+          type: string
+          key: forcesafegoogle
+        - name: Forcesafeduckduckgo
+          type: string
+          key: forcesafeduckduckgo
+        - name: Forcesafeyoutube
+          type: string
+          key: forcesafeyoutube
+        - name: Forcestrictbing
+          type: string
+          key: forcestrictbing
+      DnsblSettingsSetResult:
+        - name: Result
+          type: string
+          key: result
+    rpc_calls:
+      - name: Get
+        method: GET
+        endpoint: "/bind/dnsbl/get"
+        result_type: DnsblSettingsMonad
+      - name: Set
+        method: POST
+        endpoint: "/bind/dnsbl/set"
+        params:
+          - name: dnsbl
+            optional: false
+            bodyParameter: true
+            customType: DnsblSettings
+        result_type: DnsblSettingsSetResult

@@ -31,14 +31,12 @@ type Account struct {
 	Wildcard       string              `json:"wildcard"`
 	Zone           string              `json:"zone"`
 	Checkip        api.SelectedMap     `json:"checkip"`
-	DynIpv6Host    string              `json:"dynipv6host"`
+	Dynipv6host    string              `json:"dynipv6host"`
 	CheckipTimeout string              `json:"checkip_timeout"`
 	ForceSsl       string              `json:"force_ssl"`
 	Ttl            string              `json:"ttl"`
 	Interface      api.SelectedMap     `json:"interface"`
 	Description    string              `json:"description"`
-	CurrentIp      string              `json:"current_ip"`
-	CurrentMtime   string              `json:"current_mtime"`
 }
 
 // CRUD operations

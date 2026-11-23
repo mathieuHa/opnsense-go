@@ -20,8 +20,8 @@ var AclOpts = api.ReqOpts{
 // Data structs
 
 type Acl struct {
-	Name     string              `json:"name"`
 	Enabled  string              `json:"enabled"`
+	Name     string              `json:"name"`
 	Networks api.SelectedMapList `json:"networks"`
 }
 
