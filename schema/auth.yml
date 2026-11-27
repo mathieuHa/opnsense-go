@@ -43,6 +43,7 @@ resources:
   - name: User
     filename: user
     monad: user
+    requiredKey: name
     ReconfigureEndpointVariable: ""
     endpoints:
       add: "/auth/user/add"

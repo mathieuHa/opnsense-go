@@ -111,8 +111,20 @@ func Get[K any](c *Client, ctx context.Context, opts ReqOpts, resource *K, id st
 	if err != nil {
 		return nil, err
 	}
+	if opts.RequiredKey != "" && !hasKey(opts.Monad, opts.RequiredKey, reqData) {
+		return nil, errs.NewNotFoundError()
+	}
 
 	return resource, nil
+}
+
+func hasKey(monad, key string, reqData map[string]json.RawMessage) bool {
+	var obj map[string]json.RawMessage
+	if resourceUnwrap(monad, &obj, reqData) != nil {
+		return false
+	}
+	_, ok := obj[key]
+	return ok
 }
 
 func GetFilter[K any](c *Client, ctx context.Context, opts ReqOpts, resource *K, key string) (*K, error) {

@@ -15,6 +15,7 @@ var AliasOpts = api.ReqOpts{
 	DeleteEndpoint:      "/firewall/alias/delItem",
 	ReconfigureEndpoint: "/firewall/alias/reconfigure",
 	Monad:               "alias",
+	RequiredKey:         "name",
 }
 
 // Data structs

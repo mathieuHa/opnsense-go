@@ -24,6 +24,9 @@ var {{ .Resource.Name }}Opts = api.ReqOpts{
     "",
     {{- end }}
 	Monad:               "{{ .Resource.Monad }}",
+{{- if .Resource.RequiredKey }}
+	RequiredKey:         "{{ .Resource.RequiredKey }}",
+{{- end }}
 }
 
 // Data structs

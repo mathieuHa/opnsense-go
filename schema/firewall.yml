@@ -303,6 +303,7 @@ resources:
   - name: Alias
     filename: alias
     monad: alias
+    requiredKey: name
     endpoints:
       add: "/firewall/alias/addItem"
       get: "/firewall/alias/getItem"

@@ -3,10 +3,13 @@ package api
 import (
 	"bytes"
 	"context"
+	"errors"
 	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/browningluke/opnsense-go/pkg/errs"
 )
 
 func TestDeleteMissingItemSucceeds(t *testing.T) {
@@ -60,5 +63,39 @@ func TestNestedMonad(t *testing.T) {
 	got, err := Get(c, context.Background(), opts, &item{}, "u1")
 	if err != nil || got.Name != "p1" {
 		t.Fatalf("got %+v, %v", got, err)
+	}
+}
+
+func TestGetRequiredKey(t *testing.T) {
+	type item struct {
+		Name string `json:"name"`
+	}
+	tests := []struct {
+		name     string
+		body     string
+		required string
+		notFound bool
+	}{
+		{"present", `{"alias":{"name":"a","content":{}}}`, "name", false},
+		{"template without the key", `{"alias":{"content":{"other":{"selected":0}}}}`, "name", true},
+		{"no required key", `{"alias":{"content":{}}}`, "", false},
+		{"empty list", `[]`, "name", true},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				w.Header().Set("Content-Type", "application/json")
+				_, _ = w.Write([]byte(tt.body))
+			}))
+			defer srv.Close()
+
+			c := NewClient(Options{Uri: srv.URL, MaxRetries: 1, MinBackoff: 1, MaxBackoff: 1, Logger: log.New(&bytes.Buffer{}, "", 0)})
+			opts := ReqOpts{GetEndpoint: "/firewall/alias/getItem", Monad: "alias", RequiredKey: tt.required}
+			_, err := Get(c, context.Background(), opts, &item{}, "uuid")
+			var nf *errs.NotFoundError
+			if got := errors.As(err, &nf); got != tt.notFound {
+				t.Fatalf("not found = %v (err %v), want %v", got, err, tt.notFound)
+			}
+		})
 	}
 }

@@ -16,6 +16,8 @@ type ReqOpts struct {
 	ReconfigureEndpoint string
 
 	Monad string
+
+	RequiredKey string
 }
 
 // Response structs

@@ -15,6 +15,7 @@ var UserOpts = api.ReqOpts{
 	DeleteEndpoint:      "/auth/user/del",
 	ReconfigureEndpoint: "",
 	Monad:               "user",
+	RequiredKey:         "name",
 }
 
 // Data structs
