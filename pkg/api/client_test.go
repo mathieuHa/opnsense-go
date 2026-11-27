@@ -61,3 +61,38 @@ func TestClientDoesNotLogBodies(t *testing.T) {
 		t.Fatalf("unexpected log output: %s", buf.String())
 	}
 }
+
+func TestReconfigureService(t *testing.T) {
+	tests := []struct {
+		name    string
+		body    string
+		wantErr string
+	}{
+		{"ok", `{"status":"ok"}`, ""},
+		{"wireguard result", `{"result":"OK"}`, ""},
+		{"disabled service not running", `{"status":"failed","status_msg":"Service \"ipsec\" failed to stop."}`, ""},
+		{"disabled service, translated message", `{"status":"failed","status_msg":"Le service « ipsec » n'a pas pu stop."}`, ""},
+		{"start failure", `{"status":"failed","status_msg":"Service \"ipsec\" failed to start."}`, `reconfigure failed. status: failed: Service "ipsec" failed to start.`},
+		{"reload failure", `{"status":"failed","status_msg":"Service \"ipsec\" failed to reload."}`, `reconfigure failed. status: failed: Service "ipsec" failed to reload.`},
+		{"failure without message", `{"status":"failed"}`, "reconfigure failed. status: failed"},
+		{"unknown response", `{}`, "reconfigure returned with unknown status response"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				w.Header().Set("Content-Type", "application/json")
+				_, _ = w.Write([]byte(tt.body))
+			}))
+			defer srv.Close()
+
+			c := NewClient(Options{Uri: srv.URL, MaxRetries: 1, MinBackoff: 1, MaxBackoff: 1, Logger: log.New(&bytes.Buffer{}, "", 0)})
+			err := c.ReconfigureService(context.Background(), "/ipsec/service/reconfigure")
+			switch {
+			case tt.wantErr == "" && err != nil:
+				t.Fatalf("unexpected error: %v", err)
+			case tt.wantErr != "" && (err == nil || err.Error() != tt.wantErr):
+				t.Fatalf("error = %v, want %q", err, tt.wantErr)
+			}
+		})
+	}
+}

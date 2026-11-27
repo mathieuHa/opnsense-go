@@ -12,6 +12,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"regexp"
 	"strings"
 	"time"
 
@@ -171,8 +172,9 @@ func (c *Client) ReconfigureService(ctx context.Context, endpoint string) error 
 
 	// Send reconfigure request to OPNsense
 	respJson := &struct {
-		Status string `json:"status,omitempty"`
-		Result string `json:"result,omitempty"`
+		Status    string `json:"status,omitempty"`
+		Result    string `json:"result,omitempty"`
+		StatusMsg string `json:"status_msg,omitempty"`
 	}{}
 	err := c.doRequest(ctx, "POST", endpoint, nil, respJson)
 	if err != nil {
@@ -193,9 +195,16 @@ func (c *Client) ReconfigureService(ctx context.Context, endpoint string) error 
 	status = cases.Lower(language.English).String(
 		strings.TrimSpace(status),
 	)
-	if status != "ok" {
-		return fmt.Errorf("reconfigure failed. status: %s", status)
+	if status == "ok" {
+		return nil
 	}
-
-	return nil
+	if stoppingDisabledService.MatchString(respJson.StatusMsg) {
+		return nil
+	}
+	if respJson.StatusMsg != "" {
+		return fmt.Errorf("reconfigure failed. status: %s: %s", status, respJson.StatusMsg)
+	}
+	return fmt.Errorf("reconfigure failed. status: %s", status)
 }
+
+var stoppingDisabledService = regexp.MustCompile(`\bstop\b`)
